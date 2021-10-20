@@ -2,13 +2,16 @@
   "scripts": {
     "lint": "eslint ./src --ext .js",
     "start": "webpack serve --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js"
+    "build": "webpack --config webpack.prod.js",
+    "test": "jest",
+    "watch": "jest --watch"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
     "@babel/preset-env": "^7.15.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
+    "babel-jest": "^27.2.4",
     "css-loader": "^6.3.0",
     "css-minimizer-webpack-plugin": "^3.1.1",
     "eslint": "^7.32.0",
@@ -16,6 +19,7 @@
     "eslint-loader": "^4.0.2",
     "html-loader": "^2.1.2",
     "html-webpack-plugin": "^5.3.2",
+    "jest": "^27.3.1",
     "mini-css-extract-plugin": "^2.3.0",
     "prettier": "^2.3.2",
     "style-loader": "^3.3.0",
@@ -25,9 +29,7 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
-    "confetti-js": "^0.0.18",
-    "core-js": "^3.16.2",
-    "lazysizes": "^5.3.2"
+    "core-js": "^3.16.2"
   },
   "name": "battleship",
   "description": "",
