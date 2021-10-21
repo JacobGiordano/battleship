@@ -5,6 +5,7 @@ const Ship = (length) => {
   const isSunk = () => hits.length === length;
   const hit = num => {
     hits.push(num);
+    return hits;
   };
 
   return {getLength, getHits, isSunk, hit};
