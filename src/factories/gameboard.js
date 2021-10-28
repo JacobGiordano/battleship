@@ -3,17 +3,21 @@ import Ship from "../factories/ship";
 const Gameboard = () => {
   let misses = [];
   let ships = [];
+
   const placeShip = (coords) => {
     const newShip = Ship(coords);
     ships.push(newShip);
     return newShip;
   };
+
   const getShips = () => {
     return ships;
   }
+
   const getMisses = () => {
     return misses;
   }
+
   const receiveAttack = coords => {
     // Takes a pair of coordinates
     const wasHit = getShips().filter(ship => ship.coords.indexOf(coords) > -1)[0];
@@ -30,6 +34,7 @@ const Gameboard = () => {
         return `MISS recorded at ${coords}`;
       }
   };
+  
   const allShipsSunk = () => {
     // The gameboard should be able to report if all ships have been sunk or not
     return ships.length === ships.filter(ship => ship.isSunk()).length;
