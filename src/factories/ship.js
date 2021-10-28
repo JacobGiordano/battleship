@@ -1,14 +1,15 @@
-const Ship = (length) => {
+const Ship = (coords) => {
   let hits = [];
-  const getLength = () => length;
+  const getLength = () => coords.length;
   const getHits = () => hits;
-  const isSunk = () => hits.length === length;
+  const getCoords = () => coords;
+  const isSunk = () => hits.length === coords.length;
   const hit = num => {
     hits.push(num);
     return hits;
   };
 
-  return {getLength, getHits, isSunk, hit};
+  return {coords, getLength, getCoords, getHits, isSunk, hit};
 }
 
 export default Ship;
