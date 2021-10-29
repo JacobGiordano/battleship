@@ -25,16 +25,16 @@ const Gameboard = () => {
       // If a hit, record it as a hit for the correct ship
       if (wasHit !== null & wasHit !== undefined) {
         wasHit.hit(coords); // 1.
-        return `HIT recorded at ${coords}`;
+        return {shot: "hit", coords: coords};
         // 2. Trigger showing a *hit* on the gameboard
       } else {
         // If a miss, record it in the misses array of the Gameboard
         misses.push(coords); // 1.
         // 2. Trigger showing a *miss* on the gameboard
-        return `MISS recorded at ${coords}`;
+        return {shot: "miss", coords: coords};
       }
   };
-  
+
   const allShipsSunk = () => {
     // The gameboard should be able to report if all ships have been sunk or not
     return ships.length === ships.filter(ship => ship.isSunk()).length;
