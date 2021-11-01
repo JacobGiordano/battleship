@@ -4,8 +4,8 @@ const Gameboard = () => {
   let misses = [];
   let ships = [];
 
-  const placeShip = (coords) => {
-    const newShip = Ship(coords);
+  const placeShip = coordsArray => {
+    const newShip = Ship(coordsArray);
     ships.push(newShip);
     return newShip;
   };
