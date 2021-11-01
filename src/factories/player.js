@@ -9,6 +9,11 @@ const Player = (name, isComputerBool) => {
     return isComputerBool;
   }
 
+  const attackOpponent = (coords, opponentGameboard) => {
+    recordShotFired(coords);
+    return opponentGameboard.receiveAttack(coords);
+  }
+
   const recordShotFired = coords => {
     shotsFired.push(coords);
   }
@@ -48,7 +53,7 @@ const Player = (name, isComputerBool) => {
     }
   }
 
-  return {getName, isComputer, recordShotFired, getShotsFired, getRandCoord, computerTurn};
+  return {getName, isComputer, attackOpponent, recordShotFired, getShotsFired, getRandCoord, computerTurn};
 }
 
 export default Player;
