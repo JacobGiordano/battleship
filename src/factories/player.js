@@ -31,8 +31,8 @@ const Player = (name, isComputerBool) => {
   const getRandCoord = () => {
     const rows = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
     const columns = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
-    const letter = rows[getRandInclusive(0, rows.length)];
-    const number = columns[getRandInclusive(0, columns.length)];
+    const letter = rows[getRandInclusive(0, rows.length -1)];
+    const number = columns[getRandInclusive(0, columns.length -1)];
     return `${letter}${number}`;
   }
 
