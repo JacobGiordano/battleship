@@ -18,6 +18,13 @@ const Gameboard = () => {
     return misses;
   }
 
+  const prepopulateShips = (gameboard, coords2DArray) => {
+    const thisGameboard = gameboard;
+    coords2DArray.forEach(array => {
+      thisGameboard.placeShip(array);
+    });
+  }
+
   const receiveAttack = coords => {
     // Takes a pair of coordinates
     const wasHit = getShips().filter(ship => ship.coords.indexOf(coords) > -1)[0];
@@ -40,7 +47,7 @@ const Gameboard = () => {
     return ships.length === ships.filter(ship => ship.isSunk()).length;
   };
 
-  return {placeShip, getShips, getMisses, receiveAttack, allShipsSunk};
+  return {placeShip, getShips, getMisses, prepopulateShips, receiveAttack, allShipsSunk};
 };
 
 export default Gameboard;
