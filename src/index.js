@@ -1,4 +1,4 @@
-import "./css/styles.css";
+import "./css/styles.scss";
 
 const initApp = () => {
   console.log("yo!");
