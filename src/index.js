@@ -1,7 +1,9 @@
 import "./css/styles.scss";
+import Game from "./factories/game";
 
 const initApp = () => {
-  console.log("yo!");
+  const game = Game();
+  game.init();
 };
 
 document.addEventListener("DOMContentLoaded", initApp);
