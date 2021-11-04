@@ -22,12 +22,13 @@ module.exports = merge(common, {
   module: {
     rules: [
       {
-        test: /\.css$/,
+        test: /\.scss$/,
         use: [
-          "style-loader", //2. Inject styles into DOM
-          "css-loader", //1. Turns css into commonjs
+          "style-loader", // 3. Inject styles into DOM
+          "css-loader", // 2. Turns css into commonjs
+          "sass-loader", // 1. Turn sass into css
         ]
-      }
+      },
     ]
   }
 });
