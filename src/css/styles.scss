@@ -1,3 +1,5 @@
+@import "./node_modules/include-media/dist/_include-media.scss";
+
 :root {
   --very-light-gray: #e5e5e5;
   --light-gray: #cecece;
@@ -36,7 +38,16 @@ body {
 }
 
 main {
+  display: flex;
+  width: 100%;
   margin: 4.25rem 0 2.5rem;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  
+  @include media(">=phone", "<tablet") {
+    flex-direction: column;
+  }
 }
 
 button, input, textarea {
@@ -115,7 +126,42 @@ header {
 
 /* Gameboard */
 .board-wrapper {
-  display: inline-block;
+  display: inline-flex;
+
+  .x-labels {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+
+    .x-label {
+      width: 2.05rem;
+      height: 2.05rem;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  
+  .y-labels  {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    .y-label {
+      width: 2.05rem;
+      height: 2.05rem;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
   .gameboard {
     display: grid;
     width: 100%;
@@ -124,11 +170,31 @@ header {
     max-height: 700px;
     grid-template-columns: repeat(10, 2rem);
     grid-template-rows: repeat(10, 2rem);
+    gap: 1px;
   
     .board-square {
       background: blue;
       width: 100%;
       height: 100%;
+      cursor: pointer;
+      transition: all ease-in-out .1s;
+
+      &.ship-part:before {
+        content: "s";
+        display: flex;
+        color: white;
+        width: 100%;
+        height: 90%;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5;
+      }
+
+      &:hover {
+        background: lightblue;
+      }
     }
   }
 }
