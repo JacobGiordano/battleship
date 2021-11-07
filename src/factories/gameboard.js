@@ -1,4 +1,5 @@
 import Ship from "../factories/ship";
+import Player from "./player";
 
 const Gameboard = () => {
   let misses = [];
@@ -18,10 +19,26 @@ const Gameboard = () => {
     return misses;
   }
 
-  const prepopulateShips = (gameboard, coords2DArray) => {
+  const prepopulateShips = (player, gameboard, coords2DArray) => {
     const thisGameboard = gameboard;
     coords2DArray.forEach(array => {
       thisGameboard.placeShip(array);
+      addShipToBoard(player, array)
+    });
+  }
+
+  const addShipToBoard = (player, coordsArray) => {
+    let gameboard;
+    player.isComputer() ? gameboard = document.getElementById("computer-board") : gameboard = document.getElementById("player-1-board");
+    const rows = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+    const columns = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+    const boardsquares = gameboard.querySelectorAll(".board-square");
+
+    coordsArray.forEach(coords => {
+      const splitCoords = coords.split("");
+      const row = rows.indexOf(splitCoords[0]) * 10;
+      const column = columns.indexOf(splitCoords[1]);
+      boardsquares[row + column].classList.add("ship-part");
     });
   }
 
