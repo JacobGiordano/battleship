@@ -4,6 +4,8 @@ import Player from "./player";
 const Gameboard = () => {
   let misses = [];
   let ships = [];
+  const rows = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+  const columns = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 
   const placeShip = coordsArray => {
     const newShip = Ship(coordsArray);
@@ -30,8 +32,6 @@ const Gameboard = () => {
   const addShipToBoard = (player, coordsArray) => {
     let gameboard;
     player.isComputer() ? gameboard = document.getElementById("computer-board") : gameboard = document.getElementById("player-1-board");
-    const rows = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
-    const columns = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
     const boardsquares = gameboard.querySelectorAll(".board-square");
 
     coordsArray.forEach(coords => {
@@ -40,6 +40,28 @@ const Gameboard = () => {
       const column = columns.indexOf(splitCoords[1]);
       boardsquares[row + column].classList.add("ship-part");
     });
+  }
+
+  const _getClickedIndex = (e) => {
+    return Array.from(e.target.parentNode.children).indexOf(e.target);
+  }
+
+  const _getClickedRow = clickedIndex => {
+    return Math.floor(clickedIndex / 10);
+  }
+
+  const _getClickedColumn = clickedIndex => {
+    return clickedIndex - (Math.floor(clickedIndex / 10) * 10);
+  }
+
+  const _handleSquareClick = e => {
+    const clickedIndex = _getClickedIndex(e);
+    console.log(receiveAttack(`${rows[_getClickedRow(clickedIndex)]}${columns[_getClickedColumn(clickedIndex)]}`));
+  }
+
+  const addSquareEventListeners = (gameboardDOMElement) => {
+    const boardsquares = gameboardDOMElement.querySelectorAll(".board-square");
+    boardsquares.forEach(square => square.addEventListener("click", _handleSquareClick, false))
   }
 
   const receiveAttack = coords => {
@@ -64,7 +86,7 @@ const Gameboard = () => {
     return ships.length === ships.filter(ship => ship.isSunk()).length;
   };
 
-  return {placeShip, getShips, getMisses, prepopulateShips, receiveAttack, allShipsSunk};
+  return {placeShip, getShips, getMisses, prepopulateShips, addSquareEventListeners, receiveAttack, allShipsSunk};
 };
 
 export default Gameboard;
