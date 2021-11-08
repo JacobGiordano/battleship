@@ -26,6 +26,8 @@ const Game = () => {
       ["G5", "G6", "G7", "G8"],
       ["I1", "I2", "I3", "I4", "I5"]
     ]);
+    playerGameboard.addSquareEventListeners(document.getElementById("player-1-board"));
+    computerGameboard.addSquareEventListeners(document.getElementById("computer-board"));
   }
 
   const getPlayers = () => {
