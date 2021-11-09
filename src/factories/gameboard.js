@@ -60,6 +60,8 @@ const Gameboard = () => {
     const clickedIndex = _getClickedIndex(e);
     const result = receiveAttack(`${rows[_getClickedRow(clickedIndex)]}${columns[_getClickedColumn(clickedIndex)]}`)
     result !== undefined ? console.log(result) : null;
+    const gameOver = allShipsSunk();
+    gameOver ? alert(`Game over!`) : null;
   }
 
   const addSquareEventListeners = (gameboardDOMElement) => {
