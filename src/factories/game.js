@@ -20,9 +20,9 @@ const Game = () => {
       ["F8", "G8", "H8", "I8", "J8"]
     ]);
     computerGameboard.prepopulateShips(computer, computerGameboard, [
-      ["C1"],
+      ["D6"],
       ["F3", "F4"],
-      ["A1", "B1", "C1"],
+      ["A3", "B3", "C3"],
       ["G5", "G6", "G7", "G8"],
       ["I1", "I2", "I3", "I4", "I5"]
     ]);
