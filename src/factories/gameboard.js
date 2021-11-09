@@ -4,8 +4,10 @@ import Player from "./player";
 const Gameboard = () => {
   let misses = [];
   let ships = [];
+  let shotsReceived = [];
   const rows = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
   const columns = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+  let disableBoardClicks = false;
 
   const placeShip = coordsArray => {
     const newShip = Ship(coordsArray);
@@ -56,7 +58,8 @@ const Gameboard = () => {
 
   const _handleSquareClick = e => {
     const clickedIndex = _getClickedIndex(e);
-    console.log(receiveAttack(`${rows[_getClickedRow(clickedIndex)]}${columns[_getClickedColumn(clickedIndex)]}`));
+    const result = receiveAttack(`${rows[_getClickedRow(clickedIndex)]}${columns[_getClickedColumn(clickedIndex)]}`)
+    result !== undefined ? console.log(result) : null;
   }
 
   const addSquareEventListeners = (gameboardDOMElement) => {
@@ -65,20 +68,25 @@ const Gameboard = () => {
   }
 
   const receiveAttack = coords => {
-    // Takes a pair of coordinates
+    // Takes a pair of coordinates and checks if it's a repeat hit
+    // If it is, just exit out of the function & return undefined
+    if (shotsReceived.indexOf(coords) > -1) {
+      return;
+    }
+    shotsReceived.push(coords);
     const wasHit = getShips().filter(ship => ship.coords.indexOf(coords) > -1)[0];
     // Determines if the attack was a hit or a miss
-      // If a hit, record it as a hit for the correct ship
-      if (wasHit !== null & wasHit !== undefined) {
-        wasHit.hit(coords); // 1.
-        return {shot: "hit", coords: coords};
-        // 2. Trigger showing a *hit* on the gameboard
-      } else {
-        // If a miss, record it in the misses array of the Gameboard
-        misses.push(coords); // 1.
-        // 2. Trigger showing a *miss* on the gameboard
-        return {shot: "miss", coords: coords};
-      }
+    // If a hit, record it as a hit for the correct ship
+    if (wasHit !== null & wasHit !== undefined) {
+      wasHit.hit(coords); // 1.
+      return {shot: "hit", coords: coords};
+      // 2. Trigger showing a *hit* on the gameboard
+    } else {
+      // If a miss, record it in the misses array of the Gameboard
+      misses.push(coords); // 1.
+      // 2. Trigger showing a *miss* on the gameboard
+      return {shot: "miss", coords: coords};
+    }
   };
 
   const allShipsSunk = () => {
