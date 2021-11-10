@@ -42,7 +42,7 @@ body {
 main {
   display: flex;
   width: 100%;
-  margin: 4.25rem 0 2.5rem;
+  margin: 1rem 0 2.5rem;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
@@ -127,6 +127,11 @@ header {
   z-index: 10;
 }
 
+/* Current Player Section */
+.current-player-section {
+  margin: 4.25rem 0 0;
+}
+
 /* Gameboard */
 .board-wrapper {
   display: inline-flex;
@@ -197,6 +202,14 @@ header {
 
       &:hover {
         background: lightblue;
+      }
+
+      &.miss {
+        background: green;
+      }
+
+      &.hit {
+        background: red;
       }
     }
   }
