@@ -1,8 +1,8 @@
 import Player from "../factories/player";
 import Gameboard from "../factories/gameboard";
 
-test("calling getRandCoord() returns a random coordinate", () => {
-  expect(Player("computer", true).getRandCoord()).toMatch(new RegExp(/\w\d/i));
+test("calling getRandCoords() returns a random coordinate", () => {
+  expect(Player("computer", true).getRandCoords()).toMatch(new RegExp(/\w\d/i));
 });
 
 test("when computerTurn() is called, if the selected coord has already been fired upon, computerTurn() will continually call itself until it can fire at a new coord", () => {
