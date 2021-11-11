@@ -1,13 +1,16 @@
 import Ship from "../factories/ship";
-import Player from "./player";
+import ui from "./ui";
 
-const Gameboard = () => {
+const Gameboard = (player) => {
   let misses = [];
   let ships = [];
   let shotsReceived = [];
+  let gameboard;
+  player.isComputer() ? gameboard = document.getElementById("computer-board") : gameboard = document.getElementById("player-1-board");
   const rows = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
   const columns = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
-  let disableBoardClicks = false;
+  
+  // let disableBoardClicks = true;
 
   const placeShip = coordsArray => {
     const newShip = Ship(coordsArray);
@@ -23,17 +26,15 @@ const Gameboard = () => {
     return misses;
   }
 
-  const prepopulateShips = (player, gameboard, coords2DArray) => {
+  const prepopulateShips = (gameboard, coords2DArray) => {
     const thisGameboard = gameboard;
     coords2DArray.forEach(array => {
       thisGameboard.placeShip(array);
-      addShipToBoard(player, array)
+      addShipToBoard(array)
     });
   }
 
-  const addShipToBoard = (player, coordsArray) => {
-    let gameboard;
-    player.isComputer() ? gameboard = document.getElementById("computer-board") : gameboard = document.getElementById("player-1-board");
+  const addShipToBoard = (coordsArray) => {
     const boardsquares = gameboard.querySelectorAll(".board-square");
 
     coordsArray.forEach(coords => {
@@ -44,35 +45,32 @@ const Gameboard = () => {
     });
   }
 
-  const _getClickedIndex = (e) => {
-    return Array.from(e.target.parentNode.children).indexOf(e.target);
-  }
+  const handleSquareClick = e => {
+    console.log(`${player.getName()}, ${gameboard.id}`);
+    const clickedIndex = ui.getClickedIndex(e);
+    const square = Array.from(gameboard.querySelectorAll(".board-square"))[clickedIndex];
 
-  const _getClickedRow = clickedIndex => {
-    return Math.floor(clickedIndex / 10);
-  }
+    const result = receiveAttack(`${rows[ui.getClickedRow(clickedIndex)]}${columns[ui.getClickedColumn(clickedIndex)]}`);
+    if (result === undefined) return;
+    result !== undefined && result.shot === "hit" ? ui.addHitClass(square) : ui.addMissClass(square);
 
-  const _getClickedColumn = clickedIndex => {
-    return clickedIndex - (Math.floor(clickedIndex / 10) * 10);
-  }
+    allShipsSunk() ? alert(`Game over!`) : null;
 
-  const _handleSquareClick = e => {
-    const clickedIndex = _getClickedIndex(e);
-    const result = receiveAttack(`${rows[_getClickedRow(clickedIndex)]}${columns[_getClickedColumn(clickedIndex)]}`)
-    result !== undefined ? console.log(result) : null;
-    const gameOver = allShipsSunk();
-    gameOver ? alert(`Game over!`) : null;
+    player.isComputer() ? player.computerTurn() : null;
   }
 
   const addSquareEventListeners = (gameboardDOMElement) => {
     const boardsquares = gameboardDOMElement.querySelectorAll(".board-square");
-    boardsquares.forEach(square => square.addEventListener("click", _handleSquareClick, false))
+    boardsquares.forEach(square => square.addEventListener("click", handleSquareClick, false));
   }
 
   const receiveAttack = coords => {
     // Takes a pair of coordinates and checks if it's a repeat hit
     // If it is, just exit out of the function & return undefined
     if (shotsReceived.indexOf(coords) > -1) {
+      console.log(`shotsReceived.indexOf(${coords}) > -1`);
+      console.log(shotsReceived);
+      console.log(shotsReceived.indexOf(coords));
       return;
     }
     shotsReceived.push(coords);
