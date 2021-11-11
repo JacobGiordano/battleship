@@ -1,4 +1,4 @@
-const Player = (name, isComputerBool, isPlayerTurn) => {
+const Player = (name, isComputerBool) => {
   let shotsFired = [];
   const rows = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
   const columns = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
@@ -51,10 +51,12 @@ const Player = (name, isComputerBool, isPlayerTurn) => {
     } else {
       coords = getRandCoords();
     }
-
-    if (getShotsFired().indexOf(coords) > -1) {
+    console.log(coords);
+    if (shotsFired.indexOf(coords) > -1) {
+      console.log(`WAIT! shotsFired.indexOf(${coords}) > -1. trying again`);
       computerTurn();
     } else {
+      console.log(`All clear! Firing on ${coords}!`);
       setTimeout(() => {
         recordShotFired(coords);
         const squareIndex = getIndex(coords);
@@ -64,7 +66,7 @@ const Player = (name, isComputerBool, isPlayerTurn) => {
     }
   }
 
-  return {isPlayerTurn, getName, isComputer, attackOpponent, recordShotFired, getShotsFired, getRandCoords, computerTurn};
+  return {getName, isComputer, attackOpponent, recordShotFired, getShotsFired, getRandCoords, computerTurn};
 }
 
 export default Player;
