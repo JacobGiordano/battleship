@@ -1,25 +1,22 @@
 import Player from "./player";
 import Gameboard from "./gameboard";
-import Ship from "./ship";
+import ui from "./ui";
 
 const Game = () => {
-  const players = [];
-
   const init = () => {
     const player = Player("Player 1", false);
     const computer = Player("Computer", true);
-    players.push(player);
-    players.push(computer);
-    const playerGameboard = Gameboard();
-    const computerGameboard = Gameboard();
-    playerGameboard.prepopulateShips(player, playerGameboard, [
+    const playerGameboard = Gameboard(player);
+    const computerGameboard = Gameboard(computer);
+    ui.showCurrentPlayer(player.getName());
+    playerGameboard.prepopulateShips(playerGameboard, [
       ["A1"],
       ["B1", "B2"],
       ["C3", "D3", "E3"],
       ["J1", "J2", "J3", "J4"],
       ["F8", "G8", "H8", "I8", "J8"]
     ]);
-    computerGameboard.prepopulateShips(computer, computerGameboard, [
+    computerGameboard.prepopulateShips(computerGameboard, [
       ["D6"],
       ["F3", "F4"],
       ["A3", "B3", "C3"],
@@ -30,11 +27,7 @@ const Game = () => {
     computerGameboard.addSquareEventListeners(document.getElementById("computer-board"));
   }
 
-  const getPlayers = () => {
-    return players;
-  }
-
-  return {init, getPlayers};
+  return {init};
 }
 
 export default Game;
