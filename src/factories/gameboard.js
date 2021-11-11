@@ -46,7 +46,12 @@ const Gameboard = (player) => {
   }
 
   const handleSquareClick = e => {
-    console.log(`${player.getName()}, ${gameboard.id}`);
+    const lowerCasedCurrentPlayer = document.getElementById("current-player").textContent.toLowerCase();
+    
+    if (gameboard.id === "player-1-board" && lowerCasedCurrentPlayer !== "computer") {
+      return;
+    }
+
     const clickedIndex = ui.getClickedIndex(e);
     const square = Array.from(gameboard.querySelectorAll(".board-square"))[clickedIndex];
 
@@ -57,6 +62,7 @@ const Gameboard = (player) => {
     allShipsSunk() ? alert(`Game over!`) : null;
 
     player.isComputer() ? player.computerTurn() : null;
+    lowerCasedCurrentPlayer === "computer" ? ui.showCurrentPlayer("Player 1") : ui.showCurrentPlayer("Computer");
   }
 
   const addSquareEventListeners = (gameboardDOMElement) => {
