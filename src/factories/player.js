@@ -62,7 +62,7 @@ const Player = (name, isComputerBool) => {
         const squareIndex = getIndex(coords);
         const square = Array.from(document.querySelectorAll(".board-square"))[squareIndex];
         square.click();
-      }, 500);
+      }, 750);
     }
   }
 
