@@ -48,7 +48,7 @@ const Gameboard = (player) => {
   const handleSquareClick = e => {
     const lowerCasedCurrentPlayer = document.getElementById("current-player").textContent.toLowerCase();
     
-    if (gameboard.id === "player-1-board" && lowerCasedCurrentPlayer !== "computer") {
+    if (gameboard.id === "player-1-board" && lowerCasedCurrentPlayer !== "computer" || gameboard.id === "computer-board" && lowerCasedCurrentPlayer === "computer") {
       return;
     }
 
