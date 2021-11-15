@@ -4,7 +4,7 @@ const ui = {
   },
 
   getClickedIndex: (e) => {
-    return Array.from(e.target.parentNode.children).indexOf(e.target);
+    return [...e.target.parentNode.children].indexOf(e.target);
   },
 
   getClickedRow: clickedIndex => {

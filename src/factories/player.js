@@ -60,7 +60,7 @@ const Player = (name, isComputerBool) => {
       setTimeout(() => {
         recordShotFired(coords);
         const squareIndex = getIndex(coords);
-        const square = Array.from(document.querySelectorAll(".board-square"))[squareIndex];
+        const square = [...document.querySelectorAll(".board-square")][squareIndex];
         square.click();
       }, 750);
     }

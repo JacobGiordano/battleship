@@ -53,7 +53,7 @@ const Gameboard = (player) => {
     }
 
     const clickedIndex = ui.getClickedIndex(e);
-    const square = Array.from(gameboard.querySelectorAll(".board-square"))[clickedIndex];
+    const square = [...gameboard.querySelectorAll(".board-square")][clickedIndex];
 
     const result = receiveAttack(`${rows[ui.getClickedRow(clickedIndex)]}${columns[ui.getClickedColumn(clickedIndex)]}`);
     if (result === undefined) return;
