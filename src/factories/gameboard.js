@@ -1,5 +1,5 @@
 import Ship from "../factories/ship";
-import ui from "./ui";
+import ui from "../modules/ui";
 
 const Gameboard = (player) => {
   let misses = [];
