@@ -7,6 +7,10 @@ const ui = {
     return [...e.target.parentNode.children].indexOf(e.target);
   },
 
+  getSquareAtIndex: (gameboard, index) => {
+    return [...gameboard.querySelectorAll(".board-square")][index];
+  },
+
   getClickedRow: clickedIndex => {
     return Math.floor(clickedIndex / 10);
   },
@@ -21,6 +25,14 @@ const ui = {
 
   addMissClass: squareEl => {
     squareEl.classList.add("miss");
+  },
+
+  rotateDraggableShip: e => {
+    const clickedShip = e.target.closest(".ship");
+    console.log(clickedShip);
+    if (document.getElementById("player-fleet-wrapper").contains(clickedShip)) {
+      clickedShip.classList.contains("vertical") ? clickedShip.classList.remove("vertical") : clickedShip.classList.add("vertical");
+    }
   }
 }
 

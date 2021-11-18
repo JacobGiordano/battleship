@@ -9,13 +9,13 @@ const Game = () => {
     const playerGameboard = Gameboard(player);
     const computerGameboard = Gameboard(computer);
     ui.showCurrentPlayer(player.getName());
-    playerGameboard.prepopulateShips(playerGameboard, [
-      ["A1"],
-      ["B1", "B2"],
-      ["C3", "D3", "E3"],
-      ["J1", "J2", "J3", "J4"],
-      ["F8", "G8", "H8", "I8", "J8"]
-    ]);
+    // playerGameboard.prepopulateShips(playerGameboard, [
+    //   ["A1"],
+    //   ["B1", "B2"],
+    //   ["C3", "D3", "E3"],
+    //   ["J1", "J2", "J3", "J4"],
+    //   ["F8", "G8", "H8", "I8", "J8"]
+    // ]);
     computerGameboard.prepopulateShips(computerGameboard, [
       ["D6"],
       ["F3", "F4"],
