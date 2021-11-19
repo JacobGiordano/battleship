@@ -28,16 +28,17 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
   // Container Functions
   const dragOver = (e) => {
     // console.log("drag over");
-    e.preventDefault();
+    // e.preventDefault();
   }
 
   const dragEnter = (e) => {
     // console.log("drag enter");
-    e.preventDefault();
+    // e.preventDefault();
     const draggingEl = document.querySelector(".dragging");
-    const clickedIndex = ui.getClickedIndex(e);
     const thisGameboard = e.target.closest(".gameboard");
+    const clickedIndex = ui.getSquareIndex(e.target, thisGameboard);
     const placementHoverEls = thisGameboard.querySelectorAll(".placement-hover");
+    const shipLine = [];
 
     for(let el of placementHoverEls) {
       el.classList.remove("placement-hover");
@@ -45,21 +46,26 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
 
     for (let i = 0; i < draggingEl.children.length; i++) {
       if (draggingEl.classList.contains("vertical")) {
-        ui.getSquareAtIndex(thisGameboard, clickedIndex + (i * 10)).classList.add("placement-hover");
+        const elIndex = clickedIndex + (i * 10);
+        ui.getSquareAtIndex(thisGameboard, elIndex).classList.add("placement-hover");
+        shipLine.push(ui.getColumnFromIndex(elIndex, thisGameboard));
       } else {
-        ui.getSquareAtIndex(thisGameboard, clickedIndex + i).classList.add("placement-hover");
+        const elIndex = clickedIndex + i;
+        ui.getSquareAtIndex(thisGameboard, elIndex).classList.add("placement-hover");
+        shipLine.push(ui.getRowFromIndex(elIndex, thisGameboard));
       }
     }
 
+    console.log(shipLine);
 
-    console.log(ui.getClickedIndex(e));
+    // console.log(ui.getSquareIndex(e.target, thisGameboard));
   }
 
   const dragLeave = (e) => {
     // console.log("drag leave");
     // const draggingEl = document.querySelector(".dragging");
-    // const clickedIndex = ui.getClickedIndex(e);
     // const thisGameboard = e.target.closest(".gameboard");
+    // const clickedIndex = ui.getSquareIndex(e.target, thisGameboard);
     
     // for (let i = 0; i < draggingEl.children.length; i++) {
     //   if (draggingEl.classList.contains("vertical")) {
@@ -72,8 +78,8 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
 
   const dragDrop = (e) => {
     const draggingEl = document.querySelector(".dragging");
-    const clickedIndex = ui.getClickedIndex(e);
     const thisGameboard = e.target.closest(".gameboard");
+    const clickedIndex = ui.getSquareIndex(e.target, thisGameboard);
 
     for (let i = 0; i < draggingEl.children.length; i++) {
       if (draggingEl.classList.contains("vertical")) {

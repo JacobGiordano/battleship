@@ -52,10 +52,10 @@ const Gameboard = (player) => {
       return;
     }
 
-    const clickedIndex = ui.getClickedIndex(e);
     const square = ui.getSquareAtIndex(gameboard, clickedIndex);
+    const clickedIndex = ui.getSquareIndex(e.target, thisGameboard);
 
-    const result = receiveAttack(`${rows[ui.getClickedRow(clickedIndex)]}${columns[ui.getClickedColumn(clickedIndex)]}`);
+    const result = receiveAttack(`${rows[ui.getRowFromIndex(clickedIndex)]}${columns[ui.getColumnFromIndex(clickedIndex)]}`);
     if (result === undefined) return;
     result !== undefined && result.shot === "hit" ? ui.addHitClass(square) : ui.addMissClass(square);
 

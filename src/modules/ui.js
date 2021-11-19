@@ -3,19 +3,19 @@ const ui = {
     document.getElementById("current-player").textContent = currentPlayer;
   },
 
-  getClickedIndex: (e) => {
-    return [...e.target.parentNode.children].indexOf(e.target);
+  getSquareIndex: (element, parentEl) => {
+    return [...parentEl.children].indexOf(element);
   },
 
   getSquareAtIndex: (gameboard, index) => {
     return [...gameboard.querySelectorAll(".board-square")][index];
   },
 
-  getClickedRow: clickedIndex => {
+  getRowFromIndex: clickedIndex => {
     return Math.floor(clickedIndex / 10);
   },
 
-  getClickedColumn: clickedIndex => {
+  getColumnFromIndex: clickedIndex => {
     return clickedIndex - (Math.floor(clickedIndex / 10) * 10);
   },
 
