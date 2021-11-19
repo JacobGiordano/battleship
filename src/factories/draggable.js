@@ -49,20 +49,35 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
     for (let i = 0; i < draggingEl.children.length; i++) {
       if (draggingEl.classList.contains("vertical")) {
         const elIndex = clickedIndex + (i * 10);
+        if (elIndex > 99) {
+          console.log("no drop")
+          e.target.classList.add("no-drop");
+          return;
+        }
         ui.getSquareAtIndex(thisGameboard, elIndex).classList.add("placement-hover");
         shipLine.push(ui.getColumnFromIndex(elIndex, thisGameboard));
       } else {
         const elIndex = clickedIndex + i;
+        if (elIndex > 99) {
+          console.log("no drop")
+          e.target.classList.add("no-drop");
+          return;
+        }
         ui.getSquareAtIndex(thisGameboard, elIndex).classList.add("placement-hover");
         shipLine.push(ui.getRowFromIndex(elIndex, thisGameboard));
       }
     }
 
-    console.log(shipLine);
+
+
+
+  // NEED TO:
+    // 1. CHANGE VISUAL FEEDBACK BETWEEN A GOOD DROP AND A BAD DROP?
+
+
+
 
     [...new Set(shipLine)].length > 1 ? ui.getSquareAtIndex(thisGameboard, clickedIndex).classList.add("no-drop") : ui.getSquareAtIndex(thisGameboard, clickedIndex).classList.remove("no-drop");
-
-    console.log([...new Set(shipLine)].length);
 
     // console.log(ui.getSquareIndex(e.target, thisGameboard));
   }
