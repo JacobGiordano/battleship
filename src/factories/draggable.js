@@ -28,7 +28,9 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
   // Container Functions
   const dragOver = (e) => {
     // console.log("drag over");
-    // e.preventDefault();
+    if (!e.target.classList.contains("no-drop")) {
+      e.preventDefault();
+    }
   }
 
   const dragEnter = (e) => {
@@ -57,6 +59,10 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
     }
 
     console.log(shipLine);
+
+    [...new Set(shipLine)].length > 1 ? ui.getSquareAtIndex(thisGameboard, clickedIndex).classList.add("no-drop") : ui.getSquareAtIndex(thisGameboard, clickedIndex).classList.remove("no-drop");
+
+    console.log([...new Set(shipLine)].length);
 
     // console.log(ui.getSquareIndex(e.target, thisGameboard));
   }
