@@ -6,55 +6,84 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
 
   // Draggables Functions
   const dragStart = (e) => {
+    // console.log("drag start");
     e.target.classList.add("dragging");
     setTimeout(() => {
       e.target.classList.add("invisible");
     }, 0);
-    // console.log("drag start");
   }
 
   const dragEnd = (e) => {
+    // console.log("drag end");
     e.target.classList.remove("dragging");
     e.target.classList.remove("invisible");
-    // console.log("drag end");
+
+    const placementHoverEls = document.getElementById("player-1-board").querySelectorAll(".placement-hover");
+
+    for(let el of placementHoverEls) {
+      el.classList.remove("placement-hover");
+    }
   }
 
   // Container Functions
   const dragOver = (e) => {
-    e.preventDefault();
     // console.log("drag over");
+    e.preventDefault();
   }
 
   const dragEnter = (e) => {
-    e.preventDefault();
-    e.target.classList.add("placement-hover");
     // console.log("drag enter");
+    e.preventDefault();
+    const draggingEl = document.querySelector(".dragging");
+    const clickedIndex = ui.getClickedIndex(e);
+    const thisGameboard = e.target.closest(".gameboard");
+    const placementHoverEls = thisGameboard.querySelectorAll(".placement-hover");
+
+    for(let el of placementHoverEls) {
+      el.classList.remove("placement-hover");
+    }
+
+    for (let i = 0; i < draggingEl.children.length; i++) {
+      if (draggingEl.classList.contains("vertical")) {
+        ui.getSquareAtIndex(thisGameboard, clickedIndex + (i * 10)).classList.add("placement-hover");
+      } else {
+        ui.getSquareAtIndex(thisGameboard, clickedIndex + i).classList.add("placement-hover");
+      }
+    }
+
+
     console.log(ui.getClickedIndex(e));
   }
 
   const dragLeave = (e) => {
-    e.target.classList.remove("placement-hover");
     // console.log("drag leave");
+    // const draggingEl = document.querySelector(".dragging");
+    // const clickedIndex = ui.getClickedIndex(e);
+    // const thisGameboard = e.target.closest(".gameboard");
+    
+    // for (let i = 0; i < draggingEl.children.length; i++) {
+    //   if (draggingEl.classList.contains("vertical")) {
+    //     ui.getSquareAtIndex(thisGameboard, clickedIndex + (i * 10)).classList.remove("placement-hover");
+    //   } else {
+    //     ui.getSquareAtIndex(thisGameboard, clickedIndex + i).classList.remove("placement-hover");
+    //   }
+    // }
   }
 
   const dragDrop = (e) => {
     const draggingEl = document.querySelector(".dragging");
-    e.target.classList.remove("placement-hover");
-    // e.target.appendChild(draggingEl);
-    console.log(draggingEl.children.length);
     const clickedIndex = ui.getClickedIndex(e);
     const thisGameboard = e.target.closest(".gameboard");
-    // console.log(ui.getSquareAtIndex(thisGameboard, clickedIndex));
 
-    
-    // console.log("Incoming!");
     for (let i = 0; i < draggingEl.children.length; i++) {
       if (draggingEl.classList.contains("vertical")) {
-        // console.log(ui.getSquareAtIndex(thisGameboard, clickedIndex + (i * 10)));
-        ui.getSquareAtIndex(thisGameboard, clickedIndex + (i * 10)).classList.add("ship-part");
+        const selectedSquare = ui.getSquareAtIndex(thisGameboard, clickedIndex + (i * 10));
+        selectedSquare.classList.remove("placement-hover");
+        selectedSquare.classList.add("ship-part");
       } else {
-        // console.log(ui.getSquareAtIndex(thisGameboard, clickedIndex + i));
-        ui.getSquareAtIndex(thisGameboard, clickedIndex + i).classList.add("ship-part");
+        const selectedSquare = ui.getSquareAtIndex(thisGameboard, clickedIndex + i);
+        selectedSquare.classList.remove("placement-hover");
+        selectedSquare.classList.add("ship-part");
       }
     }
     
@@ -86,7 +115,7 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
   return {returnDraggables, returnContainers};
 }
 
-const draggableEls = Draggable(".ship", ".board-square");
+const draggableEls = Draggable(".ship", "#player-1-board");
 for (let element of draggableEls.returnDraggables()) {
   element.addEventListener("dblclick", ui.rotateDraggableShip, false);
 };
