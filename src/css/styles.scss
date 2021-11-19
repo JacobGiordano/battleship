@@ -202,7 +202,6 @@ header {
     display: grid;
     width: 100%;
     max-width: var(--max-page-width);
-    height: 100%;
     max-height: 700px;
     grid-template-columns: repeat(10, 2rem);
     grid-template-rows: repeat(10, 2rem);
