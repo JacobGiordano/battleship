@@ -35,6 +35,7 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
     let elIndex;
 
     ui.removeHoverPlacementClass(thisGameboard);
+    ui.removeNoDropClass(thisGameboard);
 
     for (let i = 0; i < draggingEl.children.length; i++) {
       draggingEl.classList.contains("vertical") ? elIndex = clickedIndex + (i * 10) : elIndex = clickedIndex + i;
