@@ -52,8 +52,8 @@ const Gameboard = (player) => {
       return;
     }
 
+    const clickedIndex = ui.getSquareIndex(e.target, e.target.closest(".gameboard"));
     const square = ui.getSquareAtIndex(gameboard, clickedIndex);
-    const clickedIndex = ui.getSquareIndex(e.target, thisGameboard);
 
     const result = receiveAttack(`${rows[ui.getRowFromIndex(clickedIndex)]}${columns[ui.getColumnFromIndex(clickedIndex)]}`);
     if (result === undefined) return;
