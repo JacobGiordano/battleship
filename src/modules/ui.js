@@ -29,7 +29,6 @@ const ui = {
 
   rotateDraggableShip: e => {
     const clickedShip = e.target.closest(".ship");
-    console.log(clickedShip);
     if (document.getElementById("player-fleet-wrapper").contains(clickedShip)) {
       clickedShip.classList.contains("vertical") ? clickedShip.classList.remove("vertical") : clickedShip.classList.add("vertical");
     }

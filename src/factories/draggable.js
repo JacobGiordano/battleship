@@ -6,7 +6,6 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
 
   // Draggables Functions
   const dragStart = (e) => {
-    // console.log("drag start");
     e.target.classList.add("dragging");
     setTimeout(() => {
       e.target.classList.add("invisible");
@@ -14,7 +13,6 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
   }
 
   const dragEnd = (e) => {
-    // console.log("drag end");
     e.target.classList.remove("dragging");
     e.target.classList.remove("invisible");
     const thisGameboard = document.getElementById("player-1-board");
@@ -24,15 +22,12 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
 
   // Container Functions
   const dragOver = (e) => {
-    // console.log("drag over");
     if (!e.target.classList.contains("no-drop")) {
       e.preventDefault();
     }
   }
 
   const dragEnter = (e) => {
-    // console.log("drag enter");
-    // e.preventDefault();
     const draggingEl = document.querySelector(".dragging");
     const thisGameboard = e.target.closest(".gameboard");
     const clickedIndex = ui.getSquareIndex(e.target, thisGameboard);
@@ -52,8 +47,6 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
     }
 
     [...new Set(shipLine)].length > 1 ? ui.getSquareAtIndex(thisGameboard, clickedIndex).classList.add("no-drop") : ui.getSquareAtIndex(thisGameboard, clickedIndex).classList.remove("no-drop");
-
-    // console.log(ui.getSquareIndex(e.target, thisGameboard));
   }
 
   const dragLeave = (e) => {
@@ -74,8 +67,6 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
     }
     
     draggingEl.remove();
-    
-    // console.log("drop");
   }
 
   const returnDraggables = () => {
