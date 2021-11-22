@@ -33,6 +33,20 @@ const ui = {
     if (document.getElementById("player-fleet-wrapper").contains(clickedShip)) {
       clickedShip.classList.contains("vertical") ? clickedShip.classList.remove("vertical") : clickedShip.classList.add("vertical");
     }
+  },
+
+  removeHoverPlacementClass: (gameBoardEl) => {
+    const placementHoverEls = gameBoardEl.querySelectorAll(".placement-hover");
+    for(let el of placementHoverEls) {
+      el.classList.remove("placement-hover");
+    }
+  },
+
+  removeNoDropClass: (gameBoardEl) => {
+    const noDropEls = gameBoardEl.querySelectorAll(".no-drop");
+    for(let el of noDropEls) {
+      el.classList.remove("no-drop");
+    }
   }
 }
 

@@ -227,6 +227,15 @@ header {
         line-height: 1.5;
       }
 
+      .ship {
+        background: black;
+
+        .ship-part {
+          width: var(--square-size);
+          height: var(--square-size);
+        }
+      }
+
       &:hover {
         background: lightblue;
       }
@@ -243,15 +252,6 @@ header {
         background: red;
       }
 
-      .ship {
-        background: black;
-
-        .ship-part {
-          width: var(--square-size);
-          height: var(--square-size);
-        }
-
-      }
     }
 
   }

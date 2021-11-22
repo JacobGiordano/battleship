@@ -17,12 +17,9 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
     // console.log("drag end");
     e.target.classList.remove("dragging");
     e.target.classList.remove("invisible");
-
-    const placementHoverEls = document.getElementById("player-1-board").querySelectorAll(".placement-hover");
-
-    for(let el of placementHoverEls) {
-      el.classList.remove("placement-hover");
-    }
+    const thisGameboard = document.getElementById("player-1-board");
+    ui.removeHoverPlacementClass(thisGameboard);
+    ui.removeNoDropClass(thisGameboard);
   }
 
   // Container Functions
@@ -39,43 +36,20 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
     const draggingEl = document.querySelector(".dragging");
     const thisGameboard = e.target.closest(".gameboard");
     const clickedIndex = ui.getSquareIndex(e.target, thisGameboard);
-    const placementHoverEls = thisGameboard.querySelectorAll(".placement-hover");
     const shipLine = [];
+    let elIndex;
 
-    for(let el of placementHoverEls) {
-      el.classList.remove("placement-hover");
-    }
+    ui.removeHoverPlacementClass(thisGameboard);
 
     for (let i = 0; i < draggingEl.children.length; i++) {
-      if (draggingEl.classList.contains("vertical")) {
-        const elIndex = clickedIndex + (i * 10);
-        if (elIndex > 99) {
-          console.log("no drop")
-          e.target.classList.add("no-drop");
-          return;
-        }
-        ui.getSquareAtIndex(thisGameboard, elIndex).classList.add("placement-hover");
-        shipLine.push(ui.getColumnFromIndex(elIndex, thisGameboard));
-      } else {
-        const elIndex = clickedIndex + i;
-        if (elIndex > 99) {
-          console.log("no drop")
-          e.target.classList.add("no-drop");
-          return;
-        }
-        ui.getSquareAtIndex(thisGameboard, elIndex).classList.add("placement-hover");
-        shipLine.push(ui.getRowFromIndex(elIndex, thisGameboard));
+      draggingEl.classList.contains("vertical") ? elIndex = clickedIndex + (i * 10) : elIndex = clickedIndex + i;
+      if (elIndex > 99) {
+        e.target.classList.add("no-drop");
+        return;
       }
+      ui.getSquareAtIndex(thisGameboard, elIndex).classList.add("placement-hover");
+      draggingEl.classList.contains("vertical") ? shipLine.push(ui.getColumnFromIndex(elIndex, thisGameboard)) : shipLine.push(ui.getRowFromIndex(elIndex, thisGameboard));
     }
-
-
-
-
-  // NEED TO:
-    // 1. CHANGE VISUAL FEEDBACK BETWEEN A GOOD DROP AND A BAD DROP?
-
-
-
 
     [...new Set(shipLine)].length > 1 ? ui.getSquareAtIndex(thisGameboard, clickedIndex).classList.add("no-drop") : ui.getSquareAtIndex(thisGameboard, clickedIndex).classList.remove("no-drop");
 
@@ -84,34 +58,19 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
 
   const dragLeave = (e) => {
     // console.log("drag leave");
-    // const draggingEl = document.querySelector(".dragging");
-    // const thisGameboard = e.target.closest(".gameboard");
-    // const clickedIndex = ui.getSquareIndex(e.target, thisGameboard);
-    
-    // for (let i = 0; i < draggingEl.children.length; i++) {
-    //   if (draggingEl.classList.contains("vertical")) {
-    //     ui.getSquareAtIndex(thisGameboard, clickedIndex + (i * 10)).classList.remove("placement-hover");
-    //   } else {
-    //     ui.getSquareAtIndex(thisGameboard, clickedIndex + i).classList.remove("placement-hover");
-    //   }
-    // }
   }
 
   const dragDrop = (e) => {
     const draggingEl = document.querySelector(".dragging");
     const thisGameboard = e.target.closest(".gameboard");
     const clickedIndex = ui.getSquareIndex(e.target, thisGameboard);
+    let selectedSquare;
 
     for (let i = 0; i < draggingEl.children.length; i++) {
-      if (draggingEl.classList.contains("vertical")) {
-        const selectedSquare = ui.getSquareAtIndex(thisGameboard, clickedIndex + (i * 10));
-        selectedSquare.classList.remove("placement-hover");
-        selectedSquare.classList.add("ship-part");
-      } else {
-        const selectedSquare = ui.getSquareAtIndex(thisGameboard, clickedIndex + i);
-        selectedSquare.classList.remove("placement-hover");
-        selectedSquare.classList.add("ship-part");
-      }
+      draggingEl.classList.contains("vertical") ? selectedSquare = ui.getSquareAtIndex(thisGameboard, clickedIndex + (i * 10)) : selectedSquare = ui.getSquareAtIndex(thisGameboard, clickedIndex + i);
+      selectedSquare.classList.remove("placement-hover");
+      selectedSquare.classList.remove("no-drop");
+      selectedSquare.classList.add("ship-part");
     }
     
     draggingEl.remove();
