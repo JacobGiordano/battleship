@@ -32,6 +32,7 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
     const thisGameboard = e.target.closest(".gameboard");
     const clickedIndex = ui.getSquareIndex(e.target, thisGameboard);
     const shipLine = [];
+    let indecies = [];
     let elIndex;
 
     ui.removeHoverPlacementClass(thisGameboard);
@@ -39,15 +40,27 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
 
     for (let i = 0; i < draggingEl.children.length; i++) {
       draggingEl.classList.contains("vertical") ? elIndex = clickedIndex + (i * 10) : elIndex = clickedIndex + i;
-      if (elIndex > 99) {
+      const squareEl = ui.getSquareAtIndex(thisGameboard, elIndex);
+      let noDrop = false;
+      
+      if (elIndex > 99 || (squareEl !== undefined && squareEl.classList.contains("ship-part"))) {
         e.target.classList.add("no-drop");
+        noDrop = true;
+      } else {
+        indecies.push(elIndex);
+      }
+      if (noDrop) {
         return;
       }
-      ui.getSquareAtIndex(thisGameboard, elIndex).classList.add("placement-hover");
+      // squareEl.classList.add("placement-hover");
       draggingEl.classList.contains("vertical") ? shipLine.push(ui.getColumnFromIndex(elIndex, thisGameboard)) : shipLine.push(ui.getRowFromIndex(elIndex, thisGameboard));
     }
 
-    [...new Set(shipLine)].length > 1 ? ui.getSquareAtIndex(thisGameboard, clickedIndex).classList.add("no-drop") : ui.getSquareAtIndex(thisGameboard, clickedIndex).classList.remove("no-drop");
+    [...new Set(shipLine)].length > 1 ? ui.getSquareAtIndex(thisGameboard, clickedIndex).classList.add("no-drop") : ui.getSquareAtIndex(thisGameboard, clickedIndex) !== undefined ? ui.getSquareAtIndex(thisGameboard, clickedIndex).classList.remove("no-drop") : null;
+
+    for (let j = 0; j < indecies.length; j++ ) {
+      ui.getSquareAtIndex(thisGameboard, indecies[j]) !== undefined ? ui.getSquareAtIndex(thisGameboard, indecies[j]).classList.add("placement-hover") : null;
+    }
   }
 
   const dragLeave = (e) => {
