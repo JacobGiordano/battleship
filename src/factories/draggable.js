@@ -56,7 +56,10 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
       draggingEl.classList.contains("vertical") ? shipLine.push(ui.getColumnFromIndex(elIndex, thisGameboard)) : shipLine.push(ui.getRowFromIndex(elIndex, thisGameboard));
     }
 
-    [...new Set(shipLine)].length > 1 ? ui.getSquareAtIndex(thisGameboard, clickedIndex).classList.add("no-drop") : ui.getSquareAtIndex(thisGameboard, clickedIndex) !== undefined ? ui.getSquareAtIndex(thisGameboard, clickedIndex).classList.remove("no-drop") : null;
+    if ([...new Set(shipLine)].length > 1) {
+      e.target.classList.add("no-drop");
+      return;
+    }
 
     for (let j = 0; j < indecies.length; j++ ) {
       ui.getSquareAtIndex(thisGameboard, indecies[j]) !== undefined ? ui.getSquareAtIndex(thisGameboard, indecies[j]).classList.add("placement-hover") : null;
