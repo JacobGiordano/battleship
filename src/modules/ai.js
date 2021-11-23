@@ -21,6 +21,24 @@ const ai = {
     return (ai.rows.indexOf(letter) * 10) + ai.columns.indexOf(numbers);
   },
 
+  createRandShipsArray: () => {
+    const shipsArray = [];
+    const allShipCoords = [];
+    const shipNames = ["Patrol Boat", "Destroyer", "Submarine", "Battleship", "Carrier"];
+    const shipPartsCount = [2, 3, 4, 5, 5];
+
+    for (let i = 0; i < shipNames.length; i++) {
+      const randCoords = ai.createRandShipCoords(shipPartsCount[i]);
+      const containsDups =  allShipCoords.some(coord => randCoords.includes(coord));
+      containsDups ? i-- : allShipCoords.push(...randCoords);
+      shipsArray.push({name: shipNames[i], coordsArray: randCoords});
+    }
+
+    console.log(shipsArray);
+
+    return shipsArray;
+  },
+
   createRandShipCoords: (shipLength) => {
     let row = ai.rows[ai.getRandInclusive(0, ai.rows.length - 1)];
     let rowIndex = ai.rows.indexOf(row);
@@ -29,8 +47,6 @@ const ai = {
     let verticalBinary = ai.getRandInclusive(0, 1);
     verticalBinary === 0 ? isVertical = false : isVertical = true;
     const shipCoords = [];
-
-    isVertical ? console.log("Vertical ship") : console.log("Horizontal ship");
 
     if (isVertical && rowIndex + shipLength > 9) { // vertical
       rowIndex = rowIndex - shipLength;
@@ -47,12 +63,7 @@ const ai = {
       }
     }
 
-    // const ships = [
-    //   {
-    //     name: "Patrol Boat",
-    //     coords: ai.XXX()
-    //   }
-    // ]
+    return shipCoords;
   }
 }
 
