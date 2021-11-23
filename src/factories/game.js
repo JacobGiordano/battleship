@@ -1,6 +1,7 @@
 import Player from "./player";
 import Gameboard from "./gameboard";
 import ui from "../modules/ui";
+import ai from "../modules/ai";
 
 const Game = () => {
   const init = () => {
