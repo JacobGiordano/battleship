@@ -1,5 +1,6 @@
 import Ship from "../factories/ship";
 import ui from "../modules/ui";
+import ai from "../modules/ai";
 
 const Gameboard = (player) => {
   let misses = [];
@@ -7,8 +8,8 @@ const Gameboard = (player) => {
   let shotsReceived = [];
   let gameboard;
   player.isComputer() ? gameboard = document.getElementById("computer-board") : gameboard = document.getElementById("player-1-board");
-  const rows = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
-  const columns = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+  const rows = ai.rows;
+  const columns = ai.columns;
   
   // let disableBoardClicks = true;
 
