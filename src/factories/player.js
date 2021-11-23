@@ -33,12 +33,12 @@ const Player = (name, isComputerBool) => {
     } else {
       coords = ai.getRandCoords();
     }
-    console.log(coords);
+    // console.log(coords);
     if (shotsFired.indexOf(coords) > -1) {
-      console.log(`WAIT! shotsFired.indexOf(${coords}) > -1. trying again`);
+      // console.log(`WAIT! shotsFired.indexOf(${coords}) > -1. trying again`);
       computerTurn();
     } else {
-      console.log(`All clear! Firing on ${coords}!`);
+      // console.log(`All clear! Firing on ${coords}!`);
       setTimeout(() => {
         recordShotFired(coords);
         const squareIndex = ai.getIndex(coords);
