@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import Player from "../factories/player";
 import Gameboard from "../factories/gameboard";
 import ai from "../modules/ai";
@@ -14,7 +18,7 @@ test("when one player attacks the other's gameboard, the shot is recorded in the
   const player1 = Player("Player 1", false);
   const player2 = Player("Computer", true);
   const player2Gameboard = Gameboard(player2);
-  player2Gameboard.placeShip("Patrol Boat", ["F1", "F2"]);
+  player2Gameboard.placeShip("Patrol Boat", ["A1", "A2"]);
 
   expect(player1.attackOpponent("A1", player2Gameboard)).toEqual({ shot: "hit", coords: "A1" });
 });
