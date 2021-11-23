@@ -12,8 +12,8 @@ const Gameboard = (player) => {
   
   // let disableBoardClicks = true;
 
-  const placeShip = coordsArray => {
-    const newShip = Ship(coordsArray);
+  const placeShip = (shipName, coordsArray) => {
+    const newShip = Ship(shipName, coordsArray);
     ships.push(newShip);
     return newShip;
   };
@@ -26,11 +26,11 @@ const Gameboard = (player) => {
     return misses;
   }
 
-  const prepopulateShips = (gameboard, coords2DArray) => {
+  const prepopulateShips = (gameboard, shipObjArray) => {
     const thisGameboard = gameboard;
-    coords2DArray.forEach(array => {
-      thisGameboard.placeShip(array);
-      addShipToBoard(array)
+    shipObjArray.forEach(shipObj => {
+      thisGameboard.placeShip(shipObj.name, shipObj.coordsArray);
+      addShipToBoard(shipObj.coordsArray);
     });
   }
 
@@ -80,7 +80,7 @@ const Gameboard = (player) => {
       return;
     }
     shotsReceived.push(coords);
-    const wasHit = getShips().filter(ship => ship.coords.indexOf(coords) > -1)[0];
+    const wasHit = getShips().filter(ship => ship.getCoords().indexOf(coords) > -1)[0];
     // Determines if the attack was a hit or a miss
     // If a hit, record it as a hit for the correct ship
     if (wasHit !== null & wasHit !== undefined) {

@@ -18,11 +18,11 @@ const Game = () => {
     //   ["F8", "G8", "H8", "I8", "J8"]
     // ]);
     computerGameboard.prepopulateShips(computerGameboard, [
-      ["D6"],
-      ["F3", "F4"],
-      ["A3", "B3", "C3"],
-      ["G5", "G6", "G7", "G8"],
-      ["I1", "I2", "I3", "I4", "I5"]
+      {name: "Patrol Boat", coordsArray: ["D6", "D7"]},
+      {name: "Destroyer", coordsArray: ["F3", "F4", "F5"]},
+      {name: "Submarine", coordsArray: ["A3", "B3", "C3"]},
+      {name: "Battleship", coordsArray: ["G5", "G6", "G7", "G8"]},
+      {name: "Carrier", coordsArray: ["I1", "I2", "I3", "I4", "I5"]}
     ]);
     playerGameboard.addSquareEventListeners(document.getElementById("player-1-board"));
     computerGameboard.addSquareEventListeners(document.getElementById("computer-board"));
