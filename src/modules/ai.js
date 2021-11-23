@@ -27,24 +27,26 @@ const ai = {
     let row = ai.rows[ai.getRandInclusive(0, ai.rows.length - 1)];
     let rowIndex = ai.rows.indexOf(row);
     let column = parseInt(ai.columns[ai.getRandInclusive(0, ai.columns.length - 1)]);
-    let verticalBinary = ai.getRandInclusive(0, 1);
     let isVertical;
+    let verticalBinary = ai.getRandInclusive(0, 1);
     verticalBinary === 0 ? isVertical = false : isVertical = true;
+    const shipCoords = [];
 
-    isVertical ? console.log(`isVertical: ${isVertical} | Ship length = ${shipLength} | ${row}${column} — ${ai.rows[parseInt(ai.rows.indexOf(row)) + shipLength]}${column}`) : console.log(`isVertical: ${isVertical} | Ship length = ${shipLength} | ${row}${column} — ${row}${column + shipLength}`);
+    isVertical ? console.log("Vertical ship") : console.log("Horizontal ship");
 
     if (isVertical && rowIndex + shipLength > 9) { // vertical
-      console.log(`Yikes! Trying to find index of ${rowIndex + shipLength} which would be -1!`);
-      row = ai.rows[rowIndex - shipLength];
-      console.log(`isVertical: ${isVertical} | UPDATED TO ${row}${column} — ${ai.rows[parseInt(ai.rows.indexOf(row)) + shipLength]}${column}`)
+      rowIndex = rowIndex - shipLength;
+      row = ai.rows[rowIndex];
     } else if (!isVertical && (column + shipLength > 10)) { // horizontal
-      console.log(`Would have gone up to ${column + shipLength}!`);
       column = 10 - shipLength;
-      console.log(`isVertical: ${isVertical} | UPDATED TO ${row}${column} — ${row}${column + shipLength}`)
     }
     
     for (let i = 0; i < shipLength; i++) {
-
+      if (isVertical) {
+        shipCoords.push(`${ai.rows[rowIndex + i]}${column}`);
+      } else {
+        shipCoords.push(`${row}${column + i}`);
+      }
     }
 
     // const ships = [
