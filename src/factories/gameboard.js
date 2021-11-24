@@ -58,7 +58,10 @@ const Gameboard = (player) => {
     if (result === undefined) return;
     result !== undefined && result.shot === "hit" ? ui.addHitClass(square) : ui.addMissClass(square);
 
-    allShipsSunk() ? alert(`Game over!`) : null;
+    if (allShipsSunk()) {
+      alert(`Game over!`);
+      return;
+    }
 
     player.isComputer() ? player.computerTurn() : null;
     lowerCasedCurrentPlayer === "computer" ? ui.showCurrentPlayer("Player 1") : ui.showCurrentPlayer("Computer");
