@@ -1,3 +1,5 @@
+import {game} from "../factories/game";
+
 const ai = {
   rows: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"],
 
@@ -66,6 +68,29 @@ const ai = {
     }
 
     return shipCoords;
+  },
+
+  playComputerTurn: (forcedCoords) => {
+    let coords = "";
+    let shotsFired = game.computer.getShotsFired();
+
+    if (forcedCoords !== undefined) {
+      coords = forcedCoords;
+      game.computer.recordShotFired(coords);
+    } else {
+      coords = ai.getRandCoords();
+    }
+
+    if (shotsFired.indexOf(coords) > -1) {
+      playComputerTurn();
+    } else {
+      setTimeout(() => {
+        game.computer.recordShotFired(coords);
+        const squareIndex = ai.getIndex(coords);
+        const square = [...document.querySelectorAll(".board-square")][squareIndex];
+        square.click();
+      }, 750);
+    }
   }
 }
 

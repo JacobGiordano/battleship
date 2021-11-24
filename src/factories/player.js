@@ -25,25 +25,7 @@ const Player = (name, isComputerBool) => {
   }
 
   const computerTurn = (forcedCoords) => {
-    let coords = "";
-
-    if (forcedCoords !== undefined) {
-      coords = forcedCoords;
-      recordShotFired(coords);
-    } else {
-      coords = ai.getRandCoords();
-    }
-
-    if (shotsFired.indexOf(coords) > -1) {
-      computerTurn();
-    } else {
-      setTimeout(() => {
-        recordShotFired(coords);
-        const squareIndex = ai.getIndex(coords);
-        const square = [...document.querySelectorAll(".board-square")][squareIndex];
-        square.click();
-      }, 750);
-    }
+    ai.playComputerTurn(forcedCoords);
   }
 
   return {getName, isComputer, attackOpponent, recordShotFired, getShotsFired, computerTurn};
