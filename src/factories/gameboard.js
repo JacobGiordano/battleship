@@ -39,10 +39,8 @@ const Gameboard = (player) => {
     const boardsquares = gameboard.querySelectorAll(".board-square");
 
     coordsArray.forEach(coords => {
-      const splitCoords = coords.split("");
-      const row = rows.indexOf(splitCoords[0]) * 10;
-      const column = columns.indexOf(splitCoords[1]);
-      boardsquares[row + column].classList.add("ship-part");
+      const squareIndex = ai.getIndex(coords);
+      boardsquares[squareIndex].classList.add("ship-part");
     });
   }
 
