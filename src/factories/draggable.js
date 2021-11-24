@@ -76,6 +76,7 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
     let squareIndex;
     let coords = [];
 
+    console.log(draggingEl);
     for (let i = 0; i < draggingEl.children.length; i++) {
       draggingEl.classList.contains("vertical") ? squareIndex = clickedIndex + (i * 10) : squareIndex = clickedIndex + i;
       draggingEl.classList.contains("vertical") ? selectedSquare = ui.getSquareAtIndex(thisGameboardEl, squareIndex) : selectedSquare = ui.getSquareAtIndex(thisGameboardEl, squareIndex);
@@ -86,7 +87,7 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
       coords.push(`${ai.rows[ui.getRowFromIndex(squareIndex)]}${ai.columns[ui.getColumnFromIndex(squareIndex)]}`);
     }
 
-    thisGameboardObj.placeShip("Name", coords);
+    thisGameboardObj.placeShip(draggingEl.dataset.shipName, coords);
     
     draggingEl.remove();
   }
@@ -99,24 +100,27 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
     return containers;
   }
 
-  for(const draggableEl of draggables) {
-    draggableEl.addEventListener("dragstart", dragStart, false);
-    draggableEl.addEventListener("dragend", dragEnd, false);
-  };
+  // const addDragEventListeners = (draggables, containers) => {
+    for (const draggableEl of draggables) {
+      draggableEl.addEventListener("dragstart", dragStart, false);
+      draggableEl.addEventListener("dragend", dragEnd, false);
+    };
+  
+    for (const containerEl of containers) {
+      containerEl.addEventListener("dragover", dragOver, false);
+      containerEl.addEventListener("dragenter", dragEnter, false);
+      containerEl.addEventListener("dragleave", dragLeave, false);
+      containerEl.addEventListener("drop", dragDrop, false);
+    };
+  // }
 
-  for(const containerEl of containers) {
-    containerEl.addEventListener("dragover", dragOver, false);
-    containerEl.addEventListener("dragenter", dragEnter, false);
-    containerEl.addEventListener("dragleave", dragLeave, false);
-    containerEl.addEventListener("drop", dragDrop, false);
-  };
 
   return {returnDraggables, returnContainers};
 }
 
-const draggableEls = Draggable(".ship", "#player-1-board");
-for (let element of draggableEls.returnDraggables()) {
-  element.addEventListener("dblclick", ui.rotateDraggableShip, false);
-};
+// const draggableEls = Draggable(".ship", "#player-1-board");
+// for (let element of draggableEls.returnDraggables()) {
+//   element.addEventListener("dblclick", ui.rotateDraggableShip, false);
+// };
 
 export default Draggable;

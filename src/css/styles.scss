@@ -126,6 +126,10 @@ header {
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
+
+  .new-game {
+    margin-top: 0;
+  }
 }
 
 /* Current Player Section */
@@ -147,23 +151,32 @@ header {
     margin-bottom: 1rem;
   }
 
-  .ship {
-    display: inline-flex;
+  .ships-wrapper {
+    display: block;
 
-    &.vertical {
-      flex-direction: column;
+    .ship {
+      display: inline-flex;
+      margin: 0 .5rem .5rem 0;
+
+      &:last-of-type {
+        margin-right: 0;
+      }
+
+      &.vertical {
+        flex-direction: column;
+      }
+  
+      &.invisible {
+        display: none;
+      }
     }
-
-    &.invisible {
-      display: none;
+  
+    .ship-part {
+      display: inline-block;
+      background: var(--blue-green);
+      width: var(--square-size);
+      height: var(--square-size);
     }
-  }
-
-  .ship-part {
-    display: inline-block;
-    background: var(--blue-green);
-    width: var(--square-size);
-    height: var(--square-size);
   }
 }
 

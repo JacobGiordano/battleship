@@ -1,5 +1,6 @@
 import {game} from "../factories/game";
 import ai from "../modules/ai";
+import Draggable from "../factories/draggable";
 
 const ui = {
   showCurrentPlayer: currentPlayer => {
@@ -96,9 +97,67 @@ const ui = {
     }
 
     document.getElementById("random-player-ships-btn").disabled = true;
+  },
+
+  populateDraggableShips: () => {
+    const fleetWrapper = document.getElementById("ships-wrapper");
+    const docFrag = new DocumentFragment();
+    const ships = [
+      {name: "Patrol Boat", numOfParts: 2}, 
+      {name: "Destroyer", numOfParts: 3}, 
+      {name: "Submarine", numOfParts: 4}, 
+      {name: "Battleship", numOfParts: 5}, 
+      {name: "Carrier", numOfParts: 5}
+    ];
+
+    for (let i = 0; i < ships.length; i++) {
+      const newShip = ui.createDraggableShip(ships[i].name, ships[i].numOfParts);
+      docFrag.appendChild(newShip);
+    }
+
+    fleetWrapper.appendChild(docFrag);
+
+    const draggableEls = Draggable(".ship", "#player-1-board");
+    for (let element of draggableEls.returnDraggables()) {
+      element.addEventListener("dblclick", ui.rotateDraggableShip, false);
+    };
+  },
+
+  createDraggableShip: (shipName, numOfParts) => {
+    const ship = document.createElement("div");
+    ship.classList.add("ship");
+    ship.draggable = true;
+    ship.dataset.shipName = shipName;
+
+    for (let i = 0; i < numOfParts; i++) {
+      const shipPart = document.createElement("div");
+      shipPart.classList.add("ship-part");
+      ship.appendChild(shipPart);
+    }
+
+    return ship;
+  },
+
+  handleNewGameClick: () => {
+    const allShipSquares = document.querySelectorAll(".board-square");
+    // for (let square of allShipSquares) {
+    //   square.classList = "board-square";
+    // }
+    // game.playerGameboard.resetBoard();
+    // game.computerGameboard.resetBoard();
+    // game.computerGameboard.prepopulateShips(game.computerGameboard, ai.createRandShipsArray());
+    // ui.populateDraggableShips();
+    
+    // const draggableEls = Draggable(".ship", "#player-1-board");
+    // for (let element of draggableEls.returnDraggables()) {
+    //   element.addEventListener("dblclick", ui.rotateDraggableShip, false);
+    // };
   }
 }
 
-document.getElementById("random-player-ships-btn").addEventListener("click", ui.handleRandomPlayerShips, false)
+document.getElementById("random-player-ships-btn").addEventListener("click", ui.handleRandomPlayerShips, false);
+document.getElementById("new-game").addEventListener("click", function() {
+  ui.handleNewGameClick();
+}, false);
 
 export default ui;

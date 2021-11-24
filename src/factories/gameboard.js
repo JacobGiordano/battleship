@@ -98,7 +98,13 @@ const Gameboard = (player) => {
     return ships.length === ships.filter(ship => ship.isSunk()).length;
   };
 
-  return {placeShip, getShips, getMisses, prepopulateShips, addSquareEventListeners, receiveAttack, allShipsSunk};
+  const resetBoard = () => {
+    misses = [];
+    ships = [];
+    shotsReceived = [];
+  }
+
+  return {placeShip, getShips, getMisses, prepopulateShips, addSquareEventListeners, receiveAttack, allShipsSunk, resetBoard};
 };
 
 export default Gameboard;
