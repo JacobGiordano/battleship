@@ -1,5 +1,4 @@
 import {game} from "../factories/game";
-console.warn(game);
 import ui from "../modules/ui";
 import ai from "../modules/ai";
 

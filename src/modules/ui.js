@@ -1,3 +1,6 @@
+import {game} from "../factories/game";
+import ai from "../modules/ai";
+
 const ui = {
   showCurrentPlayer: currentPlayer => {
     document.getElementById("current-player").textContent = currentPlayer;
@@ -46,7 +49,47 @@ const ui = {
     for(let el of noDropEls) {
       el.classList.remove("no-drop");
     }
+  },
+
+  disableDraggableShips: () => {
+    const draggableShips = document.getElementById("player-fleet-wrapper").querySelectorAll(".ship");
+
+    for (const ship of draggableShips) {
+      ship.draggable = false;
+    }
+  },
+
+  enableDraggableShips: () => {
+    const draggableShips = document.getElementById("player-fleet-wrapper").querySelectorAll(".ship");
+
+    for (const ship of draggableShips) {
+      ship.draggable = true;
+    }
+  },
+
+  hideDraggableShips: () => {
+    const draggableShips = document.getElementById("player-fleet-wrapper").querySelectorAll(".ship");
+
+    for (const ship of draggableShips) {
+      ship.classList.add("invisible");
+    }
+  },
+
+  showDraggableShips: () => {
+    const draggableShips = document.getElementById("player-fleet-wrapper").querySelectorAll(".ship");
+
+    for (const ship of draggableShips) {
+      ship.classList.remove("invisible");
+    }
+  },
+
+  handleRandomPlayerShips: () => {
+    game.playerGameboard.prepopulateShips(game.playerGameboard, ai.createRandShipsArray());
+    ui.hideDraggableShips();
+    ui.disableDraggableShips();
   }
 }
+
+document.getElementById("random-player-ships-btn").addEventListener("click", ui.handleRandomPlayerShips, false)
 
 export default ui;
