@@ -1,3 +1,5 @@
+import {game} from "../factories/game";
+console.warn(game);
 import ui from "../modules/ui";
 
 const Draggable = (draggablesSelectors, containersSelectors) => {
