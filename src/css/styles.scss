@@ -128,11 +128,6 @@ header {
   z-index: 10;
 }
 
-/* Menu */
-.menu {
-  margin-top: 4rem;
-}
-
 /* Current Player Section */
 .current-player-section {
   margin: .5rem 0 0;
@@ -143,7 +138,14 @@ header {
   display: block;
   background: var(--light-gray);
   width: 400px;
-  height: 200px;
+  margin-top: 4.5rem;
+  padding: 1rem;
+
+  .random-player-ships-btn {
+    display: block;
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
 
   .ship {
     display: inline-flex;
@@ -263,6 +265,10 @@ header {
 }
 
 /* Utility Classes */
+.opacity-0 {
+  opacity: 0;
+}
+
 .hidden {
   display: none;
 }

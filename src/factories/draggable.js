@@ -10,13 +10,13 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
   const dragStart = (e) => {
     e.target.classList.add("dragging");
     setTimeout(() => {
-      e.target.classList.add("invisible");
+      e.target.classList.add("opacity-0");
     }, 0);
   }
 
   const dragEnd = (e) => {
     e.target.classList.remove("dragging");
-    e.target.classList.remove("invisible");
+    e.target.classList.remove("opacity-0");
     const thisGameboard = document.getElementById("player-1-board");
     ui.removeHoverPlacementClass(thisGameboard);
     ui.removeNoDropClass(thisGameboard);

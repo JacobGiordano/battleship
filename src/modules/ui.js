@@ -83,10 +83,19 @@ const ui = {
     }
   },
 
+  hidePlayerShipEls: () => {
+    document.getElementById("player-fleet-wrapper").classList.add("invisible");
+  },
+
   handleRandomPlayerShips: () => {
     game.playerGameboard.prepopulateShips(game.playerGameboard, ai.createRandShipsArray());
-    ui.hideDraggableShips();
-    ui.disableDraggableShips();
+    const draggableShips = document.getElementById("player-fleet-wrapper").querySelectorAll(".ship");
+
+    for (const ship of draggableShips) {
+      ship.remove();
+    }
+
+    document.getElementById("random-player-ships-btn").disabled = true;
   }
 }
 
