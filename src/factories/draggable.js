@@ -87,8 +87,6 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
       coords.push(`${ai.rows[ui.getRowFromIndex(squareIndex)]}${ai.columns[ui.getColumnFromIndex(squareIndex)]}`);
     }
 
-    console.log(coords);
-
     thisGameboardObj.placeShip("Name", coords);
     
     draggingEl.remove();
@@ -122,5 +120,4 @@ for (let element of draggableEls.returnDraggables()) {
   element.addEventListener("dblclick", ui.rotateDraggableShip, false);
 };
 
-// console.log(draggableEls.returnDraggables());
 export default Draggable;

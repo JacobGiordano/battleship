@@ -30,7 +30,6 @@ const ai = {
     for (let i = 0; i < shipNames.length; i++) {
       const randCoords = ai.createRandShipCoords(shipPartsCount[i]);
       const containsDups =  allShipCoords.some(coord => randCoords.includes(coord));
-      console.log(`Ship #${i + 1}: ${containsDups}`);
       if (containsDups) {
         i -= 1;
       } else {
@@ -38,8 +37,6 @@ const ai = {
         shipsArray.push({name: shipNames[i], coordsArray: randCoords});
       }
     }
-
-    console.log(shipsArray);
 
     return shipsArray;
   },

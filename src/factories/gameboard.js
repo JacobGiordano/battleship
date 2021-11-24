@@ -73,9 +73,6 @@ const Gameboard = (player) => {
     // Takes a pair of coordinates and checks if it's a repeat hit
     // If it is, just exit out of the function & return undefined
     if (shotsReceived.indexOf(coords) > -1) {
-      console.log(`shotsReceived.indexOf(${coords}) > -1`);
-      console.log(shotsReceived);
-      console.log(shotsReceived.indexOf(coords));
       return;
     }
     shotsReceived.push(coords);
