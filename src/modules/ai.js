@@ -82,7 +82,7 @@ const ai = {
     }
 
     if (shotsFired.indexOf(coords) > -1) {
-      playComputerTurn();
+      ai.playComputerTurn();
     } else {
       setTimeout(() => {
         game.computer.recordShotFired(coords);
