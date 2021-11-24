@@ -1,6 +1,7 @@
 import {game} from "../factories/game";
 console.warn(game);
 import ui from "../modules/ui";
+import ai from "../modules/ai";
 
 const Draggable = (draggablesSelectors, containersSelectors) => {
   const draggables = document.querySelectorAll(draggablesSelectors);
@@ -69,16 +70,26 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
 
   const dragDrop = (e) => {
     const draggingEl = document.querySelector(".dragging");
-    const thisGameboard = e.target.closest(".gameboard");
-    const clickedIndex = ui.getSquareIndex(e.target, thisGameboard);
+    const thisGameboardEl = e.target.closest(".gameboard");
+    const thisGameboardObj = game.playerGameboard;
+    const clickedIndex = ui.getSquareIndex(e.target, thisGameboardEl);
     let selectedSquare;
+    let squareIndex;
+    let coords = [];
 
     for (let i = 0; i < draggingEl.children.length; i++) {
-      draggingEl.classList.contains("vertical") ? selectedSquare = ui.getSquareAtIndex(thisGameboard, clickedIndex + (i * 10)) : selectedSquare = ui.getSquareAtIndex(thisGameboard, clickedIndex + i);
+      draggingEl.classList.contains("vertical") ? squareIndex = clickedIndex + (i * 10) : squareIndex = clickedIndex + i;
+      draggingEl.classList.contains("vertical") ? selectedSquare = ui.getSquareAtIndex(thisGameboardEl, squareIndex) : selectedSquare = ui.getSquareAtIndex(thisGameboardEl, squareIndex);
+
       selectedSquare.classList.remove("placement-hover");
       selectedSquare.classList.remove("no-drop");
       selectedSquare.classList.add("ship-part");
+      coords.push(`${ai.rows[ui.getRowFromIndex(squareIndex)]}${ai.columns[ui.getColumnFromIndex(squareIndex)]}`);
     }
+
+    console.log(coords);
+
+    thisGameboardObj.placeShip("Name", coords);
     
     draggingEl.remove();
   }

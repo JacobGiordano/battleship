@@ -9,7 +9,6 @@ const Game = () => {
   const playerGameboard = Gameboard(player);
   const computerGameboard = Gameboard(computer);
   ui.showCurrentPlayer(player.getName());
-  playerGameboard.prepopulateShips(playerGameboard, ai.createRandShipsArray());
   computerGameboard.prepopulateShips(computerGameboard, ai.createRandShipsArray());
   playerGameboard.addSquareEventListeners(document.getElementById("player-1-board"));
   computerGameboard.addSquareEventListeners(document.getElementById("computer-board"));
