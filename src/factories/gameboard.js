@@ -1,6 +1,7 @@
 import Ship from "../factories/ship";
 import ui from "../modules/ui";
 import ai from "../modules/ai";
+import {game} from "../factories/game";
 
 const Gameboard = (player) => {
   let misses = [];
@@ -10,8 +11,6 @@ const Gameboard = (player) => {
   player.isComputer() ? gameboard = document.getElementById("computer-board") : gameboard = document.getElementById("player-1-board");
   const rows = ai.rows;
   const columns = ai.columns;
-  
-  // let disableBoardClicks = true;
 
   const placeShip = (shipName, coordsArray) => {
     const newShip = Ship(shipName, coordsArray);
@@ -64,7 +63,7 @@ const Gameboard = (player) => {
     }
 
     player.isComputer() ? player.computerTurn() : null;
-    lowerCasedCurrentPlayer === "computer" ? ui.showCurrentPlayer("Player 1") : ui.showCurrentPlayer("Computer");
+    lowerCasedCurrentPlayer === "computer" ? ui.showCurrentPlayer(game.player.getName()) : ui.showCurrentPlayer("Computer");
   }
 
   const addSquareEventListeners = (gameboardDOMElement) => {
