@@ -118,9 +118,9 @@ const ui = {
     fleetWrapper.appendChild(docFrag);
 
     const draggableEls = Draggable(".ship", "#player-1-board");
-    for (let element of draggableEls.returnDraggables()) {
-      element.addEventListener("dblclick", ui.rotateDraggableShip, false);
-    };
+    // for (let element of draggableEls.returnDraggables()) {
+    //   element.addEventListener("dblclick", ui.rotateDraggableShip, false);
+    // };
   },
 
   createDraggableShip: (shipName, numOfParts) => {
@@ -140,13 +140,13 @@ const ui = {
 
   handleNewGameClick: () => {
     const allShipSquares = document.querySelectorAll(".board-square");
-    // for (let square of allShipSquares) {
-    //   square.classList = "board-square";
-    // }
-    // game.playerGameboard.resetBoard();
-    // game.computerGameboard.resetBoard();
-    // game.computerGameboard.prepopulateShips(game.computerGameboard, ai.createRandShipsArray());
-    // ui.populateDraggableShips();
+    for (let square of allShipSquares) {
+      square.classList = "board-square";
+    }
+    game.playerGameboard.resetBoard();
+    game.computerGameboard.resetBoard();
+    game.computerGameboard.prepopulateShips(game.computerGameboard, ai.createRandShipsArray());
+    ui.populateDraggableShips();
     
     // const draggableEls = Draggable(".ship", "#player-1-board");
     // for (let element of draggableEls.returnDraggables()) {

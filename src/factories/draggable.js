@@ -104,6 +104,7 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
     for (const draggableEl of draggables) {
       draggableEl.addEventListener("dragstart", dragStart, false);
       draggableEl.addEventListener("dragend", dragEnd, false);
+      draggableEl.addEventListener("dblclick", ui.rotateDraggableShip, false);
     };
   
     for (const containerEl of containers) {
