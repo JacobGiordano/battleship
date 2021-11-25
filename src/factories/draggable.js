@@ -3,8 +3,8 @@ import ui from "../modules/ui";
 import ai from "../modules/ai";
 
 const Draggable = (draggablesSelectors, containersSelectors) => {
-  const draggables = document.querySelectorAll(draggablesSelectors);
-  const containers = document.querySelectorAll(containersSelectors);
+  let draggables = document.querySelectorAll(draggablesSelectors);
+  let containers = document.querySelectorAll(containersSelectors);
 
   // Draggables Functions
   const dragStart = (e) => {
@@ -100,11 +100,27 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
     return containers;
   }
 
+  const updateDraggables = (draggablesSelectors) => {
+    draggables = document.querySelectorAll(draggablesSelectors);
+  }
+
+  const updateContainers = (containersSelectors) => {
+    containers = document.querySelectorAll(containersSelectors);
+  }
+
   const addDraggablesEventListeners = (draggables) => {
     for (const draggableEl of draggables) {
       draggableEl.addEventListener("dragstart", dragStart, false);
       draggableEl.addEventListener("dragend", dragEnd, false);
       draggableEl.addEventListener("dblclick", ui.rotateDraggableShip, false);
+    };
+  }
+
+  const removeDraggablesEventListeners = (draggables) => {
+    for (const draggableEl of draggables) {
+      draggableEl.removeEventListener("dragstart", dragStart, false);
+      draggableEl.removeEventListener("dragend", dragEnd, false);
+      draggableEl.removeEventListener("dblclick", ui.rotateDraggableShip, false);
     };
   }
   
@@ -117,8 +133,17 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
     };
   }
 
+  const removeContainersEventListeners = (containers) => {
+    for (const containerEl of containers) {
+      containerEl.removeEventListener("dragover", dragOver, false);
+      containerEl.removeEventListener("dragenter", dragEnter, false);
+      containerEl.removeEventListener("dragleave", dragLeave, false);
+      containerEl.removeEventListener("drop", dragDrop, false);
+    };
+  }
 
-  return {returnDraggables, returnContainers, addDraggablesEventListeners, addContainersEventListeners};
+  return {returnDraggables, returnContainers, updateDraggables,
+    updateContainers, addDraggablesEventListeners, removeDraggablesEventListeners, addContainersEventListeners, removeContainersEventListeners};
 }
 
 // const draggableEls = Draggable(".ship", "#player-1-board");

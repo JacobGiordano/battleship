@@ -89,7 +89,6 @@ const ui = {
   },
 
   handleRandomPlayerShips: () => {
-    game.playerGameboard.prepopulateShips(game.playerGameboard, ai.createRandShipsArray());
     const draggableShips = document.getElementById("player-fleet-wrapper").querySelectorAll(".ship");
     const player1BoardShips = document.getElementById("player-1-board").querySelectorAll(".ship-part");
 
@@ -102,8 +101,6 @@ const ui = {
     for (const ship of draggableShips) {
       ship.remove();
     }
-
-    document.getElementById("random-player-ships-btn").disabled = true;
   },
 
   populateDraggableShips: () => {
@@ -124,9 +121,50 @@ const ui = {
 
     fleetWrapper.appendChild(docFrag);
 
-    const draggableEls = Draggable(".ship", "#player-1-board");
-    draggableEls.addDraggablesEventListeners(draggableEls.returnDraggables());
-    draggableEls.addContainersEventListeners(draggableEls.returnContainers());
+    if (ui.draggableEls === undefined) {
+      ui.draggableEls = Draggable(".ship", "#player-1-board");
+      // ui.draggableEls.removeDraggablesEventListeners(ui.draggableEls.returnDraggables());
+      // ui.draggableEls.removeContainersEventListeners(ui.draggableEls.returnContainers());
+      ui.draggableEls.addDraggablesEventListeners(ui.draggableEls.returnDraggables());
+      ui.draggableEls.addContainersEventListeners(ui.draggableEls.returnContainers());
+    } else {
+      ui.draggableEls.removeDraggablesEventListeners(ui.draggableEls.returnDraggables());
+      ui.draggableEls.removeContainersEventListeners(ui.draggableEls.returnContainers());
+      ui.draggableEls.updateDraggables(".ship");
+      ui.draggableEls.updateContainers("#player-1-board");
+      ui.draggableEls.addDraggablesEventListeners(ui.draggableEls.returnDraggables());
+      ui.draggableEls.addContainersEventListeners(ui.draggableEls.returnContainers());
+    }
+
+    // if (ui.draggableEls !== undefined) {
+    //   // console.log(ui.draggableEls.returnDraggables());
+    //   ui.draggableEls.removeDraggablesEventListeners(ui.draggableEls.returnDraggables());
+    //   ui.draggableEls.removeContainersEventListeners(ui.draggableEls.returnContainers());
+    //   ui.draggableEls.addDraggablesEventListeners(ui.draggableEls.returnDraggables());
+    //   ui.draggableEls.addContainersEventListeners(ui.draggableEls.returnContainers());
+    // } else {
+    //   console.log("DON'T GOT IT! Setting now!…");
+    //   ui.draggableEls = Draggable(".ship", "#player-1-board");
+    //   ui.draggableEls.addDraggablesEventListeners(ui.draggableEls.returnDraggables());
+    //   ui.draggableEls.addContainersEventListeners(ui.draggableEls.returnContainers());
+    // }
+
+    // if (ui.draggableEls !== undefined) {
+    //   console.log("Checked again and found something!")
+    //   // console.log(ui.draggableEls.returnDraggables());
+    //   ui.draggableEls.addDraggablesEventListeners(ui.draggableEls.returnDraggables());
+    //   ui.draggableEls.addContainersEventListeners(ui.draggableEls.returnContainers());
+    // } else {
+    //   console.log("shiiiiiiiiiiiit");
+    // }
+
+    // const draggableEls = Draggable(".ship", "#player-1-board");
+    // game.draggableEls.removeDraggablesEventListeners(game.draggableEls.returnDraggables());
+    // game.draggableEls.removeContainersEventListeners(game.draggableEls.returnContainers());
+    // game.draggableEls.addDraggablesEventListeners(game.draggableEls.returnDraggables());
+    // game.draggableEls.addContainersEventListeners(game.draggableEls.returnContainers());
+
+    // return draggableEls;
   },
 
   createDraggableShip: (shipName, numOfParts) => {
@@ -149,6 +187,8 @@ const ui = {
     for (let square of allShipSquares) {
       square.classList = "board-square";
     }
+
+    console.log(ui.draggableEls);
     game.playerGameboard.resetBoard();
     game.computerGameboard.resetBoard();
     game.computerGameboard.prepopulateShips(game.computerGameboard, ai.createRandShipsArray());
