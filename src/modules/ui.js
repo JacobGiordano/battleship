@@ -118,9 +118,8 @@ const ui = {
     fleetWrapper.appendChild(docFrag);
 
     const draggableEls = Draggable(".ship", "#player-1-board");
-    // for (let element of draggableEls.returnDraggables()) {
-    //   element.addEventListener("dblclick", ui.rotateDraggableShip, false);
-    // };
+    draggableEls.addDraggablesEventListeners(draggableEls.returnDraggables());
+    draggableEls.addContainersEventListeners(draggableEls.returnContainers());
   },
 
   createDraggableShip: (shipName, numOfParts) => {

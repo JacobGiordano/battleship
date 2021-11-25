@@ -100,23 +100,25 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
     return containers;
   }
 
-  // const addDragEventListeners = (draggables, containers) => {
+  const addDraggablesEventListeners = (draggables) => {
     for (const draggableEl of draggables) {
       draggableEl.addEventListener("dragstart", dragStart, false);
       draggableEl.addEventListener("dragend", dragEnd, false);
       draggableEl.addEventListener("dblclick", ui.rotateDraggableShip, false);
     };
+  }
   
+  const addContainersEventListeners = (containers) => {
     for (const containerEl of containers) {
       containerEl.addEventListener("dragover", dragOver, false);
       containerEl.addEventListener("dragenter", dragEnter, false);
       containerEl.addEventListener("dragleave", dragLeave, false);
       containerEl.addEventListener("drop", dragDrop, false);
     };
-  // }
+  }
 
 
-  return {returnDraggables, returnContainers};
+  return {returnDraggables, returnContainers, addDraggablesEventListeners, addContainersEventListeners};
 }
 
 // const draggableEls = Draggable(".ship", "#player-1-board");
