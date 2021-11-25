@@ -157,6 +157,7 @@ header {
     .ship {
       display: inline-flex;
       margin: 0 .5rem .5rem 0;
+      cursor: pointer;
 
       &:last-of-type {
         margin-right: 0;
