@@ -91,6 +91,13 @@ const ui = {
   handleRandomPlayerShips: () => {
     game.playerGameboard.prepopulateShips(game.playerGameboard, ai.createRandShipsArray());
     const draggableShips = document.getElementById("player-fleet-wrapper").querySelectorAll(".ship");
+    const player1BoardShips = document.getElementById("player-1-board").querySelectorAll(".ship-part");
+
+    if (draggableShips.length === 0 || player1BoardShips.length > 0) {
+      return;
+    }
+
+    game.playerGameboard.prepopulateShips(game.playerGameboard, ai.createRandShipsArray());
 
     for (const ship of draggableShips) {
       ship.remove();
