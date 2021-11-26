@@ -164,11 +164,6 @@ const ui = {
     game.computerGameboard.resetBoard();
     game.computerGameboard.prepopulateShips(game.computerGameboard, ai.createRandShipsArray());
     ui.populateDraggableShips();
-    
-    // const draggableEls = Draggable(".ship", "#player-1-board");
-    // for (let element of draggableEls.returnDraggables()) {
-    //   element.addEventListener("dblclick", ui.rotateDraggableShip, false);
-    // };
   }
 }
 

@@ -146,9 +146,4 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
     updateContainers, addDraggablesEventListeners, removeDraggablesEventListeners, addContainersEventListeners, removeContainersEventListeners};
 }
 
-// const draggableEls = Draggable(".ship", "#player-1-board");
-// for (let element of draggableEls.returnDraggables()) {
-//   element.addEventListener("dblclick", ui.rotateDraggableShip, false);
-// };
-
 export default Draggable;
