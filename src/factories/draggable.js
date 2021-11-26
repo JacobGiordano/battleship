@@ -84,6 +84,12 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
       selectedSquare.classList.remove("placement-hover");
       selectedSquare.classList.remove("no-drop");
       selectedSquare.classList.add("ship-part");
+      draggingEl.classList.contains("vertical") ? selectedSquare.classList.add("vertical") : null;
+      if (i == 0) {
+        selectedSquare.classList.add("first");
+      } else if (i == draggingEl.children.length - 1) {
+        selectedSquare.classList.add("last");
+      }
       coords.push(`${ai.rows[ui.getRowFromIndex(squareIndex)]}${ai.columns[ui.getColumnFromIndex(squareIndex)]}`);
     }
 
