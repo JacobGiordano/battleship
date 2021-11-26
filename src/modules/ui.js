@@ -34,7 +34,17 @@ const ui = {
   rotateDraggableShip: e => {
     const clickedShip = e.target.closest(".ship");
     if (document.getElementById("player-fleet-wrapper").contains(clickedShip)) {
-      clickedShip.classList.contains("vertical") ? clickedShip.classList.remove("vertical") : clickedShip.classList.add("vertical");
+      if (clickedShip.classList.contains("vertical")) {
+        clickedShip.classList.remove("vertical");
+        for (let shipPart of clickedShip.children) {
+          shipPart.classList.remove("vertical");
+        }
+      } else {
+        clickedShip.classList.add("vertical");
+        for (let shipPart of clickedShip.children) {
+          shipPart.classList.add("vertical");
+        }
+      }
     }
   },
 
@@ -147,6 +157,11 @@ const ui = {
     for (let i = 0; i < numOfParts; i++) {
       const shipPart = document.createElement("div");
       shipPart.classList.add("ship-part");
+      if (i === 0) {
+        shipPart.classList.add("first");
+      } else if (i === (numOfParts - 1)) {
+        shipPart.classList.add("last");
+      }
       ship.appendChild(shipPart);
     }
 

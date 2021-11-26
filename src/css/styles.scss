@@ -170,14 +170,35 @@ header {
       &.invisible {
         display: none;
       }
-    }
+
+      .ship-part {
+        display: inline-block;
+        background: peru;
+        width: var(--square-size);
+        height: var(--square-size);
   
-    .ship-part {
-      display: inline-block;
-      background: var(--blue-green);
-      width: var(--square-size);
-      height: var(--square-size);
+        &.first {
+          background: magenta;
+        }
+
+        &.last {
+          background: yellow;
+        }
+
+        &.vertical {
+          background: tan;
+          
+          &.first {
+            background: orange;
+          }
+  
+          &.last {
+            background: salmon;
+          }
+        }
+      }
     }
+
   }
 }
 
@@ -235,6 +256,30 @@ header {
       cursor: pointer;
       transition: all ease-in-out .1s;
 
+      &.ship-part {
+        background: peru;
+
+        &.first {
+          background: magenta;
+        }
+
+        &.last {
+          background: yellow;
+        }
+
+        &.vertical {
+          background: tan;
+          
+          &.first {
+            background: orange;
+          }
+  
+          &.last {
+            background: salmon;
+          }
+        }
+      }
+
       &.ship-part:before {
         content: "s";
         display: flex;
@@ -246,15 +291,6 @@ header {
         font-size: 1.5rem;
         font-weight: bold;
         line-height: 1.5;
-      }
-
-      .ship {
-        background: black;
-
-        .ship-part {
-          width: var(--square-size);
-          height: var(--square-size);
-        }
       }
 
       &:hover {
