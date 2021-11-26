@@ -153,23 +153,28 @@ const ui = {
     return ship;
   },
 
+  deleteAllDraggableShips: () => {
+    const draggableShips = document.getElementById("ships-wrapper").querySelectorAll(".ship");
+    for (const ship of draggableShips) {
+      ship.remove();
+    }
+  },
+
   handleNewGameClick: () => {
     const allShipSquares = document.querySelectorAll(".board-square");
     for (let square of allShipSquares) {
       square.classList = "board-square";
     }
 
-    console.log(ui.draggableEls);
     game.playerGameboard.resetBoard();
     game.computerGameboard.resetBoard();
     game.computerGameboard.prepopulateShips(game.computerGameboard, ai.createRandShipsArray());
+    ui.deleteAllDraggableShips();
     ui.populateDraggableShips();
   }
 }
 
 document.getElementById("random-player-ships-btn").addEventListener("click", ui.handleRandomPlayerShips, false);
-document.getElementById("new-game").addEventListener("click", function() {
-  ui.handleNewGameClick();
-}, false);
+document.getElementById("new-game").addEventListener("click", ui.handleNewGameClick, false);
 
 export default ui;
