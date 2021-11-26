@@ -30,16 +30,22 @@ const Gameboard = (player) => {
     const thisGameboard = gameboard;
     shipObjArray.forEach(shipObj => {
       thisGameboard.placeShip(shipObj.name, shipObj.coordsArray);
-      addShipToBoard(shipObj.coordsArray);
+      addShipToBoard(shipObj);
     });
   }
 
-  const addShipToBoard = (coordsArray) => {
+  const addShipToBoard = (shipObj) => {
     const boardsquares = gameboard.querySelectorAll(".board-square");
-
-    coordsArray.forEach(coords => {
+    const coordsArray = shipObj.coordsArray;
+    coordsArray.forEach((coords, index, coordsArray) => {
       const squareIndex = ai.getIndex(coords);
       boardsquares[squareIndex].classList.add("ship-part");
+      shipObj.isVertical? boardsquares[squareIndex].classList.add("vertical") : null;
+      if (index === 0) {
+        boardsquares[squareIndex].classList.add("first");
+      } else if (index === coordsArray.length - 1) {
+        boardsquares[squareIndex].classList.add("last");
+      }
     });
   }
 

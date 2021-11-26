@@ -30,13 +30,15 @@ const ai = {
     const shipPartsCount = [2, 3, 4, 5, 5];
 
     for (let i = 0; i < shipNames.length; i++) {
-      const randCoords = ai.createRandShipCoords(shipPartsCount[i]);
+      const randShipInfo = ai.createRandShipCoords(shipPartsCount[i]);
+      const isVertical = randShipInfo.isVertical;
+      const randCoords = randShipInfo.shipCoords;
       const containsDups =  allShipCoords.some(coord => randCoords.includes(coord));
       if (containsDups) {
         i -= 1;
       } else {
         allShipCoords.push(...randCoords);
-        shipsArray.push({name: shipNames[i], coordsArray: randCoords});
+        shipsArray.push({name: shipNames[i], isVertical, coordsArray: randCoords});
       }
     }
 
@@ -67,7 +69,7 @@ const ai = {
       }
     }
 
-    return shipCoords;
+    return {"isVertical": isVertical, "shipCoords": shipCoords};
   },
 
   playComputerTurn: (forcedCoords) => {
