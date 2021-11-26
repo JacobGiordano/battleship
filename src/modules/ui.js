@@ -120,11 +120,12 @@ const ui = {
     }
 
     fleetWrapper.appendChild(docFrag);
+    ui.handleNewShipEventListeners();
+  },
 
+  handleNewShipEventListeners: () => {
     if (ui.draggableEls === undefined) {
       ui.draggableEls = Draggable(".ship", "#player-1-board");
-      // ui.draggableEls.removeDraggablesEventListeners(ui.draggableEls.returnDraggables());
-      // ui.draggableEls.removeContainersEventListeners(ui.draggableEls.returnContainers());
       ui.draggableEls.addDraggablesEventListeners(ui.draggableEls.returnDraggables());
       ui.draggableEls.addContainersEventListeners(ui.draggableEls.returnContainers());
     } else {
@@ -135,36 +136,6 @@ const ui = {
       ui.draggableEls.addDraggablesEventListeners(ui.draggableEls.returnDraggables());
       ui.draggableEls.addContainersEventListeners(ui.draggableEls.returnContainers());
     }
-
-    // if (ui.draggableEls !== undefined) {
-    //   // console.log(ui.draggableEls.returnDraggables());
-    //   ui.draggableEls.removeDraggablesEventListeners(ui.draggableEls.returnDraggables());
-    //   ui.draggableEls.removeContainersEventListeners(ui.draggableEls.returnContainers());
-    //   ui.draggableEls.addDraggablesEventListeners(ui.draggableEls.returnDraggables());
-    //   ui.draggableEls.addContainersEventListeners(ui.draggableEls.returnContainers());
-    // } else {
-    //   console.log("DON'T GOT IT! Setting now!…");
-    //   ui.draggableEls = Draggable(".ship", "#player-1-board");
-    //   ui.draggableEls.addDraggablesEventListeners(ui.draggableEls.returnDraggables());
-    //   ui.draggableEls.addContainersEventListeners(ui.draggableEls.returnContainers());
-    // }
-
-    // if (ui.draggableEls !== undefined) {
-    //   console.log("Checked again and found something!")
-    //   // console.log(ui.draggableEls.returnDraggables());
-    //   ui.draggableEls.addDraggablesEventListeners(ui.draggableEls.returnDraggables());
-    //   ui.draggableEls.addContainersEventListeners(ui.draggableEls.returnContainers());
-    // } else {
-    //   console.log("shiiiiiiiiiiiit");
-    // }
-
-    // const draggableEls = Draggable(".ship", "#player-1-board");
-    // game.draggableEls.removeDraggablesEventListeners(game.draggableEls.returnDraggables());
-    // game.draggableEls.removeContainersEventListeners(game.draggableEls.returnContainers());
-    // game.draggableEls.addDraggablesEventListeners(game.draggableEls.returnDraggables());
-    // game.draggableEls.addContainersEventListeners(game.draggableEls.returnContainers());
-
-    // return draggableEls;
   },
 
   createDraggableShip: (shipName, numOfParts) => {
