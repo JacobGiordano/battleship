@@ -41,6 +41,7 @@ const Gameboard = (player) => {
       const squareIndex = ai.getIndex(coords);
       boardsquares[squareIndex].classList.add("ship-part");
       shipObj.isVertical? boardsquares[squareIndex].classList.add("vertical") : null;
+      boardsquares[squareIndex].classList.add(shipObj.name.toLowerCase().split(" ").join("-"));
       if (index === 0) {
         boardsquares[squareIndex].classList.add("first");
       } else if (index === coordsArray.length - 1) {

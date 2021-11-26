@@ -250,7 +250,7 @@ header {
     gap: 1px;
   
     .board-square {
-      background: blue;
+      background: var(--dark-blue-green);
       width: 100%;
       height: 100%;
       cursor: pointer;

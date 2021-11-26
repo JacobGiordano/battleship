@@ -150,13 +150,15 @@ const ui = {
 
   createDraggableShip: (shipName, numOfParts) => {
     const ship = document.createElement("div");
+    const shipNameClass = shipName.toLowerCase().split(" ").join("-");
     ship.classList.add("ship");
     ship.draggable = true;
-    ship.dataset.shipName = shipName;
+    ship.classList.add(shipNameClass);
 
     for (let i = 0; i < numOfParts; i++) {
       const shipPart = document.createElement("div");
       shipPart.classList.add("ship-part");
+      shipPart.classList.add(shipNameClass);
       if (i === 0) {
         shipPart.classList.add("first");
       } else if (i === (numOfParts - 1)) {

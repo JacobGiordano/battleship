@@ -85,6 +85,26 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
       selectedSquare.classList.remove("no-drop");
       selectedSquare.classList.add("ship-part");
       draggingEl.classList.contains("vertical") ? selectedSquare.classList.add("vertical") : null;
+
+      switch(true){
+        case draggingEl.classList.contains("partol-boat"):
+          selectedSquare.classList.add("partol-boat");
+          break;
+        case draggingEl.classList.contains("destroyer"):
+          selectedSquare.classList.add("destroyer");
+          break;
+        case draggingEl.classList.contains("submarine"):
+          selectedSquare.classList.add("submarine");
+          break;
+        case draggingEl.classList.contains("battleship"):
+          selectedSquare.classList.add("battleship");
+          break;
+        case draggingEl.classList.contains("carrier"):
+          selectedSquare.classList.add("carrier");
+          break;      
+      }
+
+
       if (i == 0) {
         selectedSquare.classList.add("first");
       } else if (i == draggingEl.children.length - 1) {
