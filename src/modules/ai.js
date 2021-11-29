@@ -27,7 +27,7 @@ const ai = {
     const shipsArray = [];
     const allShipCoords = [];
     const shipNames = ["Patrol Boat", "Destroyer", "Submarine", "Battleship", "Carrier"];
-    const shipPartsCount = [2, 3, 4, 5, 5];
+    const shipPartsCount = [2, 3, 3, 4, 5];
 
     for (let i = 0; i < shipNames.length; i++) {
       const randShipInfo = ai.createRandShipCoords(shipPartsCount[i]);

@@ -119,8 +119,8 @@ const ui = {
     const ships = [
       {name: "Patrol Boat", numOfParts: 2}, 
       {name: "Destroyer", numOfParts: 3}, 
-      {name: "Submarine", numOfParts: 4}, 
-      {name: "Battleship", numOfParts: 5}, 
+      {name: "Submarine", numOfParts: 3}, 
+      {name: "Battleship", numOfParts: 4}, 
       {name: "Carrier", numOfParts: 5}
     ];
 
