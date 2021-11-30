@@ -37,10 +37,11 @@ const Gameboard = (player) => {
   const addShipToBoard = (shipObj) => {
     const boardsquares = gameboard.querySelectorAll(".board-square");
     const coordsArray = shipObj.coordsArray;
-    coordsArray.forEach((coords, index, coordsArray) => {
+    coordsArray.forEach((coords, index) => {
       const squareIndex = ai.getIndex(coords);
       boardsquares[squareIndex].classList.add("ship-part");
       shipObj.isVertical? boardsquares[squareIndex].classList.add("vertical") : null;
+      if (player.isComputer()) return;
       boardsquares[squareIndex].classList.add(`${shipObj.name.toLowerCase().split(" ").join("-")}-${index + 1}`);
     });
   }
