@@ -60,6 +60,14 @@ const Gameboard = (player) => {
     if (result === undefined) return;
     result !== undefined && result.shot === "hit" ? ui.addHitClass(square) : ui.addMissClass(square);
 
+    if (result.hitShip !== undefined && result.hitShip.isSunk()) {
+      if (!player.isComputer()) {
+        console.log(`AH! The enemy has sunken our ${result.hitShip.getName().toLowerCase()}!`);
+      } else {
+        console.log(`Direct hit! The enemy ${result.hitShip.getName().toLowerCase()} has been sunk!`);
+      }
+    }
+
     if (allShipsSunk()) {
       alert(`Game over!`);
       return;
@@ -86,7 +94,7 @@ const Gameboard = (player) => {
     // If a hit, record it as a hit for the correct ship
     if (wasHit !== null & wasHit !== undefined) {
       wasHit.hit(coords); // 1.
-      return {shot: "hit", coords: coords};
+      return {shot: "hit", coords: coords, hitShip: wasHit};
       // 2. Trigger showing a *hit* on the gameboard
     } else {
       // If a miss, record it in the misses array of the Gameboard
