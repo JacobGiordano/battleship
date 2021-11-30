@@ -299,6 +299,7 @@ header {
 
   .gameboard {
     display: grid;
+    background: var(--light-blue-green);
     width: 100%;
     max-width: var(--max-page-width);
     max-height: 700px;
