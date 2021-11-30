@@ -357,7 +357,6 @@ header {
   
         &.hit:before {
           content: "";
-          background: hsla(0, 100%, 50%, 0.5);
           background: url("/src/images/explosion-sprite_000.png"), transparent;
           background-repeat: no-repeat;
           display: flex;
@@ -368,8 +367,26 @@ header {
           height: 100%;
           left: 0;
           top: 0;
-          -webkit-animation: explosion .75s linear .1s;
-                  animation: explosion .75s linear .1s;
+          -webkit-animation: explosion-smoke-animation .75s linear .1s;
+                  animation: explosion-smoke-animation .75s linear .1s;
+          -webkit-animation-timing-function: steps(8);
+                  animation-timing-function: steps(8);
+        }
+
+        &.smoke:before {
+          content: "";
+          background: url("/src/images/smoke-sprite_000.png"), transparent;
+          background-repeat: no-repeat;
+          display: flex;
+          position: absolute;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+          left: 0;
+          top: 0;
+          -webkit-animation: explosion-smoke-animation 1.5s infinite .75s;
+                  animation: explosion-smoke-animation 1.5s infinite .75s;
           -webkit-animation-timing-function: steps(8);
                   animation-timing-function: steps(8);
         }
@@ -391,13 +408,12 @@ header {
       }
 
     }
-
   }
 }
 
 /* Animations */
 
-@-webkit-keyframes explosion {
+@-webkit-keyframes explosion-smoke-animation {
   from { 
     background-position: 0px;
   }
@@ -406,7 +422,7 @@ header {
   }
 }
 
-@keyframes explosion {
+@keyframes explosion-smoke-animation {
   from { 
     background-position: 0px;
   }

@@ -27,6 +27,7 @@ const ui = {
     squareEl.classList.add("hit");
     setTimeout(() => {
       squareEl.classList.remove("hit");
+      squareEl.classList.add("smoke");
     }, 800);
   },
 
