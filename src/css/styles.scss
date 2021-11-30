@@ -312,12 +312,11 @@ header {
       background: var(--dark-blue-green);
       width: 100%;
       height: 100%;
-      cursor: pointer;
+      cursor: crosshair;
 
       &.ship-part {
         background-color: var(--dark-blue-green);
         transition: none;
-        cursor: pointer;
 
         @for $i from 1 through 2 {
           &.patrol-boat-#{$i} {
@@ -395,7 +394,6 @@ header {
       &:hover {
         background: lightblue;
         transition: all ease-in-out .1s;
-        cursor: pointer;
       }
 
       &.placement-hover {
