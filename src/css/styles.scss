@@ -402,7 +402,7 @@ header {
       }
 
       &.miss {
-        background: green;
+        background: var(--dark-blue);
       }
 
     }
