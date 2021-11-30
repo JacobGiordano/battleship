@@ -25,6 +25,9 @@ const ui = {
 
   addHitClass: squareEl => {
     squareEl.classList.add("hit");
+    setTimeout(() => {
+      squareEl.classList.remove("hit");
+    }, 800);
   },
 
   addMissClass: squareEl => {
@@ -159,11 +162,6 @@ const ui = {
       const shipPart = document.createElement("div");
       shipPart.classList.add("ship-part");
       shipPart.classList.add(shipNameClass);
-      if (i === 0) {
-        shipPart.classList.add("first");
-      } else if (i === (numOfParts - 1)) {
-        shipPart.classList.add("last");
-      }
       ship.appendChild(shipPart);
     }
 
