@@ -9,7 +9,8 @@
   --light-blue: #2397df;
   --light-blue-green: #00a7b9;
   --blue-green: #008898;
-  --dark-blue-green: #006680;
+  --med-blue-green: #006680;
+  --dark-blue-green: #0e507b;
   --med-blue: #0d4192;
   --dark-blue: #19294e;
   --white: #ffffff;
@@ -177,24 +178,80 @@ header {
         width: var(--square-size);
         height: var(--square-size);
   
-        &.first {
-          background: magenta;
+        @for $i from 1 through 2 {
+          &.patrol-boat:nth-child(#{$i}) {
+            background: url("/src/images/ship-parts/patrol-boat-#{$i}.png");
+            background-repeat: no-repeat;
+            margin-right: -1px;
+            margin-bottom: -1px;
+          }
         }
 
-        &.last {
-          background: yellow;
+        &.patrol-boat:last-of-type {
+          margin-right: 0;
+          margin-bottom: 0;
         }
+
+        @for $i from 1 through 3 {
+          &.destroyer:nth-child(#{$i}) {
+            background: url("/src/images/ship-parts/destroyer-#{$i}.png");
+            background-repeat: no-repeat;
+            margin-right: -1px;
+            margin-bottom: -1px;
+          }
+        }
+
+        &.destroyer:last-of-type {
+          margin-right: 0;
+          margin-bottom: 0;
+        }
+
+        @for $i from 1 through 3 {
+          &.submarine:nth-child(#{$i}) {
+            background: url("/src/images/ship-parts/submarine-#{$i}.png");
+            background-repeat: no-repeat;
+            margin-right: -1px;
+            margin-bottom: -1px;
+          }
+        }
+
+        &.submarine:last-of-type {
+          margin-right: 0;
+          margin-bottom: 0;
+        }
+
+        @for $i from 1 through 4 {
+          &.battleship:nth-child(#{$i}) {
+            background: url("/src/images/ship-parts/battleship-#{$i}.png");
+            background-repeat: no-repeat;
+            margin-right: -1px;
+            margin-bottom: -1px;
+          }
+        }
+
+        &.battleship:last-of-type {
+          margin-right: 0;
+          margin-bottom: 0;
+        }
+
+        @for $i from 1 through 5 {
+          &.carrier:nth-child(#{$i}) {
+            background: url("/src/images/ship-parts/carrier-#{$i}.png");
+            background-repeat: no-repeat;
+            margin-right: -1px;
+            margin-bottom: -1px;
+          }
+        }
+
+        &.carrier:last-of-type {
+          margin-right: 0;
+          margin-bottom: 0;
+        }
+
 
         &.vertical {
-          background: tan;
-          
-          &.first {
-            background: orange;
-          }
-  
-          &.last {
-            background: salmon;
-          }
+          transform: rotate(90deg);
+          transform-origin: center;
         }
       }
     }
@@ -250,67 +307,111 @@ header {
     gap: 1px;
   
     .board-square {
+      display: block;
+      position: relative;
       background: var(--dark-blue-green);
       width: 100%;
       height: 100%;
       cursor: pointer;
-      transition: all ease-in-out .1s;
 
       &.ship-part {
-        background: peru;
+        background-color: var(--dark-blue-green);
+        transition: none;
+        cursor: pointer;
 
-        &.first {
-          background: magenta;
+        @for $i from 1 through 2 {
+          &.patrol-boat-#{$i} {
+            background: url("/src/images/ship-parts/patrol-boat-#{$i}.png"), var(--dark-blue-green);
+            background-repeat: no-repeat;
+          }
         }
-
-        &.last {
-          background: yellow;
+        @for $i from 1 through 3 {
+          &.destroyer-#{$i} {
+            background: url("/src/images/ship-parts/destroyer-#{$i}.png"), var(--dark-blue-green);
+            background-repeat: no-repeat;
+          }
+        }
+        @for $i from 1 through 3 {
+          &.submarine-#{$i} {
+            background: url("/src/images/ship-parts/submarine-#{$i}.png"), var(--dark-blue-green);
+            background-repeat: no-repeat;
+          }
+        }
+        @for $i from 1 through 4 {
+          &.battleship-#{$i} {
+            background: url("/src/images/ship-parts/battleship-#{$i}.png"), var(--dark-blue-green);
+            background-repeat: no-repeat;
+          }
+        }
+        @for $i from 1 through 5 {
+          &.carrier-#{$i} {
+            background: url("/src/images/ship-parts/carrier-#{$i}.png"), var(--dark-blue-green);
+            background-repeat: no-repeat;
+          }
         }
 
         &.vertical {
-          background: tan;
-          
-          &.first {
-            background: orange;
-          }
-  
-          &.last {
-            background: salmon;
-          }
+          transform: rotate(90deg);
+          transform-origin: center;
         }
-      }
-
-      &.ship-part:before {
-        content: "s";
-        display: flex;
-        color: white;
-        width: 100%;
-        height: 90%;
-        justify-content: center;
-        align-items: center;
-        font-size: 1.5rem;
-        font-weight: bold;
-        line-height: 1.5;
+  
+        &.hit:before {
+          content: "";
+          background: hsla(0, 100%, 50%, 0.5);
+          background: url("/src/images/explosion-sprite_000.png"), transparent;
+          background-repeat: no-repeat;
+          display: flex;
+          position: absolute;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+          left: 0;
+          top: 0;
+          -webkit-animation: explosion .75s linear .1s;
+                  animation: explosion .75s linear .1s;
+          -webkit-animation-timing-function: steps(8);
+                  animation-timing-function: steps(8);
+        }
       }
 
       &:hover {
         background: lightblue;
+        transition: all ease-in-out .1s;
+        cursor: pointer;
       }
 
       &.placement-hover {
         background: white;
+        transition: all ease-in-out .1s;
       }
 
       &.miss {
         background: green;
       }
 
-      &.hit {
-        background: red;
-      }
-
     }
 
+  }
+}
+
+/* Animations */
+
+@-webkit-keyframes explosion {
+  from { 
+    background-position: 0px;
+  }
+  to { 
+    background-position: -256px;
+  }
+}
+
+@keyframes explosion {
+  from { 
+    background-position: 0px;
+  }
+  to { 
+    background-position: -256px;
   }
 }
 
