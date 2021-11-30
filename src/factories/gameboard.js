@@ -1,5 +1,7 @@
 import Ship from "../factories/ship";
 import ui from "../modules/ui";
+import ai from "../modules/ai";
+import {game} from "../factories/game";
 
 const Gameboard = (player) => {
   let misses = [];
@@ -7,13 +9,11 @@ const Gameboard = (player) => {
   let shotsReceived = [];
   let gameboard;
   player.isComputer() ? gameboard = document.getElementById("computer-board") : gameboard = document.getElementById("player-1-board");
-  const rows = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
-  const columns = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
-  
-  // let disableBoardClicks = true;
+  const rows = ai.rows;
+  const columns = ai.columns;
 
-  const placeShip = coordsArray => {
-    const newShip = Ship(coordsArray);
+  const placeShip = (shipName, coordsArray) => {
+    const newShip = Ship(shipName, coordsArray);
     ships.push(newShip);
     return newShip;
   };
@@ -26,22 +26,27 @@ const Gameboard = (player) => {
     return misses;
   }
 
-  const prepopulateShips = (gameboard, coords2DArray) => {
+  const prepopulateShips = (gameboard, shipObjArray) => {
     const thisGameboard = gameboard;
-    coords2DArray.forEach(array => {
-      thisGameboard.placeShip(array);
-      addShipToBoard(array)
+    shipObjArray.forEach(shipObj => {
+      thisGameboard.placeShip(shipObj.name, shipObj.coordsArray);
+      addShipToBoard(shipObj);
     });
   }
 
-  const addShipToBoard = (coordsArray) => {
+  const addShipToBoard = (shipObj) => {
     const boardsquares = gameboard.querySelectorAll(".board-square");
-
-    coordsArray.forEach(coords => {
-      const splitCoords = coords.split("");
-      const row = rows.indexOf(splitCoords[0]) * 10;
-      const column = columns.indexOf(splitCoords[1]);
-      boardsquares[row + column].classList.add("ship-part");
+    const coordsArray = shipObj.coordsArray;
+    coordsArray.forEach((coords, index, coordsArray) => {
+      const squareIndex = ai.getIndex(coords);
+      boardsquares[squareIndex].classList.add("ship-part");
+      shipObj.isVertical? boardsquares[squareIndex].classList.add("vertical") : null;
+      boardsquares[squareIndex].classList.add(shipObj.name.toLowerCase().split(" ").join("-"));
+      if (index === 0) {
+        boardsquares[squareIndex].classList.add("first");
+      } else if (index === coordsArray.length - 1) {
+        boardsquares[squareIndex].classList.add("last");
+      }
     });
   }
 
@@ -59,10 +64,13 @@ const Gameboard = (player) => {
     if (result === undefined) return;
     result !== undefined && result.shot === "hit" ? ui.addHitClass(square) : ui.addMissClass(square);
 
-    allShipsSunk() ? alert(`Game over!`) : null;
+    if (allShipsSunk()) {
+      alert(`Game over!`);
+      return;
+    }
 
     player.isComputer() ? player.computerTurn() : null;
-    lowerCasedCurrentPlayer === "computer" ? ui.showCurrentPlayer("Player 1") : ui.showCurrentPlayer("Computer");
+    lowerCasedCurrentPlayer === "computer" ? ui.showCurrentPlayer(game.player.getName()) : ui.showCurrentPlayer("Computer");
   }
 
   const addSquareEventListeners = (gameboardDOMElement) => {
@@ -74,13 +82,10 @@ const Gameboard = (player) => {
     // Takes a pair of coordinates and checks if it's a repeat hit
     // If it is, just exit out of the function & return undefined
     if (shotsReceived.indexOf(coords) > -1) {
-      console.log(`shotsReceived.indexOf(${coords}) > -1`);
-      console.log(shotsReceived);
-      console.log(shotsReceived.indexOf(coords));
       return;
     }
     shotsReceived.push(coords);
-    const wasHit = getShips().filter(ship => ship.coords.indexOf(coords) > -1)[0];
+    const wasHit = getShips().filter(ship => ship.getCoords().indexOf(coords) > -1)[0];
     // Determines if the attack was a hit or a miss
     // If a hit, record it as a hit for the correct ship
     if (wasHit !== null & wasHit !== undefined) {
@@ -100,7 +105,13 @@ const Gameboard = (player) => {
     return ships.length === ships.filter(ship => ship.isSunk()).length;
   };
 
-  return {placeShip, getShips, getMisses, prepopulateShips, addSquareEventListeners, receiveAttack, allShipsSunk};
+  const resetBoard = () => {
+    misses = [];
+    ships = [];
+    shotsReceived = [];
+  }
+
+  return {placeShip, getShips, getMisses, prepopulateShips, addSquareEventListeners, receiveAttack, allShipsSunk, resetBoard};
 };
 
 export default Gameboard;

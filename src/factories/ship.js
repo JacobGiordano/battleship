@@ -1,5 +1,7 @@
-const Ship = (coords) => {
+const Ship = (shipName, coords) => {
   let hits = [];
+  
+  const getName = () => shipName;
   
   const getLength = () => coords.length;
   
@@ -14,7 +16,7 @@ const Ship = (coords) => {
     return hits;
   };
 
-  return {coords, getLength, getCoords, getHits, isSunk, hit};
+  return {getName, getLength, getCoords, getHits, isSunk, hit};
 }
 
 export default Ship;
