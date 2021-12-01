@@ -1,23 +1,39 @@
 @import "./node_modules/include-media/dist/_include-media.scss";
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 :root {
-  --very-light-gray: #e5e5e5;
-  --light-gray: #cecece;
-  --med-light-gray: #b5b4b4;
-  --dark-gray: #424242;
-  --blue: #06649e;
-  --light-blue: #2397df;
-  --light-blue-green: #00a7b9;
-  --blue-green: #008898;
-  --med-blue-green: #006680;
+  --light-gray: #b6c6d0;
+  --med-light-gray: #7f8f99;
+  --something: #51616b;
+  --something: #364650;
+  --something: #1a2832;
+  --dark-gray: #10191f;
+  --something: #2b2a39;
+  --something: #130122;
+  --something: #260033;
+  --something: #54002f;
+  --something: #99093c;
+  --something: #cd404b;
+  --something: #ff7a5f;
+  --something: #fbaf5d;
+  --something: #efc759;
+  --something: #ffe28d;
+  --something: #8dff9c;
+  --something: #5df994;
+  --something: #01e1c9;
+  --something: #00c4bc;
+  --light-blue-green: #30a0ac;
   --dark-blue-green: #0e507b;
-  --med-blue: #0d4192;
-  --dark-blue: #19294e;
+  --dark-blue: #191042;
+  --black: #000000;
   --white: #ffffff;
-  --border-radius: .25rem;
+  --semi-transparent-white: rgba(255, 255, 255, 0.5);
 
+  --border-radius: .25rem;
   --max-page-width: 820px;
   --square-size: 2.05rem;
+  --border-width: 2px;
+  --neg-border-width: -2px;
 }
 
 * {
@@ -41,6 +57,10 @@ body {
   padding: 0 1rem;
 }
 
+body, button, .btn {
+  font-family: 'Press Start 2P', sans-serif;
+}
+
 main {
   display: flex;
   width: 100%;
@@ -56,7 +76,6 @@ main {
 }
 
 button, input, textarea {
-  border-radius: var(--border-radius);
   height: 1.75rem;
 }
 
@@ -65,38 +84,61 @@ input, textarea {
 }
 
 button, .btn {
+  box-shadow:
+  0 var(--neg-border-width) 0 0 var(--dark-blue), // top border
+  var(--border-width) 0 0 0 var(--dark-blue), // right border
+  0 var(--border-width) 0 0 var(--dark-blue), // bottom border
+  var(--neg-border-width) 0 0 0 var(--dark-blue); // left border
+}
+
+button, .btn {
   display: inline-block;
-  background: var(--dark-blue);
-  border: 1px solid var(--dark-blue);
+  background: linear-gradient(var(--light-blue-green) 0%, var(--light-blue-green) 8%, var(--dark-blue-green) 9%);
+  border: 1px solid var(--dark-blue-green);
   color: var(--white);
   padding: .25rem .5rem;
   margin-top: .5rem;
   text-align: center;
   cursor: pointer;
-  transition: background ease-in-out .1s;
+
+  &:hover {
+    background: linear-gradient(var(--light-blue-green) 0%, var(--light-blue-green) 8%, var(--dark-blue-green) 9%);
+    border-color: var(--dark-blue);
+    transform: translateY(var(--neg-border-width));
+    box-shadow:
+    0 var(--neg-border-width) 0 0 var(--dark-blue), // top border
+    var(--border-width) 0 0 0 var(--dark-blue), // right border
+    0 calc(var(--border-width) * 2) 0 0 var(--dark-blue), // bottom border
+    var(--neg-border-width) 0 0 0 var(--dark-blue), // left border
+    var(--border-width) var(--border-width) 0 0 var(--dark-blue), // extra right border
+    var(--neg-border-width) var(--border-width) 0 0 var(--dark-blue); // extra left border
+  }
+
+  &:active {
+    background: var(--dark-blue-green);
+    transform: translateY(0);
+    box-shadow:
+    0 var(--neg-border-width) 0 0 var(--dark-blue), // top border
+    var(--border-width) 0 0 0 var(--dark-blue), // right border
+    0 var(--border-width) 0 0 var(--dark-blue), // bottom border
+    var(--neg-border-width) 0 0 0 var(--dark-blue); // left border
+  }
 }
 
-button:hover, .btn:hover {
-  border-color: var(--blue-green);
-  background: var(--blue-green);
-}
-
-button.secondary, .btn.secondary {
-  background: var(--white);
-  border: 1px solid var(--dark-blue);
-  color: var(--dark-blue);
-}
-
-button.secondary:hover, .btn.secondary:hover {
-  border-color: var(--dark-blue);
-  background: var(--dark-blue);
-  color: var(--white);
-}
-
-button.secondary:active, .btn.secondary:active {
-  border-color: var(--blue-green);
-  background: var(--blue-green);
-  color: var(--white);
+.box {
+  box-shadow:
+  0 var(--neg-border-width) 0 0 var(--dark-blue), // top border
+  var(--border-width) 0 0 0 var(--dark-blue), // right border
+  0 var(--border-width) 0 0 var(--dark-blue), // bottom border
+  var(--neg-border-width) 0 0 0 var(--dark-blue); // left border
+  
+  &.thick {
+    box-shadow:
+    0 calc(var(--neg-border-width) * 2) 0 0 var(--dark-blue), // top border
+    calc(var(--border-width) * 2) 0 0 0 var(--dark-blue), // right border
+    0 calc(var(--border-width) * 2) 0 0 var(--dark-blue), // bottom border
+    calc(var(--neg-border-width) * 2) 0 0 0 var(--dark-blue); // left border
+  }
 }
 
 input {
@@ -112,7 +154,7 @@ header {
   display: flex;
   position: fixed;
   background: var(--white);
-  border-bottom: 1px solid var(--dark-blue-green);
+  border-bottom: 2px solid var(--dark-blue-green);
   width: 100%;
   max-width: var(--max-page-width);
   margin: 0 auto;
