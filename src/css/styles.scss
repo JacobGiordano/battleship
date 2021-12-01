@@ -25,6 +25,7 @@
   --light-blue-green: #30a0ac;
   --dark-blue-green: #0e507b;
   --dark-blue: #191042;
+  --almost-black: #212529;
   --black: #000000;
   --white: #ffffff;
   --semi-transparent-white: rgba(255, 255, 255, 0.5);
@@ -44,7 +45,7 @@
 
 html {
   font-size: 16px;
-  color: var(--dark-gray);
+  color: var(--almost-black);
   line-height: 1.5rem;
 }
 
@@ -131,6 +132,13 @@ button, .btn {
   var(--border-width) 0 0 0 var(--dark-blue), // right border
   0 var(--border-width) 0 0 var(--dark-blue), // bottom border
   var(--neg-border-width) 0 0 0 var(--dark-blue); // left border
+
+  &.dark {
+    background: var(--almost-black);
+    border: var(--border-width) solid white;
+    color: white;
+    padding: calc(var(--border-width) * 4) calc(var(--border-width) * 5);
+  }
   
   &.thick {
     box-shadow:
@@ -138,6 +146,13 @@ button, .btn {
     calc(var(--border-width) * 2) 0 0 0 var(--dark-blue), // right border
     0 calc(var(--border-width) * 2) 0 0 var(--dark-blue), // bottom border
     calc(var(--neg-border-width) * 2) 0 0 0 var(--dark-blue); // left border
+
+    &.dark {
+      background: var(--almost-black);
+      border: calc(var(--border-width) * 2) solid white;
+      color: white;
+      padding: calc(var(--border-width) * 4) calc(var(--border-width) * 5);
+    }
   }
 }
 
