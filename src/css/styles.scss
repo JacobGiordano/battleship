@@ -55,7 +55,7 @@ body {
   width: 100%;
   max-width: var(--max-page-width);
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 5rem 1rem 2rem 1rem;
 }
 
 body, button, .btn {
@@ -66,8 +66,9 @@ main {
   display: flex;
   width: 100%;
   margin: 1rem 0 2.5rem;
+  padding: 0 calc(var(--border-width) * 2) 1rem 0;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   gap: 1rem;
   overflow: auto;
   
@@ -85,14 +86,6 @@ input, textarea {
 }
 
 button, .btn {
-  box-shadow:
-  0 var(--neg-border-width) 0 0 var(--dark-blue), // top border
-  var(--border-width) 0 0 0 var(--dark-blue), // right border
-  0 var(--border-width) 0 0 var(--dark-blue), // bottom border
-  var(--neg-border-width) 0 0 0 var(--dark-blue); // left border
-}
-
-button, .btn {
   display: inline-block;
   background: linear-gradient(var(--light-blue-green) 0%, var(--light-blue-green) 8%, var(--dark-blue-green) 9%);
   border: 1px solid var(--dark-blue-green);
@@ -100,6 +93,11 @@ button, .btn {
   padding: .25rem .5rem;
   margin-top: .5rem;
   text-align: center;
+  box-shadow:
+  0 var(--neg-border-width) 0 0 var(--dark-blue), // top border
+  var(--border-width) 0 0 0 var(--dark-blue), // right border
+  0 var(--border-width) 0 0 var(--dark-blue), // bottom border
+  var(--neg-border-width) 0 0 0 var(--dark-blue); // left border
   cursor: pointer;
 
   &:hover {
@@ -128,30 +126,33 @@ button, .btn {
 
 .box {
   box-shadow:
-  0 var(--neg-border-width) 0 0 var(--dark-blue), // top border
-  var(--border-width) 0 0 0 var(--dark-blue), // right border
-  0 var(--border-width) 0 0 var(--dark-blue), // bottom border
-  var(--neg-border-width) 0 0 0 var(--dark-blue); // left border
+  0 var(--neg-border-width) 0 0 var(--almost-black), // top border
+  var(--border-width) 0 0 0 var(--almost-black), // right border
+  0 var(--border-width) 0 0 var(--almost-black), // bottom border
+  var(--neg-border-width) 0 0 0 var(--almost-black); // left border
+
+  margin: var(--border-width);
 
   &.dark {
     background: var(--almost-black);
     border: var(--border-width) solid white;
     color: white;
-    padding: calc(var(--border-width) * 4) calc(var(--border-width) * 5);
+    padding: calc(var(--border-width) * 8);
   }
   
   &.thick {
     box-shadow:
-    0 calc(var(--neg-border-width) * 2) 0 0 var(--dark-blue), // top border
-    calc(var(--border-width) * 2) 0 0 0 var(--dark-blue), // right border
-    0 calc(var(--border-width) * 2) 0 0 var(--dark-blue), // bottom border
-    calc(var(--neg-border-width) * 2) 0 0 0 var(--dark-blue); // left border
+    0 calc(var(--neg-border-width) * 2) 0 0 var(--almost-black), // top border
+    calc(var(--border-width) * 2) 0 0 0 var(--almost-black), // right border
+    0 calc(var(--border-width) * 2) 0 0 var(--almost-black), // bottom border
+    calc(var(--neg-border-width) * 2) 0 0 0 var(--almost-black); // left border
+    margin: calc(var(--border-width) * 2);
 
     &.dark {
       background: var(--almost-black);
       border: calc(var(--border-width) * 2) solid white;
       color: white;
-      padding: calc(var(--border-width) * 4) calc(var(--border-width) * 5);
+      padding: calc(var(--border-width) * 8);
     }
   }
 }
@@ -190,6 +191,11 @@ header {
   }
 }
 
+/* Coms Section */
+// .coms {
+//   margin: calc(var(--border-width));
+// }
+
 /* Current Player Section */
 .current-player-section {
   margin: .5rem 0 0;
@@ -199,15 +205,10 @@ header {
 .player-fleet-wrapper {
   display: block;
   background: var(--light-gray);
-  width: 400px;
-  margin-top: 4.5rem;
+  width: 337px;
+  margin-top: .75rem;
+  margin-left: calc(var(--border-width) * 2);
   padding: 1rem;
-
-  .random-player-ships-btn {
-    display: block;
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
 
   .ships-wrapper {
     display: block;
@@ -316,6 +317,16 @@ header {
   }
 }
 
+.random-player-ships-btn {
+  display: block;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.start-game-btn {
+  margin-top: 0;
+}
+
 /* Gameboard */
 .board-wrapper {
   display: inline-flex;
@@ -338,7 +349,7 @@ header {
   
   .y-labels  {
     display: flex;
-    width: 100%;
+    margin-bottom: var(--border-width);
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -363,6 +374,16 @@ header {
     grid-template-columns: repeat(10, 2rem);
     grid-template-rows: repeat(10, 2rem);
     gap: 1px;
+    margin-top: calc(var(--neg-border-width) + 1);
+    margin-left: calc(var(--neg-border-width) + 1);
+
+    &.box {
+      margin-right: calc(var(--neg-border-width) + 1);
+
+      &.thick {
+        margin-right: calc(calc(var(--neg-border-width) * 2 ) + 2);
+      }
+    }
   
     .board-square {
       display: block;
@@ -465,6 +486,10 @@ header {
 
     }
   }
+}
+
+.player-1-board-wrapper {
+  margin-left: -7px;
 }
 
 /* Animations */
