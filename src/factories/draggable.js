@@ -108,8 +108,12 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
     }
 
     thisGameboardObj.placeShip(draggingEl.dataset.shipName, coords);
+
+    document.getElementById("random-player-ships-btn").classList.add("hidden");
     
     draggingEl.remove();
+
+    document.getElementById("ships-wrapper").querySelectorAll(".ship").length === 0 ? document.getElementById("start-game-btn").classList.remove("hidden") : null;
   }
 
   const returnDraggables = () => {

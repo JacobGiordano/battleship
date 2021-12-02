@@ -115,6 +115,9 @@ const ui = {
     for (const ship of draggableShips) {
       ship.remove();
     }
+
+    document.getElementById("random-player-ships-btn").classList.add("hidden");
+    document.getElementById("start-game-btn").classList.remove("hidden");
   },
 
   populateDraggableShips: () => {
@@ -187,10 +190,20 @@ const ui = {
     game.computerGameboard.prepopulateShips(game.computerGameboard, ai.createRandShipsArray());
     ui.deleteAllDraggableShips();
     ui.populateDraggableShips();
+    document.getElementById("random-player-ships-btn").classList.remove("hidden");
+    document.getElementById("player-fleet-wrapper").classList.remove("hidden");
+    document.getElementById("computer-board-wrapper").classList.add("hidden");
+    document.getElementById("start-game-btn").classList.add("hidden");
+  },
+
+  startGame: () => {
+    document.getElementById("player-fleet-wrapper").classList.add("hidden");
+    document.getElementById("computer-board-wrapper").classList.remove("hidden");
   }
 }
 
 document.getElementById("random-player-ships-btn").addEventListener("click", ui.handleRandomPlayerShips, false);
 document.getElementById("new-game").addEventListener("click", ui.handleNewGameClick, false);
+document.getElementById("start-game-btn").addEventListener("click", ui.startGame, false);
 
 export default ui;
