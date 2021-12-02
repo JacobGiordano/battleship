@@ -12,10 +12,9 @@
     <h1 class="page-title">Battleship</h1>
     <button id="new-game" class="new-game">New Game</button>
   </header>
-  <section id="player-fleet-wrapper" class="player-fleet-wrapper box thick dark">
-    Click & drag a ship onto the board. Double click it to rotate. Or!…
-    <button id="random-player-ships-btn" class="random-player-ships-btn">Place randomly</button>
-    <div id="ships-wrapper" class="ships-wrapper"></div>
+  <section id="coms" class="coms box thick dark">
+    <img src="#" alt="An image of animated character" id="coms-img" class="coms-img">
+    <div id="coms-text" class="coms-text box dark">Something goes here. I wonder what it will look like</div>
   </section>
   <section id="current-player-section" class="current-player-section">
     <span>Current player: <span id="current-player" class="current-"></span></span>
@@ -52,7 +51,7 @@
           <div class="x-label">9</div>
           <div class="x-label">10</div>
         </div>
-        <div id="player-1-board" class="player-1-board gameboard">
+        <div id="player-1-board" class="player-1-board gameboard box thick">
           <div class="board-square"></div>
           <div class="board-square"></div>
           <div class="board-square"></div>
@@ -156,7 +155,7 @@
         </div>
       </div>
     </div>
-    <div id="computer-board-wrapper" class="computer-board-wrapper board-wrapper">
+    <div id="computer-board-wrapper" class="computer-board-wrapper board-wrapper hidden">
       <div id="y-labels" class="y-labels">
         <div class="y-label">A</div>
         <div class="y-label">B</div>
@@ -182,7 +181,7 @@
           <div class="x-label">9</div>
           <div class="x-label">10</div>
         </div>
-        <div id="computer-board" class="computer-board gameboard">
+        <div id="computer-board" class="computer-board gameboard box thick">
           <div class="board-square"></div>
           <div class="board-square"></div>
           <div class="board-square"></div>
