@@ -3,25 +3,25 @@
 
 :root {
   --light-gray: #b6c6d0;
-  --med-light-gray: #7f8f99;
-  --something: #51616b;
-  --something: #364650;
-  --something: #1a2832;
-  --dark-gray: #10191f;
-  --something: #2b2a39;
-  --something: #130122;
-  --something: #260033;
-  --something: #54002f;
-  --something: #99093c;
-  --something: #cd404b;
-  --something: #ff7a5f;
-  --something: #fbaf5d;
-  --something: #efc759;
-  --something: #ffe28d;
-  --something: #8dff9c;
-  --something: #5df994;
-  --something: #01e1c9;
-  --something: #00c4bc;
+  --med-gray: #7f8f99;
+  --gray: #51616b;
+  --dark-gray: #364650;
+  --paynes-gray: #1a2832;
+  --dark-paynes-gray: #10191f;
+  --paynes-gray: #2b2a39;
+  --dark-purple: #130122;
+  --plum: #260033;
+  --dark-red: #54002f;
+  --red: #99093c;
+  --light-red: #cd404b;
+  --orange: #ff7a5f;
+  --light-orange: #fbaf5d;
+  --yellow: #efc759;
+  --light-yellow: #ffe28d;
+  --light-green: #8dff9c;
+  --green: #5df994;
+  --light-aqua: #01e1c9;
+  --aqua: #00c4bc;
   --light-blue-green: #30a0ac;
   --dark-blue-green: #0e507b;
   --dark-blue: #191042;
@@ -82,7 +82,7 @@ button, input, textarea {
 }
 
 input, textarea {
-  border: 1px solid var(--med-light-gray);
+  border: 1px solid var(--med-gray);
 }
 
 button, .btn {
