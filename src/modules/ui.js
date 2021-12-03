@@ -194,6 +194,7 @@ const ui = {
     game.computerGameboard.prepopulateShips(game.computerGameboard, ai.createRandShipsArray());
     ui.deleteAllDraggableShips();
     ui.populateDraggableShips();
+    document.getElementById("battle-status").textContent = "Place ships";
     document.getElementById("random-player-ships-btn").classList.remove("hidden");
     document.getElementById("player-fleet-wrapper").classList.remove("hidden");
     document.getElementById("computer-board-wrapper").classList.add("hidden");
@@ -201,6 +202,7 @@ const ui = {
   },
 
   startGame: () => {
+    ui.updateBattleStatus("Player");
     document.getElementById("player-fleet-wrapper").classList.add("hidden");
     document.getElementById("computer-board-wrapper").classList.remove("hidden");
   }
