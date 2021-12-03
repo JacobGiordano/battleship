@@ -65,7 +65,7 @@ body, button, .btn {
 main {
   display: flex;
   width: 100%;
-  margin: 1rem 0 2.5rem;
+  margin: 0 0 2.5rem;
   padding: 0 calc(var(--border-width) * 2) 1rem 0;
   justify-content: space-between;
   align-items: flex-start;
@@ -203,13 +203,24 @@ header {
 }
 
 /* Coms Section */
-// .coms {
-//   margin: calc(var(--border-width));
-// }
+section.coms.box.dark {
+  display: flex;
+  margin-bottom: 2rem;
+
+  .coms-img {
+    width: 124px;
+    height: 124px;
+    margin-right: .5rem;
+  }
+
+  .coms-text {
+    flex: 1 1 0;
+  }
+}
 
 /* Battle Status Section */
 .battle-status-section {
-  margin: 1rem 0 0;
+  margin: .5rem 0 0;
 }
 
 /* Player Fleet */
