@@ -132,6 +132,29 @@ button, .btn {
     var(--border-width) 0 0 0 var(--red), // right border
     0 var(--border-width) 0 0 var(--red), // bottom border
     var(--neg-border-width) 0 0 0 var(--red); // left border
+
+    &:hover {
+      background: linear-gradient(var(--light-orange) 0%, var(--light-orange) 8%, var(--light-red) 9%);
+      border-color: var(--red);
+      transform: translateY(var(--neg-border-width));
+      box-shadow:
+      0 var(--neg-border-width) 0 0 var(--red), // top border
+      var(--border-width) 0 0 0 var(--red), // right border
+      0 calc(var(--border-width) * 2) 0 0 var(--red), // bottom border
+      var(--neg-border-width) 0 0 0 var(--red), // left border
+      var(--border-width) var(--border-width) 0 0 var(--red), // extra right border
+      var(--neg-border-width) var(--border-width) 0 0 var(--red); // extra left border
+    }
+  
+    &:active {
+      background: var(--light-red);
+      transform: translateY(0);
+      box-shadow:
+      0 var(--neg-border-width) 0 0 var(--red), // top border
+      var(--border-width) 0 0 0 var(--red), // right border
+      0 var(--border-width) 0 0 var(--red), // bottom border
+      var(--neg-border-width) 0 0 0 var(--red); // left border
+    }
   }
 }
 
