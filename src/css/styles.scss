@@ -122,6 +122,17 @@ button, .btn {
     0 var(--border-width) 0 0 var(--dark-blue), // bottom border
     var(--neg-border-width) 0 0 0 var(--dark-blue); // left border
   }
+
+  &.red {
+    background: linear-gradient(var(--light-orange) 0%, var(--light-orange) 8%, var(--light-red) 9%);
+    border: 1px solid var(--light-red);
+    color: var(--white);
+    box-shadow:
+    0 var(--neg-border-width) 0 0 var(--red), // top border
+    var(--border-width) 0 0 0 var(--red), // right border
+    0 var(--border-width) 0 0 var(--red), // bottom border
+    var(--neg-border-width) 0 0 0 var(--red); // left border
+  }
 }
 
 .box {
@@ -206,9 +217,12 @@ header {
   display: block;
   background: var(--light-gray);
   width: 337px;
-  margin-top: .75rem;
   margin-left: calc(var(--border-width) * 2);
   padding: 1rem;
+
+  &.box.thick.dark {
+    margin-top: .75rem;
+  }
 
   .ships-wrapper {
     display: block;
