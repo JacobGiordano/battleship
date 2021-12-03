@@ -47,9 +47,14 @@ const Gameboard = (player) => {
   }
 
   const handleSquareClick = e => {
-    const lowerCasedCurrentPlayer = document.getElementById("current-player").textContent.toLowerCase();
+    const lowerCasedCurrentPlayer = e.target.closest(".gameboard").id === "computer-board" ? "player" : "computer";
+    const battleStatus = document.getElementById("battle-status").textContent.toLowerCase();
     
     if (gameboard.id === "player-1-board" && lowerCasedCurrentPlayer !== "computer" || gameboard.id === "computer-board" && lowerCasedCurrentPlayer === "computer") {
+      return;
+    }
+
+    if (gameboard.id === "player-1-board" && battleStatus === "attacking" || gameboard.id === "computer-board" && battleStatus === "defending") {
       return;
     }
 
@@ -74,7 +79,8 @@ const Gameboard = (player) => {
     }
 
     player.isComputer() ? player.computerTurn() : null;
-    lowerCasedCurrentPlayer === "computer" ? ui.showCurrentPlayer(game.player.getName()) : ui.showCurrentPlayer("Computer");
+
+    lowerCasedCurrentPlayer === "computer" ? ui.updateBattleStatus(game.player.getName()) : ui.updateBattleStatus("Computer");
   }
 
   const addSquareEventListeners = (gameboardDOMElement) => {

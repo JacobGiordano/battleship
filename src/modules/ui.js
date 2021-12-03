@@ -7,6 +7,10 @@ const ui = {
     document.getElementById("current-player").textContent = currentPlayer;
   },
 
+  updateBattleStatus: currentPlayer => {
+    currentPlayer.toLowerCase() === "computer" ? document.getElementById("battle-status").textContent = "Awaiting attack…" : document.getElementById("battle-status").textContent = "Attack!";
+  },
+
   getSquareIndex: (element, parentEl) => {
     return [...parentEl.children].indexOf(element);
   },
