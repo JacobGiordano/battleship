@@ -2,6 +2,7 @@ import Ship from "../factories/ship";
 import ui from "../modules/ui";
 import ai from "../modules/ai";
 import {game} from "../factories/game";
+import character from "../modules/character";
 
 const Gameboard = (player) => {
   let misses = [];
@@ -67,9 +68,9 @@ const Gameboard = (player) => {
 
     if (result.hitShip !== undefined && result.hitShip.isSunk()) {
       if (!player.isComputer()) {
-        console.log(`AH! The enemy has sunken our ${result.hitShip.getName().toLowerCase()}!`);
+        character.comsMsg(character.reportSunkenShip(result.hitShip.getName()));
       } else {
-        console.log(`Direct hit! The enemy ${result.hitShip.getName().toLowerCase()} has been sunk!`);
+        character.comsMsg(character.sunkEnemyShip(result.hitShip.getName()));
       }
     }
 
