@@ -91,7 +91,7 @@ const ai = {
         const squareIndex = ai.getIndex(coords);
         const square = [...document.querySelectorAll(".board-square")][squareIndex];
         square.click();
-      }, 750);
+      }, game.turnDelay);
     }
   }
 }

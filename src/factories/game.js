@@ -8,13 +8,14 @@ const Game = () => {
   const computer = Player("Computer", true);
   const playerGameboard = Gameboard(player);
   const computerGameboard = Gameboard(computer);
+  const turnDelay = 750;
   
   computerGameboard.prepopulateShips(computerGameboard, ai.createRandShipsArray());
   playerGameboard.addSquareEventListeners(document.getElementById("player-1-board"));
   computerGameboard.addSquareEventListeners(document.getElementById("computer-board"));
   ui.populateDraggableShips();
 
-  return {player, computer, playerGameboard, computerGameboard};
+  return {player, computer, playerGameboard, computerGameboard, turnDelay};
 }
 
 let game = Game();

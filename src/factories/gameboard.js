@@ -64,6 +64,14 @@ const Gameboard = (player) => {
 
     const result = receiveAttack(`${rows[ui.getRowFromIndex(clickedIndex)]}${columns[ui.getColumnFromIndex(clickedIndex)]}`);
     if (result === undefined) return;
+    
+    if (gameboard.id === "computer-board") {
+      game.computerGameboard.removeSquareEventListeners(document.getElementById("computer-board"));
+      setTimeout(() => {
+        game.computerGameboard.addSquareEventListeners(document.getElementById("computer-board"));
+      }, game.turnDelay);
+    }
+
     result !== undefined && result.shot === "hit" ? ui.addHitClass(square) : ui.addMissClass(square);
 
     if (result.hitShip !== undefined && result.hitShip.isSunk()) {
@@ -87,6 +95,11 @@ const Gameboard = (player) => {
   const addSquareEventListeners = (gameboardDOMElement) => {
     const boardsquares = gameboardDOMElement.querySelectorAll(".board-square");
     boardsquares.forEach(square => square.addEventListener("click", handleSquareClick, false));
+  }
+
+  const removeSquareEventListeners = (gameboardDOMElement) => {
+    const boardsquares = gameboardDOMElement.querySelectorAll(".board-square");
+    boardsquares.forEach(square => square.removeEventListener("click", handleSquareClick, false));
   }
 
   const receiveAttack = coords => {
@@ -122,7 +135,7 @@ const Gameboard = (player) => {
     shotsReceived = [];
   }
 
-  return {placeShip, getShips, getMisses, prepopulateShips, addSquareEventListeners, receiveAttack, allShipsSunk, resetBoard};
+  return {placeShip, getShips, getMisses, prepopulateShips, addSquareEventListeners, removeSquareEventListeners, receiveAttack, allShipsSunk, resetBoard};
 };
 
 export default Gameboard;
