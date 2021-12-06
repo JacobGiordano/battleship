@@ -55,7 +55,7 @@ const Gameboard = (player) => {
       return;
     }
 
-    if (gameboard.id === "player-1-board" && battleStatus === "attacking" || gameboard.id === "computer-board" && battleStatus === "defending") {
+    if (gameboard.id === "player-1-board" && battleStatus === "attack!" || gameboard.id === "player-1-board" && battleStatus === "place ships" || gameboard.id === "computer-board" && battleStatus === "defending") {
       return;
     }
 
