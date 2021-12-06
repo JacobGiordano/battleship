@@ -47,7 +47,7 @@ const Gameboard = (player) => {
     });
   }
 
-  const handleSquareClick = e => {
+  const handleSquareClick = async e => {
     const lowerCasedCurrentPlayer = e.target.closest(".gameboard").id === "computer-board" ? "player" : "computer";
     const battleStatus = document.getElementById("battle-status").textContent.toLowerCase();
     
@@ -68,9 +68,9 @@ const Gameboard = (player) => {
 
     if (result.hitShip !== undefined && result.hitShip.isSunk()) {
       if (!player.isComputer()) {
-        character.comsMsg(character.reportSunkenShip(result.hitShip.getName()));
+        await character.comsMsg(character.reportSunkenShip(result.hitShip.getName()));
       } else {
-        character.comsMsg(character.sunkEnemyShip(result.hitShip.getName()));
+        await character.comsMsg(character.sunkEnemyShip(result.hitShip.getName()));
       }
     }
 

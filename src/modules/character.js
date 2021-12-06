@@ -32,17 +32,21 @@ const character = {
   },
 
   comsMsg: (string) => {
-    const comsText = document.getElementById("coms-text");
-    comsText.textContent = "";
-    let i = 0;
-    let timer = setInterval(() => {
-      if (i < string.length) {
-        comsText.textContent += string.charAt(i);
-        i++
-      } else {
-        clearInterval(timer);
-      }
-    }, 50);
+    return new Promise(resolve => {
+      const comsText = document.getElementById("coms-text");
+      comsText.textContent = "";
+      let i = 0;
+      let timer = setInterval(() => {
+        if (i < string.length) {
+          comsText.textContent += string.charAt(i);
+          i++
+        } else {
+          clearInterval(timer);
+          resolve();
+        }
+      }, 50);
+    });
+
   }
 }
 
