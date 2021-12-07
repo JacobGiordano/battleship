@@ -202,13 +202,20 @@ const ui = {
     document.getElementById("start-game-btn").classList.add("hidden");
   },
 
-  startGame: () => {
+  startGame: async () => {
     ui.updateBattleStatus("Player");
     document.getElementById("player-fleet-wrapper").classList.add("hidden");
     document.getElementById("computer-board-wrapper").classList.remove("hidden");
-    character.introScriptStep = 4;
-    character.typing = false;
-    character.skip = false;
+
+    character.skip = true;
+
+    await new Promise(resolve => setTimeout(() => {
+      character.introScriptStep = 4;
+      character.typing = false;
+      character.skip = false;
+      resolve();
+    }, 100));
+    
     document.getElementById("coms-intro-btns-wrapper").classList.add("hidden");
     character.comsMsg(character.startGame());
   },
