@@ -87,9 +87,13 @@ const Gameboard = (player) => {
     }
   }
 
-  const finishTurn = (player) => {
+  const finishTurn = async (player) => {
     if (allShipsSunk()) {
-      alert(`Game over!`);
+      let msg;
+
+      !player.isComputer() ? msg = character.playerLoss() : msg = character.playerWin();
+
+      await character.comsMsg(msg);
       return;
     }
 

@@ -31,6 +31,30 @@ const character = {
 
   },
 
+  playerWin: () => {
+    const responseArray = [
+      `Victory!!! Congratulations, Admiral!`,
+      `HA HAAAAAAA! We did it! We won!!!`,
+      `YES! An incredible victory! And what a story to tell back home!`,
+      `I never doubted you, Admiral! Another victory in am impressive career!`,
+      `Amazing! A swift and decisive victory for us thanks to your leadership, Admiral!`
+    ];
+    
+    return responseArray[ai.getRandInclusive(0, responseArray.length - 1)];
+  },
+
+  playerLoss: () => {
+    const responseArray = [
+      `Admiral, we're finished. We have to retreat!`,
+      `It can't be! How could we have lost?!`,
+      `It was an honor serving with you, Admiral, but I fear we must admit defeat.`,
+      `How could this have happened?! Admiral, a strategic retreat is in order!`,
+      `I can't believe it! If we don't pull our forces out now we're doomed!`
+    ];
+    
+    return responseArray[ai.getRandInclusive(0, responseArray.length - 1)];
+  },
+
   comsMsg: (string) => {
     return new Promise(resolve => {
       const comsText = document.getElementById("coms-text");
@@ -46,7 +70,6 @@ const character = {
         }
       }, 50);
     });
-
   }
 }
 
