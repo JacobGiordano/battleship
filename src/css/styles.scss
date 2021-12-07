@@ -156,6 +156,19 @@ button, .btn {
       var(--neg-border-width) 0 0 0 var(--red); // left border
     }
   }
+
+  &.disabled, &.disabled:hover, &.disabled:active {
+    background: linear-gradient(var(--light-gray) 0%, var(--light-gray) 8%, var(--light-gray) 9%);
+    border: 1px solid var(--light-gray);
+    color: var(--dark-gray);
+    box-shadow:
+    0 var(--neg-border-width) 0 0 var(--dark-gray), // top border
+    var(--border-width) 0 0 0 var(--dark-gray), // right border
+    0 var(--border-width) 0 0 var(--dark-gray), // bottom border
+    var(--neg-border-width) 0 0 0 var(--dark-gray); // left border
+    transform: translateY(0);
+    cursor: not-allowed;
+  }
 }
 
 .box {
@@ -238,6 +251,24 @@ section.coms.box.dark {
 
   .coms-text {
     flex: 1 1 0;
+  }
+
+  .coms-intro-btns-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-left: .5rem;
+
+    &.hidden {
+      display: none;
+    }
+
+    .cont-coms-intro-btn {
+      margin-top: var(--border-width);
+    }
+
+    .skip-intro-btn {
+      font-size: .5rem;
+    }
   }
 }
 
