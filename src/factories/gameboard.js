@@ -51,11 +51,11 @@ const Gameboard = (player) => {
     const lowerCasedCurrentPlayer = e.target.closest(".gameboard").id === "computer-board" ? "player" : "computer";
     const battleStatus = document.getElementById("battle-status").textContent.toLowerCase();
     
-    if (gameboard.id === "player-1-board" && lowerCasedCurrentPlayer !== "computer" || gameboard.id === "computer-board" && lowerCasedCurrentPlayer === "computer") {
-      return;
-    }
-
-    if (gameboard.id === "player-1-board" && battleStatus === "attack!" || gameboard.id === "player-1-board" && battleStatus === "place ships" || gameboard.id === "computer-board" && battleStatus === "defending") {
+    if (gameboard.id === "player-1-board" && lowerCasedCurrentPlayer !== "computer" ||
+        gameboard.id === "computer-board" && lowerCasedCurrentPlayer === "computer" ||
+        gameboard.id === "player-1-board" && battleStatus === "attack!" ||
+        gameboard.id === "player-1-board" && battleStatus === "place ships" ||
+        gameboard.id === "computer-board" && battleStatus === "awaiting attack…") {
       return;
     }
 
@@ -64,13 +64,6 @@ const Gameboard = (player) => {
 
     const result = receiveAttack(`${rows[ui.getRowFromIndex(clickedIndex)]}${columns[ui.getColumnFromIndex(clickedIndex)]}`);
     if (result === undefined) return;
-    
-    if (gameboard.id === "computer-board") {
-      game.computerGameboard.removeSquareEventListeners(document.getElementById("computer-board"));
-      setTimeout(() => {
-        game.computerGameboard.addSquareEventListeners(document.getElementById("computer-board"));
-      }, game.turnDelay);
-    }
 
     result !== undefined && result.shot === "hit" ? ui.addHitClass(square) : ui.addMissClass(square);
 
