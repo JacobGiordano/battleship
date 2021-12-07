@@ -1,6 +1,7 @@
 import {game} from "../factories/game";
 import ai from "../modules/ai";
 import Draggable from "../factories/draggable";
+import character from "./character";
 
 const ui = {
   showCurrentPlayer: currentPlayer => {
@@ -205,11 +206,53 @@ const ui = {
     ui.updateBattleStatus("Player");
     document.getElementById("player-fleet-wrapper").classList.add("hidden");
     document.getElementById("computer-board-wrapper").classList.remove("hidden");
+    character.introScriptStep = 4;
+    character.typing = true;
+    character.skip = true;
+    document.getElementById("coms-intro-btns-wrapper").classList.add("hidden");
+    character.comsMsg(character.startGame());
+  },
+
+  runIntroScript: async () => {
+    character.typing = true;
+    await character.comsMsg(character.introScript()[0]);
+    character.typing = false;
+  },
+
+  handleIntroComsClick: async () => {
+    if (character.introScriptStep < 4) {
+      character.introScriptStep += 1;
+      character.introScriptStep === 4 ? document.getElementById("coms-intro-btns-wrapper").classList.add("hidden") : null;
+      await character.comsMsg(character.introScript()[character.introScriptStep]);
+    }
+  },
+
+  handleSkipIntroClick: async () => {
+    character.introScriptStep = 4;
+    character.skip = true;
+    document.getElementById("coms-intro-btns-wrapper").classList.add("hidden");
+
+    await new Promise(resolve => setTimeout(() => {
+      character.skip = false;
+      resolve();
+    }, 100));
+  
+    await character.comsMsg(character.skipIntro());
   }
 }
 
 document.getElementById("random-player-ships-btn").addEventListener("click", ui.handleRandomPlayerShips, false);
 document.getElementById("new-game").addEventListener("click", ui.handleNewGameClick, false);
 document.getElementById("start-game-btn").addEventListener("click", ui.startGame, false);
+document.getElementById("cont-coms-intro-btn").addEventListener("click", ui.handleIntroComsClick, false);
+document.getElementById("skip-intro-btn").addEventListener("click", ui.handleSkipIntroClick, false);
+
+document.addEventListener("DOMContentLoaded", function() {
+  setTimeout(() => {
+    ui.runIntroScript();
+    document.getElementById("skip-intro-btn").disabled = false;
+    document.getElementById("skip-intro-btn").classList.remove("disabled");
+  }, 2000);
+});
 
 export default ui;

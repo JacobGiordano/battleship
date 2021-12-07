@@ -2,6 +2,8 @@ import ai from "../modules/ai";
 
 const character = {
   introScriptStep: 0,
+  typing: false,
+  skip: false,
 
   startGame: (shipName) => {
     const responseArray = [
@@ -76,17 +78,27 @@ const character = {
     return responseArray;
   },
 
+  skipIntro: () => {
+    const responseArray = [
+      `Yes, indeed! Straight to the action!`,
+      `Right! Let's skip right to battle!`,
+      `Ah, straight to the business of battle then.`,
+      `Ha ha! Right down to business, I appreciate that, Admiral.`,
+      `I admire your enthusiam, Admiral! Let's do it.`
+    ];
+
+    return responseArray[ai.getRandInclusive(0, responseArray.length - 1)];
+  },
+
   comsMsg: (string) => {
     return new Promise(resolve => {
-      clearInterval(timer);
-      resolve();
       const comsText = document.getElementById("coms-text");
       comsText.textContent = "";
       let i = 0;
       let timer = setInterval(() => {
-        if (i < string.length) {
+        if (i < string.length && !character.skip) {
           comsText.textContent += string.charAt(i);
-          i++
+          i++;
         } else {
           clearInterval(timer);
           resolve();
