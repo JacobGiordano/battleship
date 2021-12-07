@@ -1,6 +1,20 @@
 import ai from "../modules/ai";
 
 const character = {
+  introScriptStep: 0,
+
+  startGame: (shipName) => {
+    const responseArray = [
+      `Here we gooooo! On your mark, Admiral!`,
+      `Ok! Let's do it! Just give the command, Admiral!`,
+      `We'll attack on your order, Admiral!`,
+      `Just give the order and we'll begin our attack, Admiral!`,
+      `Let's make the first shot count! Just say the word, Admiral!`
+    ];
+    
+    return responseArray[ai.getRandInclusive(0, responseArray.length - 1)];
+  },
+
   sunkEnemyShip: (shipName) => {
     const responseArray = [
       `Direct hit! The enemy ${shipName} has been sunk!`,
@@ -11,7 +25,6 @@ const character = {
     ];
     
     return responseArray[ai.getRandInclusive(0, responseArray.length - 1)];
-    
   },
 
   reportSunkenShip: (shipName) => {
@@ -25,10 +38,6 @@ const character = {
     
     return responseArray[ai.getRandInclusive(0, responseArray.length - 1)];
     
-  },
-
-  introScript: () => {
-
   },
 
   playerWin: () => {
@@ -55,8 +64,22 @@ const character = {
     return responseArray[ai.getRandInclusive(0, responseArray.length - 1)];
   },
 
+  introScript: () => {
+    const responseArray = [
+      `Greetings, Admiral! The battle awaits!…`,
+      `Position your fleet by clicking & dragging ships onto our board…`,
+      `you can also rotate a ship by double clicking it before dragging it into position.`,
+      `If you'd like to go with a more daring approach, click the "Place randomly" button.`,
+      `When all ships have been placed just give the order to begin our attack.`
+    ];
+
+    return responseArray;
+  },
+
   comsMsg: (string) => {
     return new Promise(resolve => {
+      clearInterval(timer);
+      resolve();
       const comsText = document.getElementById("coms-text");
       comsText.textContent = "";
       let i = 0;
@@ -70,6 +93,10 @@ const character = {
         }
       }, 50);
     });
+  },
+
+  clearComs: () => {
+    document.getElementById("coms-text").textContent = "";
   }
 }
 
