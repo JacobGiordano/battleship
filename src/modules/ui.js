@@ -207,8 +207,8 @@ const ui = {
     document.getElementById("player-fleet-wrapper").classList.add("hidden");
     document.getElementById("computer-board-wrapper").classList.remove("hidden");
     character.introScriptStep = 4;
-    character.typing = true;
-    character.skip = true;
+    character.typing = false;
+    character.skip = false;
     document.getElementById("coms-intro-btns-wrapper").classList.add("hidden");
     character.comsMsg(character.startGame());
   },
@@ -216,15 +216,22 @@ const ui = {
   runIntroScript: async () => {
     character.typing = true;
     await character.comsMsg(character.introScript()[0]);
-    character.typing = false;
+    character.introScriptStep += 1;
   },
 
   handleIntroComsClick: async () => {
-    if (character.introScriptStep < 4) {
-      character.introScriptStep += 1;
+    if (character.introScriptStep < 5) {
+      if (character.typing) {
+        character.skip = true;
+        await new Promise(resolve => setTimeout(() => {
+          document.getElementById("coms-text").textContent = character.introScript()[character.introScriptStep - 1];
+          character.skip = false;
+        }, 100));
+      }
       character.introScriptStep === 4 ? document.getElementById("coms-intro-btns-wrapper").classList.add("hidden") : null;
       await character.comsMsg(character.introScript()[character.introScriptStep]);
     }
+    character.introScriptStep += 1;
   },
 
   handleSkipIntroClick: async () => {
@@ -234,10 +241,18 @@ const ui = {
 
     await new Promise(resolve => setTimeout(() => {
       character.skip = false;
+      character.typing = false;
       resolve();
     }, 100));
   
     await character.comsMsg(character.skipIntro());
+  },
+
+  enableComsBtns: () => {
+    document.getElementById("cont-coms-intro-btn").disabled = false;
+    document.getElementById("cont-coms-intro-btn").classList.remove("disabled");
+    document.getElementById("skip-intro-btn").disabled = false;
+    document.getElementById("skip-intro-btn").classList.remove("disabled");
   }
 }
 
@@ -250,8 +265,7 @@ document.getElementById("skip-intro-btn").addEventListener("click", ui.handleSki
 document.addEventListener("DOMContentLoaded", function() {
   setTimeout(() => {
     ui.runIntroScript();
-    document.getElementById("skip-intro-btn").disabled = false;
-    document.getElementById("skip-intro-btn").classList.remove("disabled");
+    ui.enableComsBtns();
   }, 2000);
 });
 

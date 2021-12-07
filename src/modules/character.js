@@ -94,6 +94,7 @@ const character = {
     return new Promise(resolve => {
       const comsText = document.getElementById("coms-text");
       comsText.textContent = "";
+      character.typing = true;
       let i = 0;
       let timer = setInterval(() => {
         if (i < string.length && !character.skip) {
@@ -101,6 +102,7 @@ const character = {
           i++;
         } else {
           clearInterval(timer);
+          character.typing = false;
           resolve();
         }
       }, 50);
