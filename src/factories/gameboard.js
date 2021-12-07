@@ -9,6 +9,7 @@ const Gameboard = (player) => {
   let ships = [];
   let shotsReceived = [];
   let gameboard;
+
   player.isComputer() ? gameboard = document.getElementById("computer-board") : gameboard = document.getElementById("player-1-board");
   const rows = ai.rows;
   const columns = ai.columns;
@@ -61,20 +62,32 @@ const Gameboard = (player) => {
 
     const clickedIndex = ui.getSquareIndex(e.target, e.target.closest(".gameboard"));
     const square = ui.getSquareAtIndex(gameboard, clickedIndex);
-
     const result = receiveAttack(`${rows[ui.getRowFromIndex(clickedIndex)]}${columns[ui.getColumnFromIndex(clickedIndex)]}`);
+
     if (result === undefined) return;
 
     result !== undefined && result.shot === "hit" ? ui.addHitClass(square) : ui.addMissClass(square);
+    lowerCasedCurrentPlayer === "computer" ? ui.updateBattleStatus(game.player.getName()) : ui.updateBattleStatus("Computer");
+
+    removeSquareEventListeners(gameboard);
 
     if (result.hitShip !== undefined && result.hitShip.isSunk()) {
-      if (!player.isComputer()) {
-        await character.comsMsg(character.reportSunkenShip(result.hitShip.getName()));
-      } else {
-        await character.comsMsg(character.sunkEnemyShip(result.hitShip.getName()));
-      }
-    }
+      let msg;
 
+      !player.isComputer() ? msg = character.reportSunkenShip(result.hitShip.getName()) : msg = character.sunkEnemyShip(result.hitShip.getName());
+
+      await character.comsMsg(msg);
+      setTimeout(() => {
+        finishTurn(player, lowerCasedCurrentPlayer);
+      }, msg.length * 25);
+    } else {
+      setTimeout(() => {
+        finishTurn(player, lowerCasedCurrentPlayer);
+      }, game.turnDelay);
+    }
+  }
+
+  const finishTurn = (player) => {
     if (allShipsSunk()) {
       alert(`Game over!`);
       return;
@@ -82,7 +95,7 @@ const Gameboard = (player) => {
 
     player.isComputer() ? player.computerTurn() : null;
 
-    lowerCasedCurrentPlayer === "computer" ? ui.updateBattleStatus(game.player.getName()) : ui.updateBattleStatus("Computer");
+    addSquareEventListeners(gameboard);
   }
 
   const addSquareEventListeners = (gameboardDOMElement) => {
