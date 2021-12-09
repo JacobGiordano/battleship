@@ -244,9 +244,69 @@ section.coms.box.dark {
   margin-bottom: 2rem;
 
   .coms-img {
-    width: 124px;
-    height: 124px;
+    display: inline-block;
+    position: relative;
+    background: url("/src/images/character/test-img.png"), var(--light-gray);
+    width: calc(128px + calc(var(--border-width) * 2));
+    height: calc(128px + calc(var(--border-width) * 2));
+    background-size: contain;
+    background-repeat: no-repeat;
     margin-right: .5rem;
+    overflow: hidden;
+
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 1000%;
+      -ms-interpolation-mode: nearest-neighbor;
+          image-rendering: -moz-crisp-edges;
+          image-rendering: pixelated;
+      background: 
+        linear-gradient(
+          transparent 0px, transparent 100px, 
+        rgba(255, 255, 255, 0.1) 100px, rgba(255, 255, 255, 0.1) 102px, 
+          transparent 102px, transparent 790px
+        ),
+        repeating-linear-gradient(
+          rgba(255, 255, 255, 0.05) 0px, rgba(255, 255, 255, 0.05) 2px,
+          transparent 2px, transparent 4px
+        );
+
+      -webkit-animation: coms-thin-lines 4s linear infinite;
+              animation: coms-thin-lines 4s linear infinite;
+      -webkit-animation-timing-function: steps(48);
+              animation-timing-function: steps(48);
+    }
+
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      -ms-interpolation-mode: nearest-neighbor;
+          image-rendering: -moz-crisp-edges;
+          image-rendering: pixelated;
+      background: linear-gradient(
+        transparent 0px, transparent 16px,
+        rgba(255, 255, 255, 0.25) 16px, rgba(255, 255, 255, 0.25) 18px,
+        transparent 18px, transparent 50px,
+        rgba(255, 255, 255, 0.25) 50px, rgba(255, 255, 255, 0.25) 58px,
+        transparent 60px, transparent 116px,
+        rgba(255, 255, 255, 0.25) 116px, rgba(255, 255, 255, 0.25) 118px,
+        transparent 118px
+      );
+      -webkit-animation: coms-static-lines 17s linear infinite;
+              animation: coms-static-lines 17s linear infinite;
+      -webkit-animation-timing-function: steps(30);
+              animation-timing-function: steps(30);
+    }
   }
 
   .coms-text {
@@ -588,6 +648,60 @@ section.coms.box.dark {
   }
   to { 
     background-position: -256px;
+  }
+}
+
+@-webkit-keyframes coms-thin-lines {
+  0% {
+    transform: translateY(-1156px);
+  }
+  100% {
+    transform: translateY(32px)
+  }
+}
+
+@keyframes coms-thin-lines {
+  0% {
+    transform: translateY(-1156px);
+  }
+  100% {
+    transform: translateY(32px)
+  }
+}
+
+@-webkit-keyframes coms-static-lines {
+  20%, 100% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  0% {
+    opacity: 1;
+    transform: translateY(-100%);
+  }
+  9% {
+    opacity: 1;
+  }
+  10% { 
+    opacity: 0;
+    transform: translateY(100%);
+  }
+}
+
+@keyframes coms-static-lines {
+  20%, 100% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  0% {
+    opacity: 1;
+    transform: translateY(-100%);
+  }
+  9% {
+    opacity: 1;
+  }
+  10% { 
+    opacity: 0;
+    transform: translateY(100%);
   }
 }
 
