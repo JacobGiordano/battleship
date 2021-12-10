@@ -246,13 +246,46 @@ section.coms.box.dark {
   .coms-img {
     display: inline-block;
     position: relative;
-    background: url("/src/images/character/test-img.png"), var(--light-gray);
+    background: url("/src/images/character/character-sprite-sheet_000.png"), var(--light-gray);
     width: calc(128px + calc(var(--border-width) * 2));
     height: calc(128px + calc(var(--border-width) * 2));
-    background-size: contain;
     background-repeat: no-repeat;
     margin-right: .5rem;
     overflow: hidden;
+    -webkit-animation: just-blinking 10s infinite;
+            animation: just-blinking 10s infinite;
+    -webkit-animation-timing-function: steps(1);
+            animation-timing-function: steps(1);
+
+    @-webkit-keyframes just-blinking {
+      20%, 100% {
+        background-position: -256px calc(-128px * 0);
+      }
+      0% {
+        background-position: -384px calc(-128px * 0);
+      }
+      3% {
+        background-position: -256px calc(-128px * 0);
+      }
+      4% { 
+        background-position: -256px calc(-128px * 0);
+      }
+    }
+
+    @keyframes just-blinking {
+      20%, 100% {
+        background-position: -256px calc(-128px * 0);
+      }
+      0% {
+        background-position: -384px calc(-128px * 0);
+      }
+      3% {
+        background-position: -256px calc(-128px * 0);
+      }
+      4% { 
+        background-position: -256px calc(-128px * 0);
+      }
+    }
 
     &:before {
       content: "";
@@ -268,11 +301,11 @@ section.coms.box.dark {
       background: 
         linear-gradient(
           transparent 0px, transparent 100px, 
-        rgba(255, 255, 255, 0.1) 100px, rgba(255, 255, 255, 0.1) 102px, 
+        rgba(255, 255, 255, 0.15) 100px, rgba(255, 255, 255, 0.15) 102px, 
           transparent 102px, transparent 790px
         ),
         repeating-linear-gradient(
-          rgba(255, 255, 255, 0.05) 0px, rgba(255, 255, 255, 0.05) 2px,
+          rgba(255, 255, 255, 0.1) 0px, rgba(255, 255, 255, 0.1) 2px,
           transparent 2px, transparent 4px
         );
 
@@ -702,6 +735,164 @@ section.coms.box.dark {
   10% { 
     opacity: 0;
     transform: translateY(100%);
+  }
+}
+
+/* Character Animations */
+section.coms.box.dark > .coms-img.box.dark.static {
+  background: url("/src/images/character/character-sprite-sheet_000.png"), var(--light-gray);
+  background-repeat: no-repeat;
+  -webkit-animation: static-lines 1s infinite;
+          animation: static-lines 1s infinite;
+  -webkit-animation-timing-function: steps(4);
+          animation-timing-function: steps(4);
+}
+
+@-webkit-keyframes static-lines {
+  from { 
+    background-position: 0px calc(-128px * 0);
+  }
+  to { 
+    background-position: -128px calc(-128px * 0);
+  }
+}
+
+@keyframes static-lines {
+  from { 
+    background-position: 0px calc(-128px * 0);
+  }
+  to { 
+    background-position: -128px calc(-128px * 0);
+  }
+}
+
+section.coms.box.dark > .coms-img.box.dark.talking-1 {
+  background: url("/src/images/character/character-sprite-sheet_000.png"), var(--light-gray);
+  background-repeat: no-repeat;
+  -webkit-animation: talking-1 2s infinite;
+  animation: talking-1 2s infinite;
+  -webkit-animation-timing-function: steps(8);
+  animation-timing-function: steps(8);
+}
+@-webkit-keyframes talking-1 {
+  from { 
+    background-position: 0px calc(-128px * 1);
+  }
+  to { 
+    background-position: -1024px calc(-128px * 1);
+  }
+}
+
+@keyframes talking-1 {
+  from { 
+    background-position: 0px calc(-128px * 1);
+  }
+  to { 
+    background-position: -1024px calc(-128px * 1);
+  }
+}
+
+section.coms.box.dark > .coms-img.box.dark.talking-2 {
+  background: url("/src/images/character/character-sprite-sheet_000.png"), var(--light-gray);
+  background-repeat: no-repeat;
+  -webkit-animation: talking-2 2s infinite;
+  animation: talking-2 2s infinite;
+  -webkit-animation-timing-function: steps(8);
+  animation-timing-function: steps(8);
+}
+@-webkit-keyframes talking-2 {
+  from { 
+    background-position: 0px calc(-128px * 2);
+  }
+  to { 
+    background-position: -1024px calc(-128px * 2);
+  }
+}
+
+@keyframes talking-2 {
+  from { 
+    background-position: 0px calc(-128px * 2);
+  }
+  to { 
+    background-position: -1024px calc(-128px * 2);
+  }
+}
+
+section.coms.box.dark > .coms-img.box.dark.talking-worried {
+  background: url("/src/images/character/character-sprite-sheet_000.png"), var(--light-gray);
+  background-repeat: no-repeat;
+  -webkit-animation: talking-worried 2s infinite;
+  animation: talking-worried 2s infinite;
+  -webkit-animation-timing-function: steps(8);
+  animation-timing-function: steps(8);
+}
+@-webkit-keyframes talking-worried {
+  from { 
+    background-position: 0px calc(-128px * 3);
+  }
+  to { 
+    background-position: -1024px calc(-128px * 3);
+  }
+}
+
+@keyframes talking-worried {
+  from { 
+    background-position: 0px calc(-128px * 3);
+  }
+  to { 
+    background-position: -1024px calc(-128px * 3);
+  }
+}
+
+section.coms.box.dark > .coms-img.box.dark.talking-sad-1 {
+  background: url("/src/images/character/character-sprite-sheet_000.png"), var(--light-gray);
+  background-repeat: no-repeat;
+  -webkit-animation: talking-sad-1 2s infinite;
+  animation: talking-sad-1 2s infinite;
+  -webkit-animation-timing-function: steps(8);
+  animation-timing-function: steps(8);
+}
+@-webkit-keyframes talking-sad-1 {
+  from { 
+    background-position: 0px calc(-128px * 4);
+  }
+  to { 
+    background-position: -1024px calc(-128px * 4);
+  }
+}
+
+@keyframes talking-sad-1 {
+  from { 
+    background-position: 0px calc(-128px * 4);
+  }
+  to { 
+    background-position: -1024px calc(-128px * 4);
+  }
+}
+
+section.coms.box.dark > .coms-img.box.dark.talking-sad-2 {
+  background: url("/src/images/character/character-sprite-sheet_000.png"), var(--light-gray);
+  background-repeat: no-repeat;
+  -webkit-animation: talking-sad-2 2s infinite;
+  animation: talking-sad-2 2s infinite;
+  -webkit-animation-timing-function: steps(8);
+  animation-timing-function: steps(8);
+}
+@-webkit-keyframes talking-sad-2 {
+  from { 
+    background-position: 0px calc(-128px * 5);
+  }
+  to { 
+    background-position: -1024px calc(-128px * 5);
+  }
+}
+
+@keyframes talking-sad-2 {
+  from { 
+    background-position: 0px calc(-128px * 5);
+  }
+  to { 
+    background-position: -1024px calc(-128px * 5);
   }
 }
 
