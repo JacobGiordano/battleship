@@ -217,12 +217,12 @@ const ui = {
     }, 100));
     
     document.getElementById("coms-intro-btns-wrapper").classList.add("hidden");
-    character.comsMsg(character.startGame());
+    character.comsMsg(character.startGame(), character.positiveTalking());
   },
 
   runIntroScript: async () => {
     character.typing = true;
-    await character.comsMsg(character.introScript()[0]);
+    await character.comsMsg(character.introScript()[0], character.positiveTalking());
     character.introScriptStep += 1;
   },
 
@@ -236,7 +236,7 @@ const ui = {
         }, 100));
       }
       character.introScriptStep === 4 ? document.getElementById("coms-intro-btns-wrapper").classList.add("hidden") : null;
-      await character.comsMsg(character.introScript()[character.introScriptStep]);
+      await character.comsMsg(character.introScript()[character.introScriptStep], character.positiveTalking());
     }
     character.introScriptStep += 1;
   },
@@ -252,7 +252,7 @@ const ui = {
       resolve();
     }, 100));
   
-    await character.comsMsg(character.skipIntro());
+    await character.comsMsg(character.skipIntro(), character.positiveTalking());
   },
 
   enableComsBtns: () => {

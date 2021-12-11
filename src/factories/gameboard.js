@@ -73,10 +73,13 @@ const Gameboard = (player) => {
 
     if (result.hitShip !== undefined && result.hitShip.isSunk()) {
       let msg;
+      let animationClassName;
 
       !player.isComputer() ? msg = character.reportSunkenShip(result.hitShip.getName()) : msg = character.sunkEnemyShip(result.hitShip.getName());
 
-      await character.comsMsg(msg);
+      !player.isComputer() ? animationClassName = character.negativeTalking() : animationClassName = character.positiveTalking()
+
+      await character.comsMsg(msg, animationClassName);
       setTimeout(() => {
         finishTurn(player, lowerCasedCurrentPlayer);
       }, msg.length * 25);
@@ -90,10 +93,13 @@ const Gameboard = (player) => {
   const finishTurn = async (player) => {
     if (allShipsSunk()) {
       let msg;
+      let animationClassName;
 
       !player.isComputer() ? msg = character.playerLoss() : msg = character.playerWin();
+      
+      !player.isComputer() ? animationClassName = character.playerLoseTalking() : animationClassName = character.playerWinTalking()
 
-      await character.comsMsg(msg);
+      await character.comsMsg(msg, animationClassName);
       return;
     }
 

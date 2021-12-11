@@ -90,10 +90,32 @@ const character = {
     return responseArray[ai.getRandInclusive(0, responseArray.length - 1)];
   },
 
-  comsMsg: (string) => {
+  positiveTalking: () => {
+    const classArray = ["talking-1", "talking-1"];
+    return classArray[ai.getRandInclusive(0, classArray.length - 1)];
+  },
+
+  negativeTalking: () => {
+    const classArray = ["talking-sad-1", "talking-sad-2", "talking-worried"];
+    return classArray[ai.getRandInclusive(0, classArray.length - 1)];
+  },
+
+  playerWinTalking: () => {
+    const classArray = ["player-win"];
+    return classArray[ai.getRandInclusive(0, classArray.length - 1)];
+  },
+
+  playerLoseTalking: () => {
+    const classArray = ["player-lose"];
+    return classArray[ai.getRandInclusive(0, classArray.length - 1)];
+  },
+
+  comsMsg: (string, animationClassName) => {
     return new Promise(resolve => {
+      const comsImg = document.getElementById("coms-img");
       const comsText = document.getElementById("coms-text");
       comsText.textContent = "";
+      comsImg.classList.add(animationClassName);
       character.typing = true;
       let i = 0;
       let timer = setInterval(() => {
@@ -103,6 +125,8 @@ const character = {
         } else {
           clearInterval(timer);
           character.typing = false;
+          comsImg.classList.contains("static") ? comsImg.classList.remove("static") : null;
+          comsImg.classList.remove(animationClassName);
           resolve();
         }
       }, 50);
