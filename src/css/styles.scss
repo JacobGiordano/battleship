@@ -301,18 +301,36 @@ section.coms.box.dark {
       background: 
         linear-gradient(
           transparent 0px, transparent 100px, 
-        rgba(255, 255, 255, 0.15) 100px, rgba(255, 255, 255, 0.15) 102px, 
+        rgba(255, 255, 255, 0.25) 100px, rgba(255, 255, 255, 0.25) 102px, 
           transparent 102px, transparent 790px
         ),
         repeating-linear-gradient(
-          rgba(255, 255, 255, 0.1) 0px, rgba(255, 255, 255, 0.1) 2px,
+          rgba(255, 255, 255, 0.15) 0px, rgba(255, 255, 255, 0.15) 2px,
           transparent 2px, transparent 4px
         );
 
-      -webkit-animation: coms-thin-lines 4s linear infinite;
-              animation: coms-thin-lines 4s linear infinite;
-      -webkit-animation-timing-function: steps(48);
-              animation-timing-function: steps(48);
+      -webkit-animation: coms-thin-lines 5s linear infinite;
+              animation: coms-thin-lines 5s linear infinite;
+      -webkit-animation-timing-function: steps(36);
+              animation-timing-function: steps(36);
+    }
+
+    @-webkit-keyframes coms-thin-lines {
+      0% {
+        transform: translateY(-1156px);
+      }
+      100% {
+        transform: translateY(32px)
+      }
+    }
+    
+    @keyframes coms-thin-lines {
+      0% {
+        transform: translateY(-1156px);
+      }
+      100% {
+        transform: translateY(32px)
+      }
     }
 
     &:after {
@@ -328,17 +346,52 @@ section.coms.box.dark {
           image-rendering: pixelated;
       background: linear-gradient(
         transparent 0px, transparent 16px,
-        rgba(255, 255, 255, 0.25) 16px, rgba(255, 255, 255, 0.25) 18px,
+        rgba(255, 255, 255, 0.3) 16px, rgba(255, 255, 255, 0.3) 18px,
         transparent 18px, transparent 50px,
-        rgba(255, 255, 255, 0.25) 50px, rgba(255, 255, 255, 0.25) 58px,
+        rgba(255, 255, 255, 0.3) 50px, rgba(255, 255, 255, 0.3) 58px,
         transparent 60px, transparent 116px,
-        rgba(255, 255, 255, 0.25) 116px, rgba(255, 255, 255, 0.25) 118px,
+        rgba(255, 255, 255, 0.3) 116px, rgba(255, 255, 255, 0.3) 118px,
         transparent 118px
       );
       -webkit-animation: coms-static-lines 17s linear infinite;
               animation: coms-static-lines 17s linear infinite;
       -webkit-animation-timing-function: steps(30);
               animation-timing-function: steps(30);
+    }
+    @-webkit-keyframes coms-static-lines {
+      20%, 100% {
+        opacity: 0;
+        transform: translateY(100%);
+      }
+      0% {
+        opacity: 1;
+        transform: translateY(-100%);
+      }
+      9% {
+        opacity: 1;
+      }
+      10% { 
+        opacity: 0;
+        transform: translateY(100%);
+      }
+    }
+    
+    @keyframes coms-static-lines {
+      20%, 100% {
+        opacity: 0;
+        transform: translateY(100%);
+      }
+      0% {
+        opacity: 1;
+        transform: translateY(-100%);
+      }
+      9% {
+        opacity: 1;
+      }
+      10% { 
+        opacity: 0;
+        transform: translateY(100%);
+      }
     }
   }
 
@@ -640,6 +693,24 @@ section.coms.box.dark {
           -webkit-animation-timing-function: steps(8);
                   animation-timing-function: steps(8);
         }
+
+        @-webkit-keyframes explosion-smoke-animation {
+          from { 
+            background-position: 0px;
+          }
+          to { 
+            background-position: -256px;
+          }
+        }
+        
+        @keyframes explosion-smoke-animation {
+          from { 
+            background-position: 0px;
+          }
+          to { 
+            background-position: -256px;
+          }
+        }
       }
 
       &:hover {
@@ -662,80 +733,6 @@ section.coms.box.dark {
 
 .player-1-board-wrapper {
   margin-left: -7px;
-}
-
-/* Animations */
-
-@-webkit-keyframes explosion-smoke-animation {
-  from { 
-    background-position: 0px;
-  }
-  to { 
-    background-position: -256px;
-  }
-}
-
-@keyframes explosion-smoke-animation {
-  from { 
-    background-position: 0px;
-  }
-  to { 
-    background-position: -256px;
-  }
-}
-
-@-webkit-keyframes coms-thin-lines {
-  0% {
-    transform: translateY(-1156px);
-  }
-  100% {
-    transform: translateY(32px)
-  }
-}
-
-@keyframes coms-thin-lines {
-  0% {
-    transform: translateY(-1156px);
-  }
-  100% {
-    transform: translateY(32px)
-  }
-}
-
-@-webkit-keyframes coms-static-lines {
-  20%, 100% {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-  0% {
-    opacity: 1;
-    transform: translateY(-100%);
-  }
-  9% {
-    opacity: 1;
-  }
-  10% { 
-    opacity: 0;
-    transform: translateY(100%);
-  }
-}
-
-@keyframes coms-static-lines {
-  20%, 100% {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-  0% {
-    opacity: 1;
-    transform: translateY(-100%);
-  }
-  9% {
-    opacity: 1;
-  }
-  10% { 
-    opacity: 0;
-    transform: translateY(100%);
-  }
 }
 
 /* Character Animations */
@@ -893,6 +890,58 @@ section.coms.box.dark > .coms-img.box.dark.talking-sad-2 {
   }
   to { 
     background-position: -1024px calc(-128px * 5);
+  }
+}
+
+section.coms.box.dark > .coms-img.box.dark.player-win {
+  background: url("/src/images/character/character-sprite-sheet_000.png"), var(--light-gray);
+  background-repeat: no-repeat;
+  -webkit-animation: player-win 2s infinite;
+  animation: player-win 2s infinite;
+  -webkit-animation-timing-function: steps(8);
+  animation-timing-function: steps(8);
+}
+@-webkit-keyframes player-win {
+  from { 
+    background-position: 0px calc(-128px * 6);
+  }
+  to { 
+    background-position: -1024px calc(-128px * 6);
+  }
+}
+
+@keyframes player-win {
+  from { 
+    background-position: 0px calc(-128px * 6);
+  }
+  to { 
+    background-position: -1024px calc(-128px * 6);
+  }
+}
+
+section.coms.box.dark > .coms-img.box.dark.player-loss {
+  background: url("/src/images/character/character-sprite-sheet_000.png"), var(--light-gray);
+  background-repeat: no-repeat;
+  -webkit-animation: player-loss 2s infinite;
+  animation: player-loss 2s infinite;
+  -webkit-animation-timing-function: steps(8);
+  animation-timing-function: steps(8);
+}
+@-webkit-keyframes player-loss {
+  from { 
+    background-position: 0px calc(-128px * 7);
+  }
+  to { 
+    background-position: -1024px calc(-128px * 7);
+  }
+}
+
+@keyframes player-loss {
+  from { 
+    background-position: 0px calc(-128px * 7);
+  }
+  to { 
+    background-position: -1024px calc(-128px * 7);
   }
 }
 
