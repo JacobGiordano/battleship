@@ -1,9 +1,16 @@
 import ai from "../modules/ai";
 
 const character = {
-  introScriptStep: 0,
   typing: false,
   skip: false,
+  introScriptStep: 0,
+  introScript: [
+    `Greetings, Admiral! Captain Cuddles here, reporting in from HQ! Shall we begin?…`,
+    `Position your fleet by clicking & dragging ships onto your board…`,
+    `you can also rotate a ship by double clicking it before dragging it into position.`,
+    `If you'd like to go with a more daring approach, click the "Place randomly" button.`,
+    `When all ships have been placed just give the order to begin our attack.`
+  ],
 
   startGame: (shipName) => {
     const responseArray = [
@@ -64,18 +71,6 @@ const character = {
     ];
     
     return responseArray[ai.getRandInclusive(0, responseArray.length - 1)];
-  },
-
-  introScript: () => {
-    const responseArray = [
-      `Greetings, Admiral! The battle awaits!…`,
-      `Position your fleet by clicking & dragging ships onto our board…`,
-      `you can also rotate a ship by double clicking it before dragging it into position.`,
-      `If you'd like to go with a more daring approach, click the "Place randomly" button.`,
-      `When all ships have been placed just give the order to begin our attack.`
-    ];
-
-    return responseArray;
   },
 
   skipIntro: () => {

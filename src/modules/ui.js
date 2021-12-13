@@ -222,27 +222,28 @@ const ui = {
 
   runIntroScript: async () => {
     character.typing = true;
-    await character.comsMsg(character.introScript()[0], character.positiveTalking());
+    console.log(character.introScript[0]);
+    await character.comsMsg(character.introScript[0], character.positiveTalking());
     character.introScriptStep += 1;
   },
 
   handleIntroComsClick: async () => {
-    if (character.introScriptStep < 5) {
+    if (character.introScriptStep < character.introScript.length) {
       if (character.typing) {
         character.skip = true;
         await new Promise(resolve => setTimeout(() => {
-          document.getElementById("coms-text").textContent = character.introScript()[character.introScriptStep - 1];
+          document.getElementById("coms-text").textContent = character.introScript[character.introScriptStep - 1];
           character.skip = false;
         }, 100));
       }
-      character.introScriptStep === 4 ? document.getElementById("coms-intro-btns-wrapper").classList.add("hidden") : null;
-      await character.comsMsg(character.introScript()[character.introScriptStep], character.positiveTalking());
+      character.introScriptStep === character.introScript.length - 1 ? document.getElementById("coms-intro-btns-wrapper").classList.add("hidden") : null;
+      await character.comsMsg(character.introScript[character.introScriptStep], character.positiveTalking());
     }
     character.introScriptStep += 1;
   },
 
   handleSkipIntroClick: async () => {
-    character.introScriptStep = 4;
+    character.introScriptStep = character.introScript.length - 1;
     character.skip = true;
     document.getElementById("coms-intro-btns-wrapper").classList.add("hidden");
 
