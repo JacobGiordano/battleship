@@ -76,7 +76,7 @@ body, button, .btn {
     height: 100%;
     max-width: var(--max-page-width);
     margin: 0 auto;
-    padding: 1.125rem 1rem;
+    padding: 2rem 1rem;
     top: 3.5rem;
     left: 50%;
     transform: translateX(-50%);
@@ -452,6 +452,9 @@ section.coms.box.dark {
     background-repeat: no-repeat;
     margin-right: .5rem;
     overflow: hidden;
+    -ms-interpolation-mode: nearest-neighbor;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: pixelated;
     -webkit-animation: just-blinking 10s infinite;
             animation: just-blinking 10s infinite;
     -webkit-animation-timing-function: steps(1);
@@ -661,6 +664,9 @@ section.coms.box.dark {
     .ship {
       display: inline-flex;
       margin: 0 .5rem .5rem 0;
+      -ms-interpolation-mode: nearest-neighbor;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: pixelated;
       cursor: pointer;
 
       &:last-of-type {
@@ -836,6 +842,9 @@ section.coms.box.dark {
       background: var(--dark-blue-green);
       width: 100%;
       height: 100%;
+      -ms-interpolation-mode: nearest-neighbor;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: pixelated;
       cursor: crosshair;
 
       &.ship-part {
@@ -959,6 +968,9 @@ section.coms.box.dark {
 section.coms.box.dark > .coms-img.box.dark.static {
   background: url("/src/images/character/character-sprite-sheet_000.png"), var(--light-gray);
   background-repeat: no-repeat;
+  -ms-interpolation-mode: nearest-neighbor;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: pixelated;
   -webkit-animation: static-lines 1s infinite;
           animation: static-lines 1s infinite;
   -webkit-animation-timing-function: steps(4);
