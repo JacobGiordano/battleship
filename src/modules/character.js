@@ -6,19 +6,32 @@ const character = {
   introScriptStep: 0,
   introScript: [
     `Greetings, Admiral! Captain Cuddles here, reporting in from HQ! Shall we begin?…`,
-    `Position your fleet by clicking & dragging ships onto your board…`,
-    `you can also rotate a ship by double clicking it before dragging it into position.`,
+    `Excellent! You can rotate a ship by double clicking it *before* dragging it into position.`,
+    `Go ahead, try it out. Double click a ship below.`,
+    `Great! You can add ships to your board 2 ways: clicking & dragging onto your board, or…`,
     `If you'd like to go with a more daring approach, click the "Place randomly" button.`,
-    `When all ships have been placed just give the order to begin our attack.`
+    `When all ships have been placed, just give the order to begin our attack.`
   ],
 
-  startGame: (shipName) => {
+  startGame: () => {
     const responseArray = [
       `Here we gooooo! On your mark, Admiral!`,
       `Ok! Let's do it! Just give the command, Admiral!`,
       `We'll attack on your order, Admiral!`,
       `Just give the order and we'll begin our attack, Admiral!`,
       `Let's make the first shot count! Just say the word, Admiral!`
+    ];
+    
+    return responseArray[ai.getRandInclusive(0, responseArray.length - 1)];
+  },
+
+  newGame: () => {
+    const responseArray = [
+      `Roger! Awaiting your orders, Admiral.`,
+      `Ah, yes! A fresh start!`,
+      `Back at it again, eh, Admiral? Let's do this.`,
+      `Right! Another opportunity for victory!`,
+      `It's an honor to serve with you again, Admiral!`
     ];
     
     return responseArray[ai.getRandInclusive(0, responseArray.length - 1)];
@@ -86,7 +99,7 @@ const character = {
   },
 
   positiveTalking: () => {
-    const classArray = ["talking-1", "talking-1"];
+    const classArray = ["talking-1", "talking-2"];
     return classArray[ai.getRandInclusive(0, classArray.length - 1)];
   },
 

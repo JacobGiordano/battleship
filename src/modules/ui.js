@@ -9,7 +9,17 @@ const ui = {
   },
 
   updateBattleStatus: currentPlayer => {
-    currentPlayer.toLowerCase() === "computer" ? document.getElementById("battle-status").textContent = "Awaiting attack…" : document.getElementById("battle-status").textContent = "Attack!";
+    const battleStatus = document.getElementById("battle-status");
+    battleStatus.classList.remove("place-ships");
+    if (currentPlayer.toLowerCase() === "computer") {
+      battleStatus.textContent = "Awaiting attack…";
+      battleStatus.classList.add("awaiting-attack");
+      battleStatus.classList.remove("attack");
+    } else {
+      battleStatus.textContent = "Attack!";
+      battleStatus.classList.add("attack");
+      battleStatus.classList.remove("awaiting-attack");
+    }
   },
 
   getSquareIndex: (element, parentEl) => {
@@ -195,11 +205,23 @@ const ui = {
     game.computerGameboard.prepopulateShips(game.computerGameboard, ai.createRandShipsArray());
     ui.deleteAllDraggableShips();
     ui.populateDraggableShips();
-    document.getElementById("battle-status").textContent = "Place ships";
+
+    const battleStatus = document.getElementById("battle-status");
+    battleStatus.textContent = "Place ships";
+    battleStatus.classList.remove("attack");
+    battleStatus.classList.remove("awaiting-attack");
+    battleStatus.classList.add("place-ships");
     document.getElementById("random-player-ships-btn").classList.remove("hidden");
     document.getElementById("player-fleet-wrapper").classList.remove("hidden");
     document.getElementById("computer-board-wrapper").classList.add("hidden");
     document.getElementById("start-game-btn").classList.add("hidden");
+    character.typing = true;
+    character.skip = true;
+    setTimeout(() => {
+      character.comsMsg(character.newGame(), character.positiveTalking());
+      character.typing = false;
+      character.skip = false;
+    }, 50);
   },
 
   startGame: async () => {
