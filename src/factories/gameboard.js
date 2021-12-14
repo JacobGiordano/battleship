@@ -124,7 +124,6 @@ const Gameboard = (player) => {
 
     let forcedCoords = undefined;
     if (player.isComputer()) {
-      console.log(game.playerGameboard.getHitList())
       game.playerGameboard.getHitList().length > 0 ? forcedCoords = await ai.followUpAttack(game.playerGameboard) : null;
       console.log(`RETURNED forced coords: ${forcedCoords}`);
     }
