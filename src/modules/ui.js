@@ -244,7 +244,6 @@ const ui = {
 
   runIntroScript: async () => {
     character.typing = true;
-    console.log(character.introScript[0]);
     await character.comsMsg(character.introScript[0], character.positiveTalking());
     character.introScriptStep += 1;
   },
