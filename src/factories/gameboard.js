@@ -175,6 +175,7 @@ const Gameboard = (player) => {
     misses = [];
     ships = [];
     shotsReceived = [];
+    hitList = [];
   }
 
   return {placeShip, getShips, getMisses, getShotsReceived, getHitList, prepopulateShips, addSquareEventListeners, removeSquareEventListeners, receiveAttack, allShipsSunk, resetBoard};
