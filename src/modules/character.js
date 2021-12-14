@@ -1,3 +1,4 @@
+import {game} from "../factories/game";
 import ai from "../modules/ai";
 
 const character = {
@@ -137,7 +138,7 @@ const character = {
           comsImg.classList.remove(animationClassName);
           resolve();
         }
-      }, 50);
+      }, game.turnDelay / 15);
     });
   },
 

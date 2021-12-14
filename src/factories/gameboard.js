@@ -82,7 +82,7 @@ const Gameboard = (player) => {
       await character.comsMsg(msg, animationClassName);
       setTimeout(() => {
         finishTurn(player, lowerCasedCurrentPlayer);
-      }, msg.length * 25);
+      }, msg.length * (game.turnDelay / 30));
     } else {
       setTimeout(() => {
         finishTurn(player, lowerCasedCurrentPlayer);
