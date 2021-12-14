@@ -5,7 +5,7 @@ const character = {
   skip: false,
   introScriptStep: 0,
   introScript: [
-    `Greetings, Admiral! Captain Cuddles here, reporting in from HQ! Shall we begin?…`,
+    `Greetings, Admiral — Captain Cuddles here! Reporting in from HQ! Shall we begin?…`,
     `Excellent! You can rotate a ship by double clicking it *before* dragging it into position.`,
     `Go ahead, try it out. Double click a ship below.`,
     `Great! You can add ships to your board 2 ways: clicking & dragging onto your board, or…`,
