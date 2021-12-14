@@ -81,34 +81,16 @@ const ai = {
       let clickedIndex = hitList[hitList.length - 1];
       
       console.log(`HIT at ${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`);
-      // console.log(shotsReceived)
       console.log(hitList)
-      // console.log(`hitList.length = ${hitList.length}`)
   
       if (hitList.length === 1) {
-        console.log("Next attack:")
         nextAttack = ai.getFirstFollowUpCoord(clickedIndex, shotsReceived);
       } else {
-        // check for a pattern in the hitList vals
-        let hitListRows = [];
-        let hitListColumns = [];
-
-        for (let index of hitList) {
-          console.log(ai.rows[ui.getRowFromIndex(index)]);
-          hitListRows.push(ai.rows[ui.getRowFromIndex(index)]);
-          console.log(ai.columns[ui.getColumnFromIndex(index)]);
-          hitListColumns.push(ai.columns[ui.getColumnFromIndex(index)]);
-        }
-
-        console.log([...new Set(hitListRows)]);
-        console.log([...new Set(hitListColumns)]);
-
-        if ([...new Set(hitListRows)].length > 1) {
-          nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex + 10)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
-        } else if ([...new Set(hitListColumns)].length > 1) {
-          nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(clickedIndex + 1)]}`;
-        }
+        nextAttack = ai.getThirdFollowUpCoord(clickedIndex, hitList, shotsReceived);
       }
+
+      console.log("Next attack:")
+      console.log(nextAttack);
   
       resolve(nextAttack);
     });
@@ -126,13 +108,14 @@ const ai = {
     if (clickedIndex + 10 < 99) {
       belowAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex + 10)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
     }
-    if (clickedIndex - 1 < 0) {
+    if (clickedIndex - 1 > 0) {
       leftAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(clickedIndex - 1)]}`;
     }
     if (clickedIndex + 1 < 99) {
       rightAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(clickedIndex + 1)]}`;
     }
-    console.log(nextAttack);
+    console.log([aboveAttack, belowAttack, leftAttack, rightAttack]);
+
     switch (true) {
       case (aboveAttack !== undefined && shotsReceived.indexOf(aboveAttack) === -1):
         nextAttack = aboveAttack;
@@ -146,7 +129,51 @@ const ai = {
       case (rightAttack !== undefined && shotsReceived.indexOf(rightAttack) === -1):
         nextAttack = rightAttack;
         break;
-      default:
+      // default:
+    }
+    console.log(nextAttack);
+
+    return nextAttack;
+  },
+
+  getThirdFollowUpCoord: (clickedIndex, hitList, shotsReceived) => {
+    // check for a pattern in the hitList vals
+    let hitListRows = [];
+    let hitListColumns = [];
+    let nextAttack;
+
+    for (let index of hitList) {
+      hitListRows.push(ai.rows[ui.getRowFromIndex(index)]);
+      hitListColumns.push(ai.columns[ui.getColumnFromIndex(index)]);
+    }
+
+    console.log([...new Set(hitListRows)]);
+    console.log([...new Set(hitListColumns)]);
+
+    if ([...new Set(hitListRows)].length > 1) {
+      if ((hitList[hitList.length - 1] + 10) < 99) {
+        nextAttack = `${ai.rows[ui.getRowFromIndex(hitList[hitList.length - 1] + 10)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
+        if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(hitList[hitList.length - 1] + 20)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
+        }
+      } else {
+        nextAttack = `${ai.rows[ui.getRowFromIndex(hitList[hitList.length - 1] - 10)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
+        if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(hitList[hitList.length - 1] - 20)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
+        }
+      }
+    } else if ([...new Set(hitListColumns)].length > 1) {
+      if ((hitList[hitList.length - 1] + 1) < 99) {
+        nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(hitList[hitList.length - 1] + 1)]}`;
+        if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(hitList[hitList.length - 1] + 2)]}`;
+        }
+      } else {
+        nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(hitList[hitList.length - 1] - 1)]}`;
+        if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(hitList[hitList.length - 1] - 2)]}`;
+        }
+      }
     }
 
     return nextAttack;
