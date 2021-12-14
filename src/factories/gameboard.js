@@ -8,6 +8,7 @@ const Gameboard = (player) => {
   let misses = [];
   let ships = [];
   let shotsReceived = [];
+  let hitList = [];
   let gameboard;
 
   player.isComputer() ? gameboard = document.getElementById("computer-board") : gameboard = document.getElementById("player-1-board");
@@ -26,6 +27,14 @@ const Gameboard = (player) => {
 
   const getMisses = () => {
     return misses;
+  }
+
+  const getShotsReceived = () => {
+    return shotsReceived;
+  }
+
+  const getHitList = () => {
+    return hitList;
   }
 
   const prepopulateShips = (gameboard, shipObjArray) => {
@@ -66,12 +75,22 @@ const Gameboard = (player) => {
 
     if (result === undefined) return;
 
-    result !== undefined && result.shot === "hit" ? ui.addHitClass(square) : ui.addMissClass(square);
+    if (result !== undefined && result.shot === "hit") {
+      ui.addHitClass(square);
+      if (gameboard.id === "player-1-board" && lowerCasedCurrentPlayer === "computer") {
+        hitList.push(clickedIndex);
+        console.log(hitList);
+      }
+    } else {
+      ui.addMissClass(square);
+    }
+
     lowerCasedCurrentPlayer === "computer" ? ui.updateBattleStatus(game.player.getName()) : ui.updateBattleStatus("Computer");
 
     removeSquareEventListeners(gameboard);
 
     if (result.hitShip !== undefined && result.hitShip.isSunk()) {
+      hitList = [];
       let msg;
       let animationClassName;
 
@@ -103,7 +122,14 @@ const Gameboard = (player) => {
       return;
     }
 
-    player.isComputer() ? player.computerTurn() : null;
+    let forcedCoords = undefined;
+    if (player.isComputer()) {
+      console.log(game.playerGameboard.getHitList())
+      game.playerGameboard.getHitList().length > 0 ? forcedCoords = await ai.followUpAttack(game.playerGameboard) : null;
+      console.log(`RETURNED forced coords: ${forcedCoords}`);
+    }
+
+    player.isComputer() ? player.computerTurn(forcedCoords) : null;
 
     addSquareEventListeners(gameboard);
   }
@@ -151,7 +177,7 @@ const Gameboard = (player) => {
     shotsReceived = [];
   }
 
-  return {placeShip, getShips, getMisses, prepopulateShips, addSquareEventListeners, removeSquareEventListeners, receiveAttack, allShipsSunk, resetBoard};
+  return {placeShip, getShips, getMisses, getShotsReceived, getHitList, prepopulateShips, addSquareEventListeners, removeSquareEventListeners, receiveAttack, allShipsSunk, resetBoard};
 };
 
 export default Gameboard;

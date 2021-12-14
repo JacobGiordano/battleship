@@ -1,4 +1,5 @@
 import {game} from "../factories/game";
+import ui from "./ui";
 
 const ai = {
   rows: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"],
@@ -72,18 +73,98 @@ const ai = {
     return {"isVertical": isVertical, "shipCoords": shipCoords};
   },
 
+  followUpAttack: (gameboard) => {
+    return new Promise(resolve => {
+      let nextAttack;
+      let shotsReceived = gameboard.getShotsReceived();
+      let hitList = gameboard.getHitList();
+      let clickedIndex = hitList[hitList.length - 1];
+      
+      console.log(`HIT at ${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`);
+      // console.log(shotsReceived)
+      console.log(hitList)
+      // console.log(`hitList.length = ${hitList.length}`)
+  
+      if (hitList.length === 1) {
+        console.log("Next attack:")
+        nextAttack = ai.getFirstFollowUpCoord(clickedIndex, shotsReceived);
+      } else {
+        // check for a pattern in the hitList vals
+        let hitListRows = [];
+        let hitListColumns = [];
+
+        for (let index of hitList) {
+          console.log(ai.rows[ui.getRowFromIndex(index)]);
+          hitListRows.push(ai.rows[ui.getRowFromIndex(index)]);
+          console.log(ai.columns[ui.getColumnFromIndex(index)]);
+          hitListColumns.push(ai.columns[ui.getColumnFromIndex(index)]);
+        }
+
+        console.log([...new Set(hitListRows)]);
+        console.log([...new Set(hitListColumns)]);
+
+        if ([...new Set(hitListRows)].length > 1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex + 10)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
+        } else if ([...new Set(hitListColumns)].length > 1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(clickedIndex + 1)]}`;
+        }
+      }
+  
+      resolve(nextAttack);
+    });
+  },
+
+  getFirstFollowUpCoord: (clickedIndex, shotsReceived) => {
+    let nextAttack;
+    let aboveAttack;
+    let belowAttack;
+    let leftAttack;
+    let rightAttack;
+    if (clickedIndex - 10 > 0) {
+      aboveAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex - 10)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
+    }
+    if (clickedIndex + 10 < 99) {
+      belowAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex + 10)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
+    }
+    if (clickedIndex - 1 < 0) {
+      leftAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(clickedIndex - 1)]}`;
+    }
+    if (clickedIndex + 1 < 99) {
+      rightAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(clickedIndex + 1)]}`;
+    }
+    console.log(nextAttack);
+    switch (true) {
+      case (aboveAttack !== undefined && shotsReceived.indexOf(aboveAttack) === -1):
+        nextAttack = aboveAttack;
+        break;
+      case (belowAttack !== undefined && shotsReceived.indexOf(belowAttack) === -1):
+        nextAttack = belowAttack;
+        break;
+      case (leftAttack !== undefined && shotsReceived.indexOf(leftAttack) === -1):
+        nextAttack = leftAttack;
+        break;
+      case (rightAttack !== undefined && shotsReceived.indexOf(rightAttack) === -1):
+        nextAttack = rightAttack;
+        break;
+      default:
+    }
+
+    return nextAttack;
+  },
+
   playComputerTurn: (forcedCoords) => {
     let coords = "";
     let shotsFired = game.computer.getShotsFired();
 
+    console.log(`RECEIVED forced coords: ${forcedCoords}`);
     if (forcedCoords !== undefined) {
       coords = forcedCoords;
-      game.computer.recordShotFired(coords);
     } else {
       coords = ai.getRandCoords();
     }
 
     if (shotsFired.indexOf(coords) > -1) {
+      console.log("RERUNNING COMPUTER TURN!");
       ai.playComputerTurn();
     } else {
       setTimeout(() => {
