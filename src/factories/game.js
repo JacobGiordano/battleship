@@ -8,7 +8,7 @@ const Game = () => {
   const computer = Player("Computer", true);
   const playerGameboard = Gameboard(player);
   const computerGameboard = Gameboard(computer);
-  const turnDelay = 750;
+  const turnDelay = 250;
   
   computerGameboard.prepopulateShips(computerGameboard, ai.createRandShipsArray());
   playerGameboard.addSquareEventListeners(document.getElementById("player-1-board"));

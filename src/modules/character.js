@@ -138,7 +138,7 @@ const character = {
           comsImg.classList.remove(animationClassName);
           resolve();
         }
-      }, game.turnDelay / 15);
+      }, game.turnDelay / 5);
     });
   },
 
