@@ -2,12 +2,14 @@ import Ship from "../factories/ship";
 import ui from "../modules/ui";
 import ai from "../modules/ai";
 import {game} from "../factories/game";
+import character from "../modules/character";
 
 const Gameboard = (player) => {
   let misses = [];
   let ships = [];
   let shotsReceived = [];
   let gameboard;
+
   player.isComputer() ? gameboard = document.getElementById("computer-board") : gameboard = document.getElementById("player-1-board");
   const rows = ai.rows;
   const columns = ai.columns;
@@ -37,45 +39,83 @@ const Gameboard = (player) => {
   const addShipToBoard = (shipObj) => {
     const boardsquares = gameboard.querySelectorAll(".board-square");
     const coordsArray = shipObj.coordsArray;
-    coordsArray.forEach((coords, index, coordsArray) => {
+    coordsArray.forEach((coords, index) => {
       const squareIndex = ai.getIndex(coords);
       boardsquares[squareIndex].classList.add("ship-part");
       shipObj.isVertical? boardsquares[squareIndex].classList.add("vertical") : null;
-      boardsquares[squareIndex].classList.add(shipObj.name.toLowerCase().split(" ").join("-"));
-      if (index === 0) {
-        boardsquares[squareIndex].classList.add("first");
-      } else if (index === coordsArray.length - 1) {
-        boardsquares[squareIndex].classList.add("last");
-      }
+      if (player.isComputer()) return;
+      boardsquares[squareIndex].classList.add(`${shipObj.name.toLowerCase().split(" ").join("-")}-${index + 1}`);
     });
   }
 
-  const handleSquareClick = e => {
-    const lowerCasedCurrentPlayer = document.getElementById("current-player").textContent.toLowerCase();
+  const handleSquareClick = async e => {
+    const lowerCasedCurrentPlayer = e.target.closest(".gameboard").id === "computer-board" ? "player" : "computer";
+    const battleStatus = document.getElementById("battle-status").textContent.toLowerCase();
     
-    if (gameboard.id === "player-1-board" && lowerCasedCurrentPlayer !== "computer" || gameboard.id === "computer-board" && lowerCasedCurrentPlayer === "computer") {
+    if (gameboard.id === "player-1-board" && lowerCasedCurrentPlayer !== "computer" ||
+        gameboard.id === "computer-board" && lowerCasedCurrentPlayer === "computer" ||
+        gameboard.id === "player-1-board" && battleStatus === "attack!" ||
+        gameboard.id === "player-1-board" && battleStatus === "place ships" ||
+        gameboard.id === "computer-board" && battleStatus === "awaiting attack…") {
       return;
     }
 
     const clickedIndex = ui.getSquareIndex(e.target, e.target.closest(".gameboard"));
     const square = ui.getSquareAtIndex(gameboard, clickedIndex);
-
     const result = receiveAttack(`${rows[ui.getRowFromIndex(clickedIndex)]}${columns[ui.getColumnFromIndex(clickedIndex)]}`);
-    if (result === undefined) return;
-    result !== undefined && result.shot === "hit" ? ui.addHitClass(square) : ui.addMissClass(square);
 
+    if (result === undefined) return;
+
+    result !== undefined && result.shot === "hit" ? ui.addHitClass(square) : ui.addMissClass(square);
+    lowerCasedCurrentPlayer === "computer" ? ui.updateBattleStatus(game.player.getName()) : ui.updateBattleStatus("Computer");
+
+    removeSquareEventListeners(gameboard);
+
+    if (result.hitShip !== undefined && result.hitShip.isSunk()) {
+      let msg;
+      let animationClassName;
+
+      !player.isComputer() ? msg = character.reportSunkenShip(result.hitShip.getName()) : msg = character.sunkEnemyShip(result.hitShip.getName());
+
+      !player.isComputer() ? animationClassName = character.negativeTalking() : animationClassName = character.positiveTalking()
+
+      await character.comsMsg(msg, animationClassName);
+      setTimeout(() => {
+        finishTurn(player, lowerCasedCurrentPlayer);
+      }, msg.length * (game.turnDelay / 30));
+    } else {
+      setTimeout(() => {
+        finishTurn(player, lowerCasedCurrentPlayer);
+      }, game.turnDelay);
+    }
+  }
+
+  const finishTurn = async (player) => {
     if (allShipsSunk()) {
-      alert(`Game over!`);
+      let msg;
+      let animationClassName;
+
+      !player.isComputer() ? msg = character.playerLoss() : msg = character.playerWin();
+      
+      !player.isComputer() ? animationClassName = character.playerLoseTalking() : animationClassName = character.playerWinTalking()
+
+      await character.comsMsg(msg, animationClassName);
       return;
     }
 
     player.isComputer() ? player.computerTurn() : null;
-    lowerCasedCurrentPlayer === "computer" ? ui.showCurrentPlayer(game.player.getName()) : ui.showCurrentPlayer("Computer");
+
+    addSquareEventListeners(gameboard);
   }
 
   const addSquareEventListeners = (gameboardDOMElement) => {
     const boardsquares = gameboardDOMElement.querySelectorAll(".board-square");
     boardsquares.forEach(square => square.addEventListener("click", handleSquareClick, false));
+  }
+
+  const removeSquareEventListeners = (gameboardDOMElement) => {
+    const boardsquares = gameboardDOMElement.querySelectorAll(".board-square");
+    boardsquares.forEach(square => square.removeEventListener("click", handleSquareClick, false));
   }
 
   const receiveAttack = coords => {
@@ -90,7 +130,7 @@ const Gameboard = (player) => {
     // If a hit, record it as a hit for the correct ship
     if (wasHit !== null & wasHit !== undefined) {
       wasHit.hit(coords); // 1.
-      return {shot: "hit", coords: coords};
+      return {shot: "hit", coords: coords, hitShip: wasHit};
       // 2. Trigger showing a *hit* on the gameboard
     } else {
       // If a miss, record it in the misses array of the Gameboard
@@ -111,7 +151,7 @@ const Gameboard = (player) => {
     shotsReceived = [];
   }
 
-  return {placeShip, getShips, getMisses, prepopulateShips, addSquareEventListeners, receiveAttack, allShipsSunk, resetBoard};
+  return {placeShip, getShips, getMisses, prepopulateShips, addSquareEventListeners, removeSquareEventListeners, receiveAttack, allShipsSunk, resetBoard};
 };
 
 export default Gameboard;

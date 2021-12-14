@@ -87,35 +87,33 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
       draggingEl.classList.contains("vertical") ? selectedSquare.classList.add("vertical") : null;
 
       switch(true){
-        case draggingEl.classList.contains("partol-boat"):
-          selectedSquare.classList.add("partol-boat");
+        case draggingEl.classList.contains("patrol-boat"):
+          selectedSquare.classList.add(`patrol-boat-${i + 1}`);
           break;
         case draggingEl.classList.contains("destroyer"):
-          selectedSquare.classList.add("destroyer");
+          selectedSquare.classList.add(`destroyer-${i + 1}`);
           break;
         case draggingEl.classList.contains("submarine"):
-          selectedSquare.classList.add("submarine");
+          selectedSquare.classList.add(`submarine-${i + 1}`);
           break;
         case draggingEl.classList.contains("battleship"):
-          selectedSquare.classList.add("battleship");
+          selectedSquare.classList.add(`battleship-${i + 1}`);
           break;
         case draggingEl.classList.contains("carrier"):
-          selectedSquare.classList.add("carrier");
+          selectedSquare.classList.add(`carrier-${i + 1}`);
           break;      
       }
 
-
-      if (i == 0) {
-        selectedSquare.classList.add("first");
-      } else if (i == draggingEl.children.length - 1) {
-        selectedSquare.classList.add("last");
-      }
       coords.push(`${ai.rows[ui.getRowFromIndex(squareIndex)]}${ai.columns[ui.getColumnFromIndex(squareIndex)]}`);
     }
 
     thisGameboardObj.placeShip(draggingEl.dataset.shipName, coords);
+
+    document.getElementById("random-player-ships-btn").classList.add("hidden");
     
     draggingEl.remove();
+
+    document.getElementById("ships-wrapper").querySelectorAll(".ship").length === 0 ? document.getElementById("start-game-btn").classList.remove("hidden") : null;
   }
 
   const returnDraggables = () => {

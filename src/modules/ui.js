@@ -1,10 +1,25 @@
 import {game} from "../factories/game";
 import ai from "../modules/ai";
 import Draggable from "../factories/draggable";
+import character from "./character";
 
 const ui = {
   showCurrentPlayer: currentPlayer => {
     document.getElementById("current-player").textContent = currentPlayer;
+  },
+
+  updateBattleStatus: currentPlayer => {
+    const battleStatus = document.getElementById("battle-status");
+    battleStatus.classList.remove("place-ships");
+    if (currentPlayer.toLowerCase() === "computer") {
+      battleStatus.textContent = "Awaiting attack…";
+      battleStatus.classList.add("awaiting-attack");
+      battleStatus.classList.remove("attack");
+    } else {
+      battleStatus.textContent = "Attack!";
+      battleStatus.classList.add("attack");
+      battleStatus.classList.remove("awaiting-attack");
+    }
   },
 
   getSquareIndex: (element, parentEl) => {
@@ -25,6 +40,10 @@ const ui = {
 
   addHitClass: squareEl => {
     squareEl.classList.add("hit");
+    setTimeout(() => {
+      squareEl.classList.remove("hit");
+      squareEl.classList.add("smoke");
+    }, 800);
   },
 
   addMissClass: squareEl => {
@@ -111,6 +130,9 @@ const ui = {
     for (const ship of draggableShips) {
       ship.remove();
     }
+
+    document.getElementById("random-player-ships-btn").classList.add("hidden");
+    document.getElementById("start-game-btn").classList.remove("hidden");
   },
 
   populateDraggableShips: () => {
@@ -159,11 +181,6 @@ const ui = {
       const shipPart = document.createElement("div");
       shipPart.classList.add("ship-part");
       shipPart.classList.add(shipNameClass);
-      if (i === 0) {
-        shipPart.classList.add("first");
-      } else if (i === (numOfParts - 1)) {
-        shipPart.classList.add("last");
-      }
       ship.appendChild(shipPart);
     }
 
@@ -188,10 +205,97 @@ const ui = {
     game.computerGameboard.prepopulateShips(game.computerGameboard, ai.createRandShipsArray());
     ui.deleteAllDraggableShips();
     ui.populateDraggableShips();
+
+    const battleStatus = document.getElementById("battle-status");
+    battleStatus.textContent = "Place ships";
+    battleStatus.classList.remove("attack");
+    battleStatus.classList.remove("awaiting-attack");
+    battleStatus.classList.add("place-ships");
+    document.getElementById("random-player-ships-btn").classList.remove("hidden");
+    document.getElementById("player-fleet-wrapper").classList.remove("hidden");
+    document.getElementById("computer-board-wrapper").classList.add("hidden");
+    document.getElementById("start-game-btn").classList.add("hidden");
+    character.typing = true;
+    character.skip = true;
+    setTimeout(() => {
+      character.comsMsg(character.newGame(), character.positiveTalking());
+      character.typing = false;
+      character.skip = false;
+    }, 50);
+  },
+
+  startGame: async () => {
+    ui.updateBattleStatus("Player");
+    document.getElementById("player-fleet-wrapper").classList.add("hidden");
+    document.getElementById("computer-board-wrapper").classList.remove("hidden");
+
+    character.skip = true;
+
+    await new Promise(resolve => setTimeout(() => {
+      character.introScriptStep = 4;
+      character.typing = false;
+      character.skip = false;
+      resolve();
+    }, 100));
+    
+    document.getElementById("coms-intro-btns-wrapper").classList.add("hidden");
+    character.comsMsg(character.startGame(), character.positiveTalking());
+  },
+
+  runIntroScript: async () => {
+    character.typing = true;
+    await character.comsMsg(character.introScript[0], character.positiveTalking());
+    character.introScriptStep += 1;
+  },
+
+  handleIntroComsClick: async () => {
+    if (character.introScriptStep < character.introScript.length) {
+      if (character.typing) {
+        character.skip = true;
+        await new Promise(resolve => setTimeout(() => {
+          document.getElementById("coms-text").textContent = character.introScript[character.introScriptStep - 1];
+          character.skip = false;
+        }, 100));
+      }
+      character.introScriptStep === character.introScript.length - 1 ? document.getElementById("coms-intro-btns-wrapper").classList.add("hidden") : null;
+      await character.comsMsg(character.introScript[character.introScriptStep], character.positiveTalking());
+    }
+    character.introScriptStep += 1;
+  },
+
+  handleSkipIntroClick: async () => {
+    character.introScriptStep = character.introScript.length - 1;
+    character.skip = true;
+    document.getElementById("coms-intro-btns-wrapper").classList.add("hidden");
+
+    await new Promise(resolve => setTimeout(() => {
+      character.skip = false;
+      character.typing = false;
+      resolve();
+    }, 100));
+  
+    await character.comsMsg(character.skipIntro(), character.positiveTalking());
+  },
+
+  enableComsBtns: () => {
+    document.getElementById("cont-coms-intro-btn").disabled = false;
+    document.getElementById("cont-coms-intro-btn").classList.remove("disabled");
+    document.getElementById("skip-intro-btn").disabled = false;
+    document.getElementById("skip-intro-btn").classList.remove("disabled");
   }
 }
 
 document.getElementById("random-player-ships-btn").addEventListener("click", ui.handleRandomPlayerShips, false);
 document.getElementById("new-game").addEventListener("click", ui.handleNewGameClick, false);
+document.getElementById("start-game-btn").addEventListener("click", ui.startGame, false);
+document.getElementById("cont-coms-intro-btn").addEventListener("click", ui.handleIntroComsClick, false);
+document.getElementById("skip-intro-btn").addEventListener("click", ui.handleSkipIntroClick, false);
+
+document.addEventListener("DOMContentLoaded", function() {
+  setTimeout(() => {
+    ui.runIntroScript();
+    ui.enableComsBtns();
+  }, 2000);
+});
 
 export default ui;

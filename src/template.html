@@ -4,22 +4,38 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Page Title</title>
+  <title>Battleship</title>
 </head>
 
 <body id="body">
+  <section id="mobile-block" class="mobile-block">
+    <div id="mobile-block-inner-wrapper" class="mobile-block-inner-wrapper box thick dark">
+      <div id="mobile-block-img" class="mobile-block-img box dark"></div>
+      <div id="mobile-block-text" class="mobile-block-text box dark">Apologies, Admiral, but this device is too small to effectively place and utilize our fleet. Please widen the browser window or switch to a minimum device width of 768px.
+      </div>
+    </div>
+  </section>
   <header id="header" class="header">
     <h1 class="page-title">Battleship</h1>
     <button id="new-game" class="new-game">New Game</button>
   </header>
-  <section id="player-fleet-wrapper" class="player-fleet-wrapper">
-    <button id="random-player-ships-btn" class="random-player-ships-btn">Random ship locations</button>
-    <div id="ships-wrapper" class="ships-wrapper"></div>
+  <section id="coms" class="coms box thick dark">
+    <div id="coms-img" class="coms-img box dark static"></div>
+    <div id="coms-text" class="coms-text box dark"></div>
+    <div id="coms-intro-btns-wrapper" class="coms-intro-btns-wrapper">
+      <button id="cont-coms-intro-btn" class="cont-coms-intro-btn disabled" disabled>Next</button>
+      <button id="skip-intro-btn" class="skip-intro-btn disabled" disabled>Skip Intro</button>
+    </div>
   </section>
-  <section id="current-player-section" class="current-player-section">
-    <span>Current player: <span id="current-player" class="current-"></span></span>
+  <section id="battle-status-section" class="battle-status-section box thick dark">
+    <span>Battle Status: <span id="battle-status" class="battle-status place-ships">Place ships</span></span>
   </section>
   <main id="main" class="main">
+    <div id="player-fleet-wrapper" class="player-fleet-wrapper box thick dark">
+      <button id="random-player-ships-btn" class="random-player-ships-btn">Place randomly</button>
+      <button id="start-game-btn" class="start-game-btn red hidden">To battle!</button>
+      <div id="ships-wrapper" class="ships-wrapper"></div>
+    </div>
     <div id="player-1-board-wrapper" class="player-1-board-wrapper board-wrapper">
       <div id="y-labels" class="y-labels">
         <div class="y-label">A</div>
@@ -46,7 +62,7 @@
           <div class="x-label">9</div>
           <div class="x-label">10</div>
         </div>
-        <div id="player-1-board" class="player-1-board gameboard">
+        <div id="player-1-board" class="player-1-board gameboard box thick">
           <div class="board-square"></div>
           <div class="board-square"></div>
           <div class="board-square"></div>
@@ -150,7 +166,7 @@
         </div>
       </div>
     </div>
-    <div id="computer-board-wrapper" class="computer-board-wrapper board-wrapper">
+    <div id="computer-board-wrapper" class="computer-board-wrapper board-wrapper hidden">
       <div id="y-labels" class="y-labels">
         <div class="y-label">A</div>
         <div class="y-label">B</div>
@@ -176,7 +192,7 @@
           <div class="x-label">9</div>
           <div class="x-label">10</div>
         </div>
-        <div id="computer-board" class="computer-board gameboard">
+        <div id="computer-board" class="computer-board gameboard box thick">
           <div class="board-square"></div>
           <div class="board-square"></div>
           <div class="board-square"></div>
@@ -284,6 +300,7 @@
 </body>
 
 <footer id="footer" class="footer">
+
 </footer>
 
 </html>
