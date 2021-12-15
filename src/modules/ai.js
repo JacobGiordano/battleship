@@ -151,27 +151,83 @@ const ai = {
     console.log([...new Set(hitListColumns)]);
 
     if ([...new Set(hitListRows)].length > 1) {
-      if ((hitList[hitList.length - 1] + 10) < 99) {
-        nextAttack = `${ai.rows[ui.getRowFromIndex(hitList[hitList.length - 1] + 10)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
+      if ((hitList[0] + 10) < 99) {
+        nextAttack = `${ai.rows[ui.getRowFromIndex(hitList[0] + 10)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
         if (shotsReceived.indexOf(nextAttack) > -1) {
-          nextAttack = `${ai.rows[ui.getRowFromIndex(hitList[hitList.length - 1] + 20)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
+          nextAttack = `${ai.rows[ui.getRowFromIndex(hitList[0] + 20)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
+        } else if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(hitList[0] + 30)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
+        } else if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(hitList[0] + 40)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
+        } else if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(hitList[0] + 50)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
+        } else if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(hitList[0] + 60)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
+        } else if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(hitList[0] - 10)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
+        } else if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(hitList[0] - 20)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
+        } else if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(hitList[0] - 30)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
+        } else if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(hitList[0] - 40)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
+        } else if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(hitList[0] - 50)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
+        } else if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(hitList[0] - 60)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
         }
       } else {
-        nextAttack = `${ai.rows[ui.getRowFromIndex(hitList[hitList.length - 1] - 10)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
+        nextAttack = `${ai.rows[ui.getRowFromIndex(hitList[0] - 10)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
         if (shotsReceived.indexOf(nextAttack) > -1) {
-          nextAttack = `${ai.rows[ui.getRowFromIndex(hitList[hitList.length - 1] - 20)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
+          nextAttack = `${ai.rows[ui.getRowFromIndex(hitList[0] - 20)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
+        } else if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(hitList[0] - 30)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
+        } else if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(hitList[0] - 40)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
+        } else if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(hitList[0] - 50)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
+        } else if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(hitList[0] - 60)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
         }
       }
     } else if ([...new Set(hitListColumns)].length > 1) {
-      if ((hitList[hitList.length - 1] + 1) < 99) {
-        nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(hitList[hitList.length - 1] + 1)]}`;
+      if ((hitList[0] + 1) < 99) {
+        nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(hitList[0] + 1)]}`;
         if (shotsReceived.indexOf(nextAttack) > -1) {
-          nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(hitList[hitList.length - 1] + 2)]}`;
+          nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(hitList[0] + 2)]}`;
+        } else if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(hitList[0] + 3)]}`;
+        } else if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(hitList[0] + 4)]}`;
+        } else if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(hitList[0] + 5)]}`;
+        } else if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(hitList[0] + 6)]}`;
+        } else if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(hitList[0] - 1)]}`;
+        } else if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(hitList[0] - 2)]}`;
+        } else if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(hitList[0] - 3)]}`;
+        } else if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(hitList[0] - 4)]}`;
+        } else if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(hitList[0] - 5)]}`;
+        } else if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(hitList[0] - 6)]}`;
         }
       } else {
-        nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(hitList[hitList.length - 1] - 1)]}`;
+        nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(hitList[0] + 1)]}`;
         if (shotsReceived.indexOf(nextAttack) > -1) {
-          nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(hitList[hitList.length - 1] - 2)]}`;
+          nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(hitList[0] + 2)]}`;
+        } else if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(hitList[0] + 3)]}`;
+        } else if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(hitList[0] + 4)]}`;
+        } else if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(hitList[0] + 5)]}`;
+        } else if (shotsReceived.indexOf(nextAttack) > -1) {
+          nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(hitList[0] + 6)]}`;
         }
       }
     }
@@ -192,7 +248,7 @@ const ai = {
 
     if (shotsFired.indexOf(coords) > -1) {
       console.log("RERUNNING COMPUTER TURN!");
-      ai.playComputerTurn();
+      ai.playComputerTurn(forcedCoords);
     } else {
       setTimeout(() => {
         game.computer.recordShotFired(coords);
