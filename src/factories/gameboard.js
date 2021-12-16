@@ -99,7 +99,7 @@ const Gameboard = (player) => {
         hitList = [];
         console.log("huntedShips WAS =");
         console.log(huntedShips);
-        huntedShips = huntedShips.splice(huntedShips.indexOf(result.hitShip), 1);
+        huntedShips = huntedShips.filter(ship => result.hitShip.getName() !== ship.getName());
         console.log("huntedShips is NOW =");
         console.log(huntedShips);
         let msg;
@@ -116,10 +116,13 @@ const Gameboard = (player) => {
       } else {
         if (!player.isComputer()) {
           console.log(`result.hitShip == ${result.hitShip.getName()}`)
-          if (result.hitShip !== undefined && huntedShips.length > 0 && huntedShips.indexOf(result.hitShip) === -1) {
-            console.log(`ADDING *NEW* HUNTED SHIP ${result.hitShip.getName()}`);
-            huntedShips.push(result.hitShip);
-            console.log(huntedShips);
+          if (result.hitShip !== undefined && huntedShips.length > 0) {
+            const index = huntedShips.findIndex(ship => result.hitShip.getName() === ship.getName());
+            if (index === -1) {
+              console.log(`ADDING *NEW* HUNTED SHIP ${result.hitShip.getName()}`);
+              huntedShips.push(result.hitShip);
+              console.log(huntedShips);
+            }
           } else {
             if (huntedShips.length === 0) {
               console.log(`ADDING 1ST SHIP ${result.hitShip.getName()}`);
