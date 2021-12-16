@@ -84,7 +84,6 @@ const Gameboard = (player) => {
       ui.addHitClass(square);
       if (gameboard.id === "player-1-board" && lowerCasedCurrentPlayer === "computer") {
         hitList.push(clickedIndex);
-        console.log(hitList);
       }
     } else {
       ui.addMissClass(square);
