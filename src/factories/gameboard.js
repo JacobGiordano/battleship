@@ -8,6 +8,8 @@ const Gameboard = (player) => {
   let misses = [];
   let ships = [];
   let shotsReceived = [];
+  let hitList = [];
+  let huntedShips = [];
   let gameboard;
 
   player.isComputer() ? gameboard = document.getElementById("computer-board") : gameboard = document.getElementById("player-1-board");
@@ -26,6 +28,18 @@ const Gameboard = (player) => {
 
   const getMisses = () => {
     return misses;
+  }
+
+  const getShotsReceived = () => {
+    return shotsReceived;
+  }
+
+  const getHitList = () => {
+    return hitList;
+  }
+
+  const getHuntedShips = () => {
+    return huntedShips;
   }
 
   const prepopulateShips = (gameboard, shipObjArray) => {
@@ -66,26 +80,50 @@ const Gameboard = (player) => {
 
     if (result === undefined) return;
 
-    result !== undefined && result.shot === "hit" ? ui.addHitClass(square) : ui.addMissClass(square);
+    if (result !== undefined && result.shot === "hit") {
+      ui.addHitClass(square);
+      if (gameboard.id === "player-1-board" && lowerCasedCurrentPlayer === "computer") {
+        hitList.push(clickedIndex);
+      }
+    } else {
+      ui.addMissClass(square);
+    }
+
     lowerCasedCurrentPlayer === "computer" ? ui.updateBattleStatus(game.player.getName()) : ui.updateBattleStatus("Computer");
 
     removeSquareEventListeners(gameboard);
 
-    if (result.hitShip !== undefined && result.hitShip.isSunk()) {
-      let msg;
-      let animationClassName;
-
-      !player.isComputer() ? msg = character.reportSunkenShip(result.hitShip.getName()) : msg = character.sunkEnemyShip(result.hitShip.getName());
-
-      !player.isComputer() ? animationClassName = character.negativeTalking() : animationClassName = character.positiveTalking()
-
-      await character.comsMsg(msg, animationClassName);
-      setTimeout(() => {
-        finishTurn(player, lowerCasedCurrentPlayer);
-      }, msg.length * (game.turnDelay / 30));
+    if (result.hitShip !== undefined) {
+      if (result.hitShip.isSunk()) {
+        hitList = [];
+        huntedShips = huntedShips.filter(ship => result.hitShip.getName() !== ship.getName());
+        let msg;
+        let animationClassName;
+  
+        !player.isComputer() ? msg = character.reportSunkenShip(result.hitShip.getName()) : msg = character.sunkEnemyShip(result.hitShip.getName());
+  
+        !player.isComputer() ? animationClassName = character.negativeTalking() : animationClassName = character.positiveTalking()
+  
+        await character.comsMsg(msg, animationClassName);
+        setTimeout(() => {
+          finishTurn(player);
+        }, msg.length * (game.turnDelay / 30));
+      } else {
+        if (!player.isComputer()) {
+          if (result.hitShip !== undefined && huntedShips.length > 0) {
+            const index = huntedShips.findIndex(ship => result.hitShip.getName() === ship.getName());
+            index === -1 ? huntedShips.push(result.hitShip) : null;
+          } else {
+            huntedShips.push(result.hitShip);
+          }
+        }
+        setTimeout(() => {
+          finishTurn(player);
+        }, game.turnDelay);
+      }
     } else {
       setTimeout(() => {
-        finishTurn(player, lowerCasedCurrentPlayer);
+        finishTurn(player);
       }, game.turnDelay);
     }
   }
@@ -103,7 +141,12 @@ const Gameboard = (player) => {
       return;
     }
 
-    player.isComputer() ? player.computerTurn() : null;
+    let forcedCoords = undefined;
+    if (player.isComputer()) {
+      game.playerGameboard.getHitList().length > 0 ? forcedCoords = await ai.followUpAttack(game.playerGameboard) : null;
+    }
+
+    player.isComputer() ? player.computerTurn(forcedCoords) : null;
 
     addSquareEventListeners(gameboard);
   }
@@ -149,9 +192,11 @@ const Gameboard = (player) => {
     misses = [];
     ships = [];
     shotsReceived = [];
+    hitList = [];
+    huntedShips = [];
   }
 
-  return {placeShip, getShips, getMisses, prepopulateShips, addSquareEventListeners, removeSquareEventListeners, receiveAttack, allShipsSunk, resetBoard};
+  return {placeShip, getShips, getMisses, getShotsReceived, getHitList, getHuntedShips, prepopulateShips, addSquareEventListeners, removeSquareEventListeners, receiveAttack, allShipsSunk, resetBoard};
 };
 
 export default Gameboard;
