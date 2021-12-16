@@ -28,7 +28,11 @@ const Player = (name, isComputerBool) => {
     ai.playComputerTurn(forcedCoords);
   }
 
-  return {getName, isComputer, attackOpponent, recordShotFired, getShotsFired, computerTurn};
+  const resetPlayer = () => {
+    shotsFired = [];
+  }
+
+  return {getName, isComputer, attackOpponent, recordShotFired, getShotsFired, computerTurn, resetPlayer};
 }
 
 export default Player;

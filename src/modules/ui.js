@@ -202,6 +202,8 @@ const ui = {
 
     game.playerGameboard.resetBoard();
     game.computerGameboard.resetBoard();
+    game.player.resetPlayer();
+    game.computer.resetPlayer();
     game.computerGameboard.prepopulateShips(game.computerGameboard, ai.createRandShipsArray());
     ui.deleteAllDraggableShips();
     ui.populateDraggableShips();
