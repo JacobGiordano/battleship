@@ -9,6 +9,7 @@ const Gameboard = (player) => {
   let ships = [];
   let shotsReceived = [];
   let hitList = [];
+  let huntedShips = [];
   let gameboard;
 
   player.isComputer() ? gameboard = document.getElementById("computer-board") : gameboard = document.getElementById("player-1-board");
@@ -35,6 +36,10 @@ const Gameboard = (player) => {
 
   const getHitList = () => {
     return hitList;
+  }
+
+  const getHuntedShips = () => {
+    return huntedShips;
   }
 
   const prepopulateShips = (gameboard, shipObjArray) => {
@@ -89,22 +94,47 @@ const Gameboard = (player) => {
 
     removeSquareEventListeners(gameboard);
 
-    if (result.hitShip !== undefined && result.hitShip.isSunk()) {
-      hitList = [];
-      let msg;
-      let animationClassName;
-
-      !player.isComputer() ? msg = character.reportSunkenShip(result.hitShip.getName()) : msg = character.sunkEnemyShip(result.hitShip.getName());
-
-      !player.isComputer() ? animationClassName = character.negativeTalking() : animationClassName = character.positiveTalking()
-
-      await character.comsMsg(msg, animationClassName);
-      setTimeout(() => {
-        finishTurn(player, lowerCasedCurrentPlayer);
-      }, msg.length * (game.turnDelay / 30));
+    if (result.hitShip !== undefined) {
+      if (result.hitShip.isSunk()) {
+        hitList = [];
+        console.log("huntedShips WAS =");
+        console.log(huntedShips);
+        huntedShips = huntedShips.splice(huntedShips.indexOf(result.hitShip), 1);
+        console.log("huntedShips is NOW =");
+        console.log(huntedShips);
+        let msg;
+        let animationClassName;
+  
+        !player.isComputer() ? msg = character.reportSunkenShip(result.hitShip.getName()) : msg = character.sunkEnemyShip(result.hitShip.getName());
+  
+        !player.isComputer() ? animationClassName = character.negativeTalking() : animationClassName = character.positiveTalking()
+  
+        await character.comsMsg(msg, animationClassName);
+        setTimeout(() => {
+          finishTurn(player);
+        }, msg.length * (game.turnDelay / 30));
+      } else {
+        if (!player.isComputer()) {
+          console.log(`result.hitShip == ${result.hitShip.getName()}`)
+          if (result.hitShip !== undefined && huntedShips.length > 0 && huntedShips.indexOf(result.hitShip) === -1) {
+            console.log(`ADDING *NEW* HUNTED SHIP ${result.hitShip.getName()}`);
+            huntedShips.push(result.hitShip);
+            console.log(huntedShips);
+          } else {
+            if (huntedShips.length === 0) {
+              console.log(`ADDING 1ST SHIP ${result.hitShip.getName()}`);
+            }
+            huntedShips.push(result.hitShip);
+            console.log(huntedShips);
+          }
+        }
+        setTimeout(() => {
+          finishTurn(player);
+        }, game.turnDelay);
+      }
     } else {
       setTimeout(() => {
-        finishTurn(player, lowerCasedCurrentPlayer);
+        finishTurn(player);
       }, game.turnDelay);
     }
   }
@@ -175,9 +205,10 @@ const Gameboard = (player) => {
     ships = [];
     shotsReceived = [];
     hitList = [];
+    huntedShips = [];
   }
 
-  return {placeShip, getShips, getMisses, getShotsReceived, getHitList, prepopulateShips, addSquareEventListeners, removeSquareEventListeners, receiveAttack, allShipsSunk, resetBoard};
+  return {placeShip, getShips, getMisses, getShotsReceived, getHitList, getHuntedShips, prepopulateShips, addSquareEventListeners, removeSquareEventListeners, receiveAttack, allShipsSunk, resetBoard};
 };
 
 export default Gameboard;

@@ -76,7 +76,7 @@ const ai = {
   followUpAttack: (gameboard) => {
     return new Promise(resolve => {
       let nextAttack;
-      let shotsReceived = gameboard.getShotsReceived();
+      const shotsReceived = gameboard.getShotsReceived();
       let hitList = gameboard.getHitList();
       let clickedIndex = hitList[hitList.length - 1];
       
@@ -84,37 +84,49 @@ const ai = {
       console.log(hitList)
   
       if (hitList.length === 1) {
-        nextAttack = ai.getFirstFollowUpCoord(clickedIndex, shotsReceived);
+        nextAttack = ai.getFirstFollowUpCoord(clickedIndex);
       } else {
-        nextAttack = ai.getThirdFollowUpCoord(clickedIndex, hitList, shotsReceived);
+        nextAttack = ai.getNextAttack(clickedIndex, hitList);
       }
 
-      console.log("Next attack:")
-      console.log(nextAttack);
+      console.log(`Next attack: ${nextAttack}`);
   
       resolve(nextAttack);
     });
   },
 
-  getFirstFollowUpCoord: (clickedIndex, shotsReceived) => {
-    let nextAttack;
-    let aboveAttack;
-    let belowAttack;
-    let leftAttack;
-    let rightAttack;
+  getSurroundingCoords: (clickedIndex) => {
+    let surroundingCoords = {
+      aboveAttack: undefined,
+      belowAttack: undefined,
+      leftAttack: undefined,
+      rightAttack: undefined
+    }
+
     if (clickedIndex - 10 > 0) {
-      aboveAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex - 10)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
+      surroundingCoords.aboveAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex - 10)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
     }
     if (clickedIndex + 10 < 99) {
-      belowAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex + 10)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
+      surroundingCoords.belowAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex + 10)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
     }
     if (clickedIndex - 1 > 0) {
-      leftAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(clickedIndex - 1)]}`;
+      surroundingCoords.leftAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(clickedIndex - 1)]}`;
     }
     if (clickedIndex + 1 < 99) {
-      rightAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(clickedIndex + 1)]}`;
+      surroundingCoords.rightAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(clickedIndex + 1)]}`;
     }
-    console.log([aboveAttack, belowAttack, leftAttack, rightAttack]);
+
+    return surroundingCoords;
+  },
+
+  getFirstFollowUpCoord: (clickedIndex) => {
+    let nextAttack;
+    const shotsReceived = game.playerGameboard.getShotsReceived();
+    const surroundingCoords = ai.getSurroundingCoords(clickedIndex);
+    let aboveAttack = surroundingCoords.aboveAttack;
+    let belowAttack = surroundingCoords.belowAttack;
+    let leftAttack = surroundingCoords.leftAttack;
+    let rightAttack = surroundingCoords.rightAttack;
 
     switch (true) {
       case (aboveAttack !== undefined && shotsReceived.indexOf(aboveAttack) === -1):
@@ -136,6 +148,72 @@ const ai = {
     return nextAttack;
   },
 
+  getNextAttack: (clickedIndex, hitList) => {
+    // check for a pattern in the hitList vals
+    let hitListRows = [];
+    let hitListColumns = [];
+    let nextAttack;
+    const shotsReceived = game.playerGameboard.getShotsReceived();
+    // const ships = game.playerGameboard.getShips();
+    const huntedShips = game.playerGameboard.getHuntedShips();
+    const firstHuntedShip = game.playerGameboard.getHuntedShips()[0];
+    const misses = game.playerGameboard.getMisses();
+
+    // console.log(ships);
+    console.log(huntedShips);
+
+    for (let ship of huntedShips) {
+      console.log(ship.getName());
+    }
+
+    const availableShots = firstHuntedShip.getCoords().filter(coords => {
+      return shotsReceived.indexOf(coords) === -1
+    })
+
+
+
+
+    
+    // const surroundingCoords = ai.getSurroundingCoords(clickedIndex);
+    // let aboveAttack = surroundingCoords.aboveAttack;
+    // let belowAttack = surroundingCoords.belowAttack;
+    // let leftAttack = surroundingCoords.leftAttack;
+    // let rightAttack = surroundingCoords.rightAttack;
+
+    // if (shotsReceived.indexOf(aboveAttack) > -1) {
+      
+    // }
+    // if (shotsReceived.indexOf(belowAttack) > -1) {
+      
+    // }
+    // if (shotsReceived.indexOf(leftAttack) > -1) {
+      
+    // }
+    // if (shotsReceived.indexOf(rightAttack) > -1) {
+      
+    // }
+
+    // for (let index of hitList) {
+    //   hitListRows.push(ai.rows[ui.getRowFromIndex(index)]);
+    //   hitListColumns.push(ai.columns[ui.getColumnFromIndex(index)]);
+    // }
+
+    // console.log([...new Set(hitListRows)]);
+    // console.log([...new Set(hitListColumns)]);
+    // // console.log("MISSES");
+    // // console.log(game.playerGameboard.getMisses());
+
+    // if ([...new Set(hitListRows)].length > 1) {
+
+    // } else if ([...new Set(hitListColumns)].length > 1) {
+
+    // }
+
+    nextAttack = availableShots[ai.getRandInclusive(0, availableShots.length - 1)];
+
+    return nextAttack;
+  },
+
   getThirdFollowUpCoord: (clickedIndex, hitList, shotsReceived) => {
     // check for a pattern in the hitList vals
     let hitListRows = [];
@@ -151,7 +229,7 @@ const ai = {
     console.log([...new Set(hitListColumns)]);
 
     if ([...new Set(hitListRows)].length > 1) {
-      if ((hitList[0] + 10) < 99) {
+      if ((hitList[0] + 10) < 99 && (hitList[0] - 10) < 99) {
         nextAttack = `${ai.rows[ui.getRowFromIndex(hitList[0] + 10)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
         if (shotsReceived.indexOf(nextAttack) > -1) {
           nextAttack = `${ai.rows[ui.getRowFromIndex(hitList[0] + 20)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
@@ -191,7 +269,7 @@ const ai = {
         }
       }
     } else if ([...new Set(hitListColumns)].length > 1) {
-      if ((hitList[0] + 1) < 99) {
+      if ((hitList[0] + 1) < 99 && (hitList[0] - 1) < 99) {
         nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(hitList[0] + 1)]}`;
         if (shotsReceived.indexOf(nextAttack) > -1) {
           nextAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(hitList[0] + 2)]}`;
@@ -235,20 +313,23 @@ const ai = {
     return nextAttack;
   },
 
-  playComputerTurn: (forcedCoords) => {
+  playComputerTurn: async (forcedCoords) => {
     let coords = "";
     let shotsFired = game.computer.getShotsFired();
 
     console.log(`RECEIVED forced coords: ${forcedCoords}`);
     if (forcedCoords !== undefined) {
       coords = forcedCoords;
+    } else if (game.playerGameboard.getHitList().length > 0){
+      coords = await ai.followUpAttack(game.playerGameboard);
     } else {
       coords = ai.getRandCoords();
     }
 
     if (shotsFired.indexOf(coords) > -1) {
       console.log("RERUNNING COMPUTER TURN!");
-      ai.playComputerTurn(forcedCoords);
+      ai.playComputerTurn();
+      return;
     } else {
       setTimeout(() => {
         game.computer.recordShotFired(coords);
