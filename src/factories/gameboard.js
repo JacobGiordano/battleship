@@ -97,11 +97,7 @@ const Gameboard = (player) => {
     if (result.hitShip !== undefined) {
       if (result.hitShip.isSunk()) {
         hitList = [];
-        console.log("huntedShips WAS =");
-        console.log(huntedShips);
         huntedShips = huntedShips.filter(ship => result.hitShip.getName() !== ship.getName());
-        console.log("huntedShips is NOW =");
-        console.log(huntedShips);
         let msg;
         let animationClassName;
   
@@ -115,20 +111,11 @@ const Gameboard = (player) => {
         }, msg.length * (game.turnDelay / 30));
       } else {
         if (!player.isComputer()) {
-          console.log(`result.hitShip == ${result.hitShip.getName()}`)
           if (result.hitShip !== undefined && huntedShips.length > 0) {
             const index = huntedShips.findIndex(ship => result.hitShip.getName() === ship.getName());
-            if (index === -1) {
-              console.log(`ADDING *NEW* HUNTED SHIP ${result.hitShip.getName()}`);
-              huntedShips.push(result.hitShip);
-              console.log(huntedShips);
-            }
+            index === -1 ? huntedShips.push(result.hitShip) : null;
           } else {
-            if (huntedShips.length === 0) {
-              console.log(`ADDING 1ST SHIP ${result.hitShip.getName()}`);
-            }
             huntedShips.push(result.hitShip);
-            console.log(huntedShips);
           }
         }
         setTimeout(() => {
@@ -158,7 +145,6 @@ const Gameboard = (player) => {
     let forcedCoords = undefined;
     if (player.isComputer()) {
       game.playerGameboard.getHitList().length > 0 ? forcedCoords = await ai.followUpAttack(game.playerGameboard) : null;
-      console.log(`RETURNED forced coords: ${forcedCoords}`);
     }
 
     player.isComputer() ? player.computerTurn(forcedCoords) : null;
