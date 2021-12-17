@@ -136,7 +136,7 @@ const character = {
           character.typing = false;
           comsImg.classList.contains("static") ? comsImg.classList.remove("static") : null;
           comsImg.classList.remove(animationClassName);
-          resolve();
+          resolve("Coms done!");
         }
       }, game.turnDelay / 5);
     });
