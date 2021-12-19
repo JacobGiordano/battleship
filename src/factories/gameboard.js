@@ -103,11 +103,13 @@ const Gameboard = (player) => {
         !player.isComputer() ? msg = character.reportSunkenShip(result.hitShip.getName()) : msg = character.sunkEnemyShip(result.hitShip.getName());
   
         !player.isComputer() ? animationClassName = character.negativeTalking() : animationClassName = character.positiveTalking()
-  
-        await character.comsMsg(msg, animationClassName);
+
         setTimeout(() => {
           finishTurn(player);
         }, msg.length * (game.turnDelay / 30));
+        
+        character.comsQueue.push({"msg": msg, "animationClassName": animationClassName});
+        console.log(character.comsQueue);
       } else {
         if (!player.isComputer()) {
           if (result.hitShip !== undefined && huntedShips.length > 0) {
@@ -137,7 +139,9 @@ const Gameboard = (player) => {
       
       !player.isComputer() ? animationClassName = character.playerLoseTalking() : animationClassName = character.playerWinTalking()
 
-      await character.comsMsg(msg, animationClassName);
+      character.comsQueue.push({"msg": msg, "animationClassName": animationClassName});
+      character.processQueue();
+      
       return;
     }
 
@@ -149,6 +153,8 @@ const Gameboard = (player) => {
     player.isComputer() ? player.computerTurn(forcedCoords) : null;
 
     addSquareEventListeners(gameboard);
+
+    character.comsQueue.length > 0 & !character.typing ? character.processQueue() : null;
   }
 
   const addSquareEventListeners = (gameboardDOMElement) => {

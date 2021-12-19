@@ -4,6 +4,7 @@ import ai from "../modules/ai";
 const character = {
   typing: false,
   skip: false,
+  comsQueue: [],
   introScriptStep: 0,
   introScript: [
     `Greetings, Admiral — Captain Cuddles here! Reporting in from HQ! Shall we begin?…`,
@@ -117,6 +118,16 @@ const character = {
   playerLoseTalking: () => {
     const classArray = ["player-lose"];
     return classArray[ai.getRandInclusive(0, classArray.length - 1)];
+  },
+
+  processQueue: async () => {
+    console.log("In processQueue")
+    for(const [i, obj] of character.comsQueue.entries()) {
+      console.log(`In process queue for msg #${i}`);
+      console.log(obj);
+      await character.comsMsg(obj.msg, obj.animationClassName);
+      character.comsQueue = character.comsQueue.filter(msg => msg !== character.comsQueue[i]);
+    }
   },
 
   comsMsg: (string, animationClassName) => {
