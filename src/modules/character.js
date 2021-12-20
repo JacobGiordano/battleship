@@ -130,11 +130,12 @@ const character = {
         character.comsQueue = character.comsQueue.filter(currentObj => currentObj !== obj);
       } else {
         console.log(obj);
-        await character.comsMsg(obj.msg, obj.animationClassName);
+        await character.comsMsg(obj.msg, obj.animationClassName, obj.keep);
         obj.wasRead = true;
         setTimeout(() => {
           // !character.typing ? character.comsQueue.shift() : null;
-          character.comsQueue.shift();
+          // character.comsQueue.shift();
+          character.comsQueue = character.comsQueue.filter(currentObj => currentObj !== obj);
           console.log(`Coms queue is now ${character.comsQueue.length}`);
           character.processQueue();
           // character.comsQueue.length > 0 && !character.typing ? character.processQueue() : null;
@@ -143,7 +144,7 @@ const character = {
     }
   },
 
-  comsMsg: (string, animationClassName) => {
+  comsMsg: (string, animationClassName, keepBool) => {
     return new Promise(resolve => {
       const comsImg = document.getElementById("coms-img");
       const comsText = document.getElementById("coms-text");
@@ -159,7 +160,7 @@ const character = {
           clearInterval(timer);
           character.typing = false;
           comsImg.classList.contains("static") ? comsImg.classList.remove("static") : null;
-          comsImg.classList.remove(animationClassName);
+          !keepBool ? comsImg.classList.remove(animationClassName) : null;
           resolve("Coms done!");
         }
       }, game.turnDelay / 5);

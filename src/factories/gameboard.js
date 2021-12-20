@@ -139,7 +139,7 @@ const Gameboard = (player) => {
       
       !player.isComputer() ? animationClassName = character.playerLoseTalking() : animationClassName = character.playerWinTalking()
 
-      character.comsQueue.push({"msg": msg, "animationClassName": animationClassName});
+      character.comsQueue.push({"msg": msg, "animationClassName": animationClassName,  "keep": true});
       setTimeout(() => {
         character.comsQueue.length > 0 && !character.typing ? character.processQueue() : null;
       }, 100);

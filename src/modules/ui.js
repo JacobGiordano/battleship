@@ -219,6 +219,7 @@ const ui = {
     document.getElementById("start-game-btn").classList.add("hidden");
     character.typing = true;
     character.skip = true;
+    comsImg.classList = "coms-img box dark";
     setTimeout(() => {
       character.comsMsg(character.newGame(), character.positiveTalking());
       character.typing = false;
