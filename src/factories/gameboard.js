@@ -107,7 +107,7 @@ const Gameboard = (player) => {
         setTimeout(() => {
           finishTurn(player);
         }, msg.length * (game.turnDelay / 30));
-        
+
         character.comsQueue.push({"msg": msg, "animationClassName": animationClassName});
         console.log(character.comsQueue);
       } else {
@@ -140,7 +140,9 @@ const Gameboard = (player) => {
       !player.isComputer() ? animationClassName = character.playerLoseTalking() : animationClassName = character.playerWinTalking()
 
       character.comsQueue.push({"msg": msg, "animationClassName": animationClassName});
-      character.processQueue();
+      setTimeout(() => {
+        character.comsQueue.length > 0 && !character.typing ? character.processQueue() : null;
+      }, 100);
       
       return;
     }
@@ -154,7 +156,7 @@ const Gameboard = (player) => {
 
     addSquareEventListeners(gameboard);
 
-    character.comsQueue.length > 0 & !character.typing ? character.processQueue() : null;
+    character.comsQueue.length > 0 && !character.typing ? character.processQueue() : null;
   }
 
   const addSquareEventListeners = (gameboardDOMElement) => {

@@ -69,7 +69,7 @@ const character = {
       `Victory!!! Congratulations, Admiral!`,
       `HA HAAAAAAA! We did it! We won!!!`,
       `YES! An incredible victory! And what a story to tell back home!`,
-      `I never doubted you, Admiral! Another victory in am impressive career!`,
+      `I never doubted you, Admiral! Another victory in an already impressive career!`,
       `Amazing! A swift and decisive victory for us thanks to your leadership, Admiral!`
     ];
     
@@ -121,12 +121,25 @@ const character = {
   },
 
   processQueue: async () => {
-    console.log("In processQueue")
-    for(const [i, obj] of character.comsQueue.entries()) {
-      console.log(`In process queue for msg #${i}`);
-      console.log(obj);
-      await character.comsMsg(obj.msg, obj.animationClassName);
-      character.comsQueue = character.comsQueue.filter(msg => msg !== character.comsQueue[i]);
+    if (character.comsQueue.length > 0)  {
+      console.log("In processQueue")
+      console.log(`Coms queue is ${character.comsQueue.length}`);
+      const obj = character.comsQueue[0];
+      if (obj.wasRead) {
+        // character.comsQueue.shift();
+        character.comsQueue = character.comsQueue.filter(currentObj => currentObj !== obj);
+      } else {
+        console.log(obj);
+        await character.comsMsg(obj.msg, obj.animationClassName);
+        obj.wasRead = true;
+        setTimeout(() => {
+          // !character.typing ? character.comsQueue.shift() : null;
+          character.comsQueue.shift();
+          console.log(`Coms queue is now ${character.comsQueue.length}`);
+          character.processQueue();
+          // character.comsQueue.length > 0 && !character.typing ? character.processQueue() : null;
+        }, game.turnDelay);
+      }
     }
   },
 
