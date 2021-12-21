@@ -109,7 +109,6 @@ const Gameboard = (player) => {
         }, msg.length * (game.turnDelay / 30));
 
         character.comsQueue.push({"msg": msg, "animationClassName": animationClassName});
-        console.log(character.comsQueue);
       } else {
         if (!player.isComputer()) {
           if (result.hitShip !== undefined && huntedShips.length > 0) {

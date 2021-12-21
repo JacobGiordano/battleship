@@ -126,19 +126,15 @@ const character = {
       console.log(`Coms queue is ${character.comsQueue.length}`);
       const obj = character.comsQueue[0];
       if (obj.wasRead) {
-        // character.comsQueue.shift();
         character.comsQueue = character.comsQueue.filter(currentObj => currentObj !== obj);
       } else {
         console.log(obj);
         await character.comsMsg(obj.msg, obj.animationClassName, obj.keep);
         obj.wasRead = true;
         setTimeout(() => {
-          // !character.typing ? character.comsQueue.shift() : null;
-          // character.comsQueue.shift();
           character.comsQueue = character.comsQueue.filter(currentObj => currentObj !== obj);
           console.log(`Coms queue is now ${character.comsQueue.length}`);
           character.processQueue();
-          // character.comsQueue.length > 0 && !character.typing ? character.processQueue() : null;
         }, game.turnDelay);
       }
     }
@@ -156,7 +152,12 @@ const character = {
         if (i < string.length && !character.skip) {
           comsText.textContent += string.charAt(i);
           i++;
+          // if (i === 0 || i % 18 === 0) {
+          //   comsText.scrollTop = comsText.scrollHeight;
+          // }
         } else {
+          // comsText.textContent += "\r\n\n";
+          // comsText.scrollTop = comsText.scrollHeight;
           clearInterval(timer);
           character.typing = false;
           comsImg.classList.contains("static") ? comsImg.classList.remove("static") : null;
