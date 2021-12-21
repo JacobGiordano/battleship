@@ -152,12 +152,7 @@ const character = {
         if (i < string.length && !character.skip) {
           comsText.textContent += string.charAt(i);
           i++;
-          // if (i === 0 || i % 18 === 0) {
-          //   comsText.scrollTop = comsText.scrollHeight;
-          // }
         } else {
-          // comsText.textContent += "\r\n\n";
-          // comsText.scrollTop = comsText.scrollHeight;
           clearInterval(timer);
           character.typing = false;
           comsImg.classList.contains("static") ? comsImg.classList.remove("static") : null;
