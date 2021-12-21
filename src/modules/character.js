@@ -122,18 +122,14 @@ const character = {
 
   processQueue: async () => {
     if (character.comsQueue.length > 0)  {
-      console.log("In processQueue")
-      console.log(`Coms queue is ${character.comsQueue.length}`);
       const obj = character.comsQueue[0];
       if (obj.wasRead) {
         character.comsQueue = character.comsQueue.filter(currentObj => currentObj !== obj);
       } else {
-        console.log(obj);
         await character.comsMsg(obj.msg, obj.animationClassName, obj.keep);
         obj.wasRead = true;
         setTimeout(() => {
           character.comsQueue = character.comsQueue.filter(currentObj => currentObj !== obj);
-          console.log(`Coms queue is now ${character.comsQueue.length}`);
           character.processQueue();
         }, game.turnDelay);
       }
