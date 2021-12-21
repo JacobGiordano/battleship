@@ -217,13 +217,15 @@ const ui = {
     document.getElementById("player-fleet-wrapper").classList.remove("hidden");
     document.getElementById("computer-board-wrapper").classList.add("hidden");
     document.getElementById("start-game-btn").classList.add("hidden");
+    document.getElementById("coms-img").classList = "coms-img box dark";
     character.typing = true;
     character.skip = true;
-    comsImg.classList = "coms-img box dark";
     setTimeout(() => {
       character.comsMsg(character.newGame(), character.positiveTalking());
       character.typing = false;
       character.skip = false;
+      game.playerGameboard.addSquareEventListeners(document.getElementById("player-1-board"));
+      game.computerGameboard.addSquareEventListeners(document.getElementById("computer-board"));
     }, 50);
   },
 
