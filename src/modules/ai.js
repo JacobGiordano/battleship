@@ -167,7 +167,6 @@ const ai = {
     }
 
     if (shotsFired.indexOf(coords) > -1) {
-      console.log(`shotsFired.indexOf("${coords}") > -1. RERUNNING COMPUTER TURN!`);
       ai.playComputerTurn();
       return;
     } else {

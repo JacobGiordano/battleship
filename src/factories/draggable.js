@@ -76,7 +76,6 @@ const Draggable = (draggablesSelectors, containersSelectors) => {
     let squareIndex;
     let coords = [];
 
-    console.log(draggingEl);
     for (let i = 0; i < draggingEl.children.length; i++) {
       draggingEl.classList.contains("vertical") ? squareIndex = clickedIndex + (i * 10) : squareIndex = clickedIndex + i;
       draggingEl.classList.contains("vertical") ? selectedSquare = ui.getSquareAtIndex(thisGameboardEl, squareIndex) : selectedSquare = ui.getSquareAtIndex(thisGameboardEl, squareIndex);
