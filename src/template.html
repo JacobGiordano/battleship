@@ -19,14 +19,7 @@
     <h1 class="page-title">Battleship</h1>
     <button id="new-game" class="new-game">New Game</button>
   </header>
-  <section id="coms" class="coms box thick dark">
-    <div id="coms-img" class="coms-img box dark static"></div>
-    <div id="coms-text" class="coms-text box dark"></div>
-    <div id="coms-intro-btns-wrapper" class="coms-intro-btns-wrapper">
-      <button id="cont-coms-intro-btn" class="cont-coms-intro-btn disabled" disabled>Next</button>
-      <button id="skip-intro-btn" class="skip-intro-btn disabled" disabled>Skip Intro</button>
-    </div>
-  </section>
+
   <section id="battle-status-section" class="battle-status-section box thick dark">
     <span>Battle Status: <span id="battle-status" class="battle-status place-ships">Place ships</span></span>
   </section>
@@ -297,9 +290,18 @@
       </div>
     </div>
   </main>
+  <section id="coms" class="coms box thick dark">
+    <div id="coms-img" class="coms-img box dark static"></div>
+    <div id="coms-text" class="coms-text box dark"></div>
+    <div id="coms-intro-btns-wrapper" class="coms-intro-btns-wrapper">
+      <button id="cont-coms-intro-btn" class="cont-coms-intro-btn disabled" disabled>Next</button>
+      <button id="skip-intro-btn" class="skip-intro-btn disabled" disabled>Skip Intro</button>
+    </div>
+  </section>
 </body>
 
 <footer id="footer" class="footer">
+  <span class="copyright-info">All original images &copy; Jacob Giordano <script>document.write(new Date().getFullYear())</script></span>
   <a class="github-link" href="https://github.com/JacobGiordano/battleship" target="_blank">
     <img class="github-logo" src="/src/images/github-logo_16px.png" alt="Github Octocat logo">
     <span class="github-text">Github</span>

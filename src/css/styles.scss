@@ -55,7 +55,10 @@ body {
   width: 100%;
   max-width: var(--max-page-width);
   margin: 0 auto;
-  padding: 5.5rem 1rem 2rem 1rem;
+  padding: 3.75rem 1rem 2rem 1rem;
+  -ms-interpolation-mode: nearest-neighbor;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: pixelated;
 }
 
 body, button, .btn {
@@ -239,7 +242,6 @@ body, button, .btn {
 main {
   display: flex;
   width: 100%;
-  margin: 0 0 1rem;
   padding: 0 calc(var(--border-width) * 2) 1rem 0;
   justify-content: space-between;
   align-items: flex-start;
@@ -460,8 +462,14 @@ footer {
   border-top: 2px solid var(--dark-blue-green);
   width: 100%;
   max-width: var(--max-page-width);
-  margin: 0 auto;
+  margin: 1.25rem auto 0;
   padding: 1rem 0;
+  justify-content: space-between;
+  align-items: center;
+
+  .copyright-info {
+    font-size: .5rem;
+  }
 
   .github-link {
     display: flex;
