@@ -1197,15 +1197,15 @@ section.coms.box.dark > .coms-img.box.dark.player-win {
   }
 }
 
-section.coms.box.dark > .coms-img.box.dark.player-loss {
+section.coms.box.dark > .coms-img.box.dark.player-lose {
   background: url("/src/images/character/character-sprite-sheet_000.png"), var(--light-gray);
   background-repeat: no-repeat;
-  -webkit-animation: player-loss 1.25s infinite;
-  animation: player-loss 1.25s infinite;
+  -webkit-animation: player-lose 1.25s infinite;
+  animation: player-lose 1.25s infinite;
   -webkit-animation-timing-function: steps(8);
   animation-timing-function: steps(8);
 }
-@-webkit-keyframes player-loss {
+@-webkit-keyframes player-lose {
   from { 
     background-position: 0px calc(-128px * 7);
   }
@@ -1214,7 +1214,7 @@ section.coms.box.dark > .coms-img.box.dark.player-loss {
   }
 }
 
-@keyframes player-loss {
+@keyframes player-lose {
   from { 
     background-position: 0px calc(-128px * 7);
   }

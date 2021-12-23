@@ -1,4 +1,5 @@
 import {game} from "../factories/game";
+import ui from "./ui";
 
 const ai = {
   rows: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"],
@@ -72,19 +73,102 @@ const ai = {
     return {"isVertical": isVertical, "shipCoords": shipCoords};
   },
 
-  playComputerTurn: (forcedCoords) => {
+  followUpAttack: (gameboard) => {
+    return new Promise(resolve => {
+      let nextAttack;
+      let hitList = gameboard.getHitList();
+      let clickedIndex = hitList[hitList.length - 1];
+  
+      if (hitList.length === 1) {
+        nextAttack = ai.getFirstFollowUpCoord(clickedIndex);
+      } else {
+        nextAttack = ai.getNextAttack();
+      }
+  
+      resolve(nextAttack);
+    });
+  },
+
+  getSurroundingCoords: (clickedIndex) => {
+    let surroundingCoords = {
+      aboveAttack: undefined,
+      belowAttack: undefined,
+      leftAttack: undefined,
+      rightAttack: undefined
+    }
+
+    if (clickedIndex - 10 > 0) {
+      surroundingCoords.aboveAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex - 10)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
+    }
+    if (clickedIndex + 10 < 99) {
+      surroundingCoords.belowAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex + 10)]}${ai.columns[ui.getColumnFromIndex(clickedIndex)]}`;
+    }
+    if (clickedIndex - 1 > 0) {
+      surroundingCoords.leftAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(clickedIndex - 1)]}`;
+    }
+    if (clickedIndex + 1 < 99) {
+      surroundingCoords.rightAttack = `${ai.rows[ui.getRowFromIndex(clickedIndex)]}${ai.columns[ui.getColumnFromIndex(clickedIndex + 1)]}`;
+    }
+
+    return surroundingCoords;
+  },
+
+  getFirstFollowUpCoord: (clickedIndex) => {
+    let nextAttack;
+    const shotsReceived = game.playerGameboard.getShotsReceived();
+    const surroundingCoords = ai.getSurroundingCoords(clickedIndex);
+    let aboveAttack = surroundingCoords.aboveAttack;
+    let belowAttack = surroundingCoords.belowAttack;
+    let leftAttack = surroundingCoords.leftAttack;
+    let rightAttack = surroundingCoords.rightAttack;
+
+    switch (true) {
+      case (aboveAttack !== undefined && shotsReceived.indexOf(aboveAttack) === -1):
+        nextAttack = aboveAttack;
+        break;
+      case (belowAttack !== undefined && shotsReceived.indexOf(belowAttack) === -1):
+        nextAttack = belowAttack;
+        break;
+      case (leftAttack !== undefined && shotsReceived.indexOf(leftAttack) === -1):
+        nextAttack = leftAttack;
+        break;
+      case (rightAttack !== undefined && shotsReceived.indexOf(rightAttack) === -1):
+        nextAttack = rightAttack;
+        break;
+    }
+
+    return nextAttack;
+  },
+
+  getNextAttack: () => {
+    let nextAttack;
+    const shotsReceived = game.playerGameboard.getShotsReceived();
+    const huntedShips = game.playerGameboard.getHuntedShips();
+    const firstHuntedShip = huntedShips[0];
+    const availableShots = firstHuntedShip.getCoords().filter(coords => {
+      return shotsReceived.indexOf(coords) === -1;
+    });
+
+    nextAttack = availableShots[ai.getRandInclusive(0, availableShots.length - 1)];
+
+    return nextAttack;
+  },
+
+  playComputerTurn: async (forcedCoords) => {
     let coords = "";
     let shotsFired = game.computer.getShotsFired();
 
     if (forcedCoords !== undefined) {
       coords = forcedCoords;
-      game.computer.recordShotFired(coords);
+    } else if (game.playerGameboard.getHitList().length > 0){
+      coords = await ai.followUpAttack(game.playerGameboard);
     } else {
       coords = ai.getRandCoords();
     }
 
     if (shotsFired.indexOf(coords) > -1) {
       ai.playComputerTurn();
+      return;
     } else {
       setTimeout(() => {
         game.computer.recordShotFired(coords);

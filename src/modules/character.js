@@ -4,6 +4,7 @@ import ai from "../modules/ai";
 const character = {
   typing: false,
   skip: false,
+  comsQueue: [],
   introScriptStep: 0,
   introScript: [
     `Greetings, Admiral — Captain Cuddles here! Reporting in from HQ! Shall we begin?…`,
@@ -68,7 +69,7 @@ const character = {
       `Victory!!! Congratulations, Admiral!`,
       `HA HAAAAAAA! We did it! We won!!!`,
       `YES! An incredible victory! And what a story to tell back home!`,
-      `I never doubted you, Admiral! Another victory in am impressive career!`,
+      `I never doubted you, Admiral! Another victory in an already impressive career!`,
       `Amazing! A swift and decisive victory for us thanks to your leadership, Admiral!`
     ];
     
@@ -119,7 +120,23 @@ const character = {
     return classArray[ai.getRandInclusive(0, classArray.length - 1)];
   },
 
-  comsMsg: (string, animationClassName) => {
+  processQueue: async () => {
+    if (character.comsQueue.length > 0)  {
+      const obj = character.comsQueue[0];
+      if (obj.wasRead) {
+        character.comsQueue = character.comsQueue.filter(currentObj => currentObj !== obj);
+      } else {
+        await character.comsMsg(obj.msg, obj.animationClassName, obj.keep);
+        obj.wasRead = true;
+        setTimeout(() => {
+          character.comsQueue = character.comsQueue.filter(currentObj => currentObj !== obj);
+          character.processQueue();
+        }, game.turnDelay);
+      }
+    }
+  },
+
+  comsMsg: (string, animationClassName, keepBool) => {
     return new Promise(resolve => {
       const comsImg = document.getElementById("coms-img");
       const comsText = document.getElementById("coms-text");
