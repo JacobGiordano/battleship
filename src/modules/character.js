@@ -123,9 +123,11 @@ const character = {
     return new Promise(resolve => {
       const comsImg = document.getElementById("coms-img");
       const comsText = document.getElementById("coms-text");
+      const comsIntroBtn = document.getElementById("cont-coms-intro-btn");
       comsText.textContent = "";
       comsImg.classList.add(animationClassName);
       character.typing = true;
+      comsIntroBtn.classList.remove("prompt-next");
       let i = 0;
       let timer = setInterval(() => {
         if (i < string.length && !character.skip) {
@@ -135,8 +137,7 @@ const character = {
           clearInterval(timer);
           character.typing = false;
           comsImg.classList.contains("static") ? comsImg.classList.remove("static") : null;
-          comsImg.classList.remove(animationClassName);
-          resolve();
+          comsIntroBtn.classList.add("prompt-next");
         }
       }, game.turnDelay / 5);
     });
