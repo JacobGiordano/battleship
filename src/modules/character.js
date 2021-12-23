@@ -155,6 +155,7 @@ const character = {
           character.typing = false;
           comsImg.classList.contains("static") ? comsImg.classList.remove("static") : null;
           !keepBool ? comsImg.classList.remove(animationClassName) : null;
+          comsIntroBtn.classList.add("prompt-next");
           resolve("Coms done!");
         }
       }, game.turnDelay / 5);
