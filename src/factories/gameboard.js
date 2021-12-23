@@ -133,10 +133,15 @@ const Gameboard = (player) => {
     if (allShipsSunk()) {
       let msg;
       let animationClassName;
+      let battleStatus = document.getElementById("battle-status");
 
       !player.isComputer() ? msg = character.playerLoss() : msg = character.playerWin();
       
-      !player.isComputer() ? animationClassName = character.playerLoseTalking() : animationClassName = character.playerWinTalking()
+      !player.isComputer() ? animationClassName = character.playerLoseTalking() : animationClassName = character.playerWinTalking();
+
+      !player.isComputer() ? battleStatus.textContent = "Defeat" : battleStatus.textContent = "Victory!";
+
+      !player.isComputer() ? battleStatus.classList = "battle-status awaiting-attack" : battleStatus.classList = "battle-status attack";
 
       character.comsQueue.push({"msg": msg, "animationClassName": animationClassName,  "keep": true});
       setTimeout(() => {
