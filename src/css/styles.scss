@@ -297,6 +297,39 @@ button, .btn {
     var(--neg-border-width) 0 0 0 var(--dark-blue); // left border
   }
 
+  &.prompt-next {
+    -webkit-animation: prompt-next 1.5s infinite;
+    animation: prompt-next 1.5s infinite;
+  }
+
+  @-webkit-keyframes prompt-next {
+    to {
+      background: linear-gradient(var(--light-blue-green) 0%, var(--light-blue-green) 8%, var(--dark-blue-green) 9%);
+    }
+    from {
+      background: linear-gradient(var(--green) 0%, var(--light-blue-green) 8%, var(--light-blue-green) 9%);
+      box-shadow:
+      0 var(--neg-border-width) 0 0 var(--dark-blue-green), // top border
+      var(--border-width) 0 0 0 var(--dark-blue-green), // right border
+      0 var(--border-width) 0 0 var(--dark-blue-green), // bottom border
+      var(--neg-border-width) 0 0 0 var(--dark-blue-green); // left border
+    }
+  }
+
+  @keyframes prompt-next {
+    to {
+      background: linear-gradient(var(--light-blue-green) 0%, var(--light-blue-green) 8%, var(--dark-blue-green) 9%);
+    }
+    from {
+      background: linear-gradient(var(--green) 0%, var(--light-blue-green) 8%, var(--light-blue-green) 9%);
+      box-shadow:
+      0 var(--neg-border-width) 0 0 var(--dark-blue-green), // top border
+      var(--border-width) 0 0 0 var(--dark-blue-green), // right border
+      0 var(--border-width) 0 0 var(--dark-blue-green), // bottom border
+      var(--neg-border-width) 0 0 0 var(--dark-blue-green); // left border
+    }
+  }
+
   &.red {
     background: linear-gradient(var(--light-orange) 0%, var(--light-orange) 8%, var(--light-red) 9%);
     border: 1px solid var(--light-red);
