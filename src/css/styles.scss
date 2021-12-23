@@ -428,7 +428,28 @@ footer {
   width: 100%;
   max-width: var(--max-page-width);
   margin: 0 auto;
-  padding: 1rem;
+  padding: 1rem 0;
+
+  .github-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: .75rem;
+
+    .github-logo {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      -ms-interpolation-mode: nearest-neighbor;
+          image-rendering: -moz-crisp-edges;
+          image-rendering: pixelated;
+    }
+  
+    .github-text {
+      display: inline-block;
+      margin-left: .5rem;
+    }
+  }
 }
 
 /* Coms Section */
