@@ -140,9 +140,11 @@ const character = {
     return new Promise(resolve => {
       const comsImg = document.getElementById("coms-img");
       const comsText = document.getElementById("coms-text");
+      const comsIntroBtn = document.getElementById("cont-coms-intro-btn");
       comsText.textContent = "";
       comsImg.classList.add(animationClassName);
       character.typing = true;
+      comsIntroBtn.classList.remove("prompt-next");
       let i = 0;
       let timer = setInterval(() => {
         if (i < string.length && !character.skip) {

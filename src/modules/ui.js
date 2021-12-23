@@ -244,6 +244,7 @@ const ui = {
     }, 100));
     
     document.getElementById("coms-intro-btns-wrapper").classList.add("hidden");
+    document.getElementById("cont-coms-intro-btn").classList.remove("prompt-next");
     character.comsMsg(character.startGame(), character.positiveTalking());
   },
 
@@ -272,6 +273,7 @@ const ui = {
     character.introScriptStep = character.introScript.length - 1;
     character.skip = true;
     document.getElementById("coms-intro-btns-wrapper").classList.add("hidden");
+    document.getElementById("cont-coms-intro-btn").classList.remove("prompt-next");
 
     await new Promise(resolve => setTimeout(() => {
       character.skip = false;
