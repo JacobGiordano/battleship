@@ -469,6 +469,11 @@ footer {
 
   .copyright-info {
     font-size: .5rem;
+
+    .copyright-year {
+      display: inline-block;
+      margin-left: .5rem;
+    }
   }
 
   .github-link {
