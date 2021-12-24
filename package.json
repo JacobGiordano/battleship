@@ -5,6 +5,7 @@
     "build": "webpack --config webpack.prod.js",
     "test": "jest",
     "watch": "jest --watch",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
