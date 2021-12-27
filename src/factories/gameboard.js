@@ -141,9 +141,8 @@ const Gameboard = (player) => {
 
       if (player.isComputer()) {
         battleStatus.textContent = "Victory!";
-      }
-      if (!player.isComputer()) {
-        battleStatus.textContent = "Defeat"
+      } else {
+        battleStatus.textContent = "Defeat";
       }
 
       !player.isComputer() ? battleStatus.classList = "battle-status awaiting-attack" : battleStatus.classList = "battle-status attack";
