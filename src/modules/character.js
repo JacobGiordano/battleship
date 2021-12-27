@@ -9,7 +9,7 @@ const character = {
   introScript: [
     `Greetings, Admiral — Captain Cuddles here! Reporting in from HQ! Shall we begin?…`,
     `Excellent! You can rotate a ship by double clicking it *before* dragging it into position.`,
-    `Go ahead, try it out. Double click a ship below.`,
+    `Go ahead, try it out. Double click a ship up above.`,
     `Great! You can add ships to your board 2 ways: clicking & dragging onto your board, or…`,
     `If you'd like to go with a more daring approach, click the "Place randomly" button.`,
     `When all ships have been placed, just give the order to begin our attack.`
@@ -140,9 +140,11 @@ const character = {
     return new Promise(resolve => {
       const comsImg = document.getElementById("coms-img");
       const comsText = document.getElementById("coms-text");
+      const comsIntroBtn = document.getElementById("cont-coms-intro-btn");
       comsText.textContent = "";
       comsImg.classList.add(animationClassName);
       character.typing = true;
+      comsIntroBtn.classList.remove("prompt-next");
       let i = 0;
       let timer = setInterval(() => {
         if (i < string.length && !character.skip) {
@@ -153,6 +155,7 @@ const character = {
           character.typing = false;
           comsImg.classList.contains("static") ? comsImg.classList.remove("static") : null;
           !keepBool ? comsImg.classList.remove(animationClassName) : null;
+          comsIntroBtn.classList.add("prompt-next");
           resolve("Coms done!");
         }
       }, game.turnDelay / 5);
