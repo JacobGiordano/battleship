@@ -138,19 +138,16 @@ const Gameboard = (player) => {
       !player.isComputer() ? msg = character.playerLoss() : msg = character.playerWin();
       
       !player.isComputer() ? animationClassName = character.playerLoseTalking() : animationClassName = character.playerWinTalking();
-
-      if (player.isComputer()) {
-        battleStatus.textContent = "Victory!";
-      } else {
-        battleStatus.textContent = "Defeat";
-      }
-
+      
       !player.isComputer() ? battleStatus.classList = "battle-status awaiting-attack" : battleStatus.classList = "battle-status attack";
+
+      !player.isComputer() ? battleStatus.textContent = "Defeat" : battleStatus.textContent = "Victory!";
 
       character.comsQueue.push({"msg": msg, "animationClassName": animationClassName,  "keep": true});
       setTimeout(() => {
         character.comsQueue.length > 0 && !character.typing ? character.processQueue() : null;
       }, 100);
+
 
       document.getElementById("new-game").classList.add("blue-btn-flash");
       
