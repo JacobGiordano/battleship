@@ -144,7 +144,7 @@ const character = {
       comsText.textContent = "";
       comsImg.classList.add(animationClassName);
       character.typing = true;
-      comsIntroBtn.classList.remove("prompt-next");
+      comsIntroBtn.classList.remove("blue-btn-flash");
       let i = 0;
       let timer = setInterval(() => {
         if (i < string.length && !character.skip) {
@@ -154,8 +154,9 @@ const character = {
           clearInterval(timer);
           character.typing = false;
           comsImg.classList.contains("static") ? comsImg.classList.remove("static") : null;
+          comsIntroBtn.classList.add("blue-btn-flash");
           !keepBool ? comsImg.classList.remove(animationClassName) : null;
-          comsIntroBtn.classList.add("prompt-next");
+          comsIntroBtn.classList.add("blue-btn-flash");
           resolve("Coms done!");
         }
       }, game.turnDelay / 5);

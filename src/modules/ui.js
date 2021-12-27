@@ -219,6 +219,7 @@ const ui = {
     document.getElementById("computer-board-wrapper").classList.add("hidden");
     document.getElementById("start-game-btn").classList.add("hidden");
     document.getElementById("coms-img").classList = "coms-img box dark";
+    document.getElementById("new-game").classList.remove("blue-btn-flash");
     character.typing = true;
     character.skip = true;
     setTimeout(() => {
@@ -245,7 +246,7 @@ const ui = {
     }, 100));
     
     document.getElementById("coms-intro-btns-wrapper").classList.add("hidden");
-    document.getElementById("cont-coms-intro-btn").classList.remove("prompt-next");
+    document.getElementById("cont-coms-intro-btn").classList.remove("blue-btn-flash");
     character.comsMsg(character.startGame(), character.positiveTalking());
   },
 
@@ -274,7 +275,7 @@ const ui = {
     character.introScriptStep = character.introScript.length - 1;
     character.skip = true;
     document.getElementById("coms-intro-btns-wrapper").classList.add("hidden");
-    document.getElementById("cont-coms-intro-btn").classList.remove("prompt-next");
+    document.getElementById("cont-coms-intro-btn").classList.remove("blue-btn-flash");
 
     await new Promise(resolve => setTimeout(() => {
       character.skip = false;
