@@ -332,12 +332,12 @@ button, .btn {
     var(--neg-border-width) 0 0 0 var(--dark-blue); // left border
   }
 
-  &.prompt-next {
-    -webkit-animation: prompt-next 1.5s infinite;
-    animation: prompt-next 1.5s infinite;
+  &.blue-btn-flash {
+    -webkit-animation: blue-btn-flash 1.25s infinite;
+    animation: blue-btn-flash 1.25s infinite;
   }
 
-  @-webkit-keyframes prompt-next {
+  @-webkit-keyframes blue-btn-flash {
     to {
       background: linear-gradient(var(--light-blue-green) 0%, var(--light-blue-green) 8%, var(--dark-blue-green) 9%);
     }
@@ -351,7 +351,7 @@ button, .btn {
     }
   }
 
-  @keyframes prompt-next {
+  @keyframes blue-btn-flash {
     to {
       background: linear-gradient(var(--light-blue-green) 0%, var(--light-blue-green) 8%, var(--dark-blue-green) 9%);
     }
