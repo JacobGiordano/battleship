@@ -65,6 +65,11 @@ body, button, .btn {
   font-family: 'Press Start 2P', sans-serif;
 }
 
+.page-title {
+  font-size: 1.75rem;
+  text-transform: uppercase;
+}
+
 .mobile-block {
   display: none;
 }
@@ -82,15 +87,44 @@ body, button, .btn {
     padding: 2rem 1rem;
     top: 3.5rem;
     left: 50%;
+    overflow: auto;
     transform: translateX(-50%);
     z-index: 20;
 
     .mobile-block-inner-wrapper {
       display: flex;
+      flex-direction: column;
     }
 
     .mobile-block-text {
       flex: 1 1 0;
+      margin-top: 1rem;
+    }
+
+    .mobile-block-upper {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .mobile-block-battle-status-wrapper {
+      display: block;
+      margin-top: 1rem;
+    }
+    
+    .mobile-block-battle-status {
+      color: var(--light-red);
+      margin-top: 1rem;
+    }
+
+    @media screen and (min-width: 520px) {
+      .mobile-block-upper {
+        flex-direction: row;
+      }
+      .mobile-block-battle-status-wrapper {
+        margin-top: unset;
+        margin-left: .75rem;
+      }
     }
 
     .mobile-block-img.box.dark {
@@ -100,7 +134,6 @@ body, button, .btn {
       width: calc(128px + calc(var(--border-width) * 2));
       height: calc(128px + calc(var(--border-width) * 2));
       background-repeat: no-repeat;
-      margin-right: .5rem;
       overflow: hidden;
       -ms-interpolation-mode: nearest-neighbor;
           image-rendering: -moz-crisp-edges;
