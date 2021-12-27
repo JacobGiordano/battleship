@@ -152,6 +152,8 @@ const Gameboard = (player) => {
       setTimeout(() => {
         character.comsQueue.length > 0 && !character.typing ? character.processQueue() : null;
       }, 100);
+
+      document.getElementById("new-game").classList.add("blue-btn-flash");
       
       return;
     }
