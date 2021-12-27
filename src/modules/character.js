@@ -9,7 +9,7 @@ const character = {
   introScript: [
     `Greetings, Admiral — Captain Cuddles here! Reporting in from HQ! Shall we begin?…`,
     `Excellent! You can rotate a ship by double clicking it *before* dragging it into position.`,
-    `Go ahead, try it out. Double click a ship below.`,
+    `Go ahead, try it out. Double click a ship up above.`,
     `Great! You can add ships to your board 2 ways: clicking & dragging onto your board, or…`,
     `If you'd like to go with a more daring approach, click the "Place randomly" button.`,
     `When all ships have been placed, just give the order to begin our attack.`
@@ -156,6 +156,7 @@ const character = {
           comsImg.classList.contains("static") ? comsImg.classList.remove("static") : null;
           comsIntroBtn.classList.add("prompt-next");
           !keepBool ? comsImg.classList.remove(animationClassName) : null;
+          comsIntroBtn.classList.add("prompt-next");
           resolve("Coms done!");
         }
       }, game.turnDelay / 5);

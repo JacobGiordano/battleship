@@ -5,12 +5,32 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Battleship</title>
+  <link rel="apple-touch-icon" sizes="57x57" href="images/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="images/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="images/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="images/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="images/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="images/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="images/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="images/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="images/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="images/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+  <link rel="manifest" href="../src/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="images/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
 </head>
 
 <body id="body">
   <section id="mobile-block" class="mobile-block">
     <div id="mobile-block-inner-wrapper" class="mobile-block-inner-wrapper box thick dark">
-      <div id="mobile-block-img" class="mobile-block-img box dark"></div>
+      <div class="mobile-block-upper">
+        <div id="mobile-block-img" class="mobile-block-img box dark"></div>
+        <span class="mobile-block-battle-status-wrapper">Battle Status: <span class="mobile-block-battle-status">Error</span></span>
+      </div>
       <div id="mobile-block-text" class="mobile-block-text box dark">Apologies, Admiral, but this device is too small to effectively place and utilize our fleet. Please widen the browser window or switch to a minimum device width of 768px.
       </div>
     </div>
@@ -19,14 +39,7 @@
     <h1 class="page-title">Battleship</h1>
     <button id="new-game" class="new-game">New Game</button>
   </header>
-  <section id="coms" class="coms box thick dark">
-    <div id="coms-img" class="coms-img box dark static"></div>
-    <div id="coms-text" class="coms-text box dark"></div>
-    <div id="coms-intro-btns-wrapper" class="coms-intro-btns-wrapper">
-      <button id="cont-coms-intro-btn" class="cont-coms-intro-btn disabled" disabled>Next</button>
-      <button id="skip-intro-btn" class="skip-intro-btn disabled" disabled>Skip Intro</button>
-    </div>
-  </section>
+
   <section id="battle-status-section" class="battle-status-section box thick dark">
     <span>Battle Status: <span id="battle-status" class="battle-status place-ships">Place ships</span></span>
   </section>
@@ -297,9 +310,18 @@
       </div>
     </div>
   </main>
+  <section id="coms" class="coms box thick dark">
+    <div id="coms-img" class="coms-img box dark static"></div>
+    <div id="coms-text" class="coms-text box dark"></div>
+    <div id="coms-intro-btns-wrapper" class="coms-intro-btns-wrapper">
+      <button id="cont-coms-intro-btn" class="cont-coms-intro-btn disabled" disabled>Next</button>
+      <button id="skip-intro-btn" class="skip-intro-btn disabled" disabled>Skip Intro</button>
+    </div>
+  </section>
 </body>
 
 <footer id="footer" class="footer">
+  <span class="copyright-info">All original images &copy; Jacob Giordano<span class="copyright-year"><script>document.write(new Date().getFullYear())</script></span></span>
   <a class="github-link" href="https://github.com/JacobGiordano/battleship" target="_blank">
     <img class="github-logo" src="/src/images/github-logo_16px.png" alt="Github Octocat logo">
     <span class="github-text">Github</span>

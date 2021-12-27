@@ -55,11 +55,19 @@ body {
   width: 100%;
   max-width: var(--max-page-width);
   margin: 0 auto;
-  padding: 5.5rem 1rem 2rem 1rem;
+  padding: 3.75rem 1rem 2rem 1rem;
+  -ms-interpolation-mode: nearest-neighbor;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: pixelated;
 }
 
 body, button, .btn {
   font-family: 'Press Start 2P', sans-serif;
+}
+
+.page-title {
+  font-size: 1.75rem;
+  text-transform: uppercase;
 }
 
 .mobile-block {
@@ -79,15 +87,44 @@ body, button, .btn {
     padding: 2rem 1rem;
     top: 3.5rem;
     left: 50%;
+    overflow: auto;
     transform: translateX(-50%);
     z-index: 20;
 
     .mobile-block-inner-wrapper {
       display: flex;
+      flex-direction: column;
     }
 
     .mobile-block-text {
       flex: 1 1 0;
+      margin-top: 1rem;
+    }
+
+    .mobile-block-upper {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .mobile-block-battle-status-wrapper {
+      display: block;
+      margin-top: 1rem;
+    }
+    
+    .mobile-block-battle-status {
+      color: var(--light-red);
+      margin-top: 1rem;
+    }
+
+    @media screen and (min-width: 520px) {
+      .mobile-block-upper {
+        flex-direction: row;
+      }
+      .mobile-block-battle-status-wrapper {
+        margin-top: unset;
+        margin-left: .75rem;
+      }
     }
 
     .mobile-block-img.box.dark {
@@ -97,7 +134,6 @@ body, button, .btn {
       width: calc(128px + calc(var(--border-width) * 2));
       height: calc(128px + calc(var(--border-width) * 2));
       background-repeat: no-repeat;
-      margin-right: .5rem;
       overflow: hidden;
       -ms-interpolation-mode: nearest-neighbor;
           image-rendering: -moz-crisp-edges;
@@ -239,7 +275,6 @@ body, button, .btn {
 main {
   display: flex;
   width: 100%;
-  margin: 0 0 1rem;
   padding: 0 calc(var(--border-width) * 2) 1rem 0;
   justify-content: space-between;
   align-items: flex-start;
@@ -460,8 +495,19 @@ footer {
   border-top: 2px solid var(--dark-blue-green);
   width: 100%;
   max-width: var(--max-page-width);
-  margin: 0 auto;
+  margin: 1.25rem auto 0;
   padding: 1rem 0;
+  justify-content: space-between;
+  align-items: center;
+
+  .copyright-info {
+    font-size: .5rem;
+
+    .copyright-year {
+      display: inline-block;
+      margin-left: .5rem;
+    }
+  }
 
   .github-link {
     display: flex;

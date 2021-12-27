@@ -176,6 +176,7 @@ const ui = {
     ship.classList.add("ship");
     ship.draggable = true;
     ship.classList.add(shipNameClass);
+    ship.dataset.shipName = shipName;
 
     for (let i = 0; i < numOfParts; i++) {
       const shipPart = document.createElement("div");
