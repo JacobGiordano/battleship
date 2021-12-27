@@ -139,7 +139,12 @@ const Gameboard = (player) => {
       
       !player.isComputer() ? animationClassName = character.playerLoseTalking() : animationClassName = character.playerWinTalking();
 
-      !player.isComputer() ? battleStatus.textContent = "Defeat" : battleStatus.textContent = "Victory!";
+      if (player.isComputer()) {
+        battleStatus.textContent = "Victory!";
+      }
+      if (!player.isComputer()) {
+        battleStatus.textContent = "Defeat"
+      }
 
       !player.isComputer() ? battleStatus.classList = "battle-status awaiting-attack" : battleStatus.classList = "battle-status attack";
 
